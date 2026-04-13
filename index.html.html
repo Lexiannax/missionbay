@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Bay Community News - San Leandro, CA</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,serif;font-size:16px;line-height:1.7;color:#2c2c2c;background:#f7f5f0}
+a{color:#185fa5;text-decoration:none}
+a:hover{text-decoration:underline}
+header{background:#1d3557;color:#fff}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;border-bottom:1px solid rgba(255,255,255,.15);flex-wrap:wrap;gap:.75rem}
+.logo-area h1{font-size:1.6rem;font-weight:700}
+.logo-area p{font-size:.85rem;opacity:.75;font-style:italic;margin-top:2px}
+.date-area{font-size:.8rem;opacity:.65;text-align:right}
+.post-btn{background:#e9a825;color:#1d3557;border:none;border-radius:4px;padding:7px 16px;font-size:.8rem;font-weight:700;font-family:Arial,sans-serif;cursor:pointer}
+.post-btn:hover{background:#d49520}
+nav{display:flex;overflow-x:auto}
+nav a{color:rgba(255,255,255,.85);font-size:.85rem;padding:.65rem 1.2rem;white-space:nowrap;font-family:Arial,sans-serif;border-right:1px solid rgba(255,255,255,.1)}
+nav a:hover{background:rgba(255,255,255,.12);text-decoration:none}
+.wrapper{max-width:1060px;margin:0 auto;padding:0 1.25rem}
+.page-body{display:grid;grid-template-columns:1fr 300px;gap:2rem;padding:2rem 0 3rem}
+@media(max-width:720px){.page-body{grid-template-columns:1fr}.header-top{flex-direction:column;align-items:flex-start}}
+.hero{background:#e8f4fd;border-left:4px solid #185fa5;padding:1rem 1.25rem;margin-bottom:1.75rem;border-radius:0 4px 4px 0}
+.hero p{font-size:.95rem}.hero strong{color:#185fa5}
+.sec-lbl{font-family:Arial,sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:.4rem}
+article{border-bottom:1px solid #ddd;padding-bottom:1.5rem;margin-bottom:1.5rem}
+article:last-child{border-bottom:none}
+article h2{font-size:1.25rem;line-height:1.3;color:#1d3557;margin-bottom:.3rem}
+.byline{font-size:.8rem;color:#888;font-family:Arial,sans-serif;margin-bottom:.6rem}
+article p{font-size:.95rem;color:#3a3a3a}
+.read-more{display:inline-block;margin-top:.5rem;font-size:.8rem;font-family:Arial,sans-serif;color:#185fa5}
+aside{font-family:Arial,sans-serif}
+.sb{background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:1.25rem;overflow:hidden}
+.sb-head{background:#1d3557;color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.6rem 1rem}
+.sb-body{padding:.9rem 1rem;font-size:.875rem;line-height:1.6;color:#3a3a3a}
+.sb-body ul{padding-left:1.1rem}.sb-body li{margin-bottom:.35rem}
+.crow{display:flex;flex-direction:column;margin-bottom:.6rem;padding-bottom:.6rem;border-bottom:1px solid #eee}
+.crow:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.cn{font-weight:700;font-size:.85rem;color:#1d3557}.cr{font-size:.75rem;color:#888}.cp{font-size:.8rem;color:#185fa5}
+.cal-item{display:flex;gap:.75rem;align-items:flex-start;margin-bottom:.6rem}
+.cal-date{background:#1d3557;color:#fff;border-radius:3px;min-width:38px;text-align:center;padding:2px 4px;font-size:.7rem;line-height:1.3}
+.cal-day{font-size:1rem;font-weight:700;display:block}
+.cal-ev{font-size:.82rem;color:#2c2c2c}
+.notice{background:#fffbea;border-left:3px solid #e9a825;padding:.6rem .8rem;margin-bottom:.75rem;border-radius:0 3px 3px 0;font-size:.82rem}
+.ntitle{font-weight:700;color:#7a5800;margin-bottom:.2rem}
+.ad-slot{background:#f0f0eb;border:1px dashed #bbb;border-radius:4px;padding:.75rem;text-align:center;font-size:.75rem;color:#999;font-family:Arial,sans-serif;margin-bottom:1.25rem}
+.ad-slot strong{display:block;font-size:.85rem;color:#666;margin-bottom:.15rem}
+.board-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem}
+.fbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.fb{padding:5px 13px;border:1px solid #bbb;border-radius:20px;background:#fff;font-size:.75rem;font-family:Arial,sans-serif;cursor:pointer;color:#555}
+.fb.on{background:#1d3557;color:#fff;border-color:#1d3557}
+.fb:hover:not(.on){border-color:#185fa5;color:#185fa5}
+.ads-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-bottom:1.5rem}
+.acard{background:#fff;border:1px solid #ddd;border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.acard.biz{border:2px solid #e9a825}
+.astripe{height:5px;background:#1d3557}
+.acard.biz .astripe{background:#e9a825}
+.abody{padding:12px 14px;flex:1}
+.abadge{display:inline-block;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:3px;font-family:Arial,sans-serif;text-transform:uppercase;margin-bottom:7px;background:#e8f4fd;color:#185fa5}
+.b-free{background:#edf7e6;color:#2e7d32}
+.b-wanted{background:#f3f0fb;color:#512da8}
+.b-services{background:#fffbea;color:#7a5800}
+.b-business{background:#fff3e0;color:#8a4400}
+.b-other{background:#f0f0eb;color:#555}
+.abiz{font-size:.7rem;font-weight:700;color:#e9a825;font-family:Arial,sans-serif;text-transform:uppercase;margin-bottom:3px}
+.atitle{font-size:.95rem;font-weight:700;font-family:Arial,sans-serif;margin-bottom:5px;color:#1d3557;line-height:1.3}
+.aprice{font-size:1rem;font-weight:700;color:#185fa5;font-family:Arial,sans-serif;margin-bottom:5px}
+.adesc{font-size:.82rem;color:#444;line-height:1.5;margin-bottom:8px}
+.afoot{padding:8px 14px;border-top:1px solid #f0ede6;background:#faf9f7;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px}
+.acontact{font-size:.75rem;color:#888;font-family:Arial,sans-serif}
+.adate{font-size:.7rem;color:#bbb;font-family:Arial,sans-serif}
+.ph-card{background:#faf9f7;border:2px dashed #ddd;border-radius:4px;padding:28px 16px;text-align:center;font-family:Arial,sans-serif}
+.ph-icon{font-size:1.8rem;color:#ccc;margin-bottom:8px}
+.ph-title{font-size:.9rem;font-weight:700;color:#999;margin-bottom:4px}
+.ph-sub{font-size:.78rem;color:#bbb}
+.ph-link{display:inline-block;margin-top:10px;font-size:.8rem;color:#185fa5;cursor:pointer;font-weight:700}
+.be{text-align:center;padding:2rem;color:#888;font-family:Arial,sans-serif;font-size:.9rem;background:#fff;border:1px solid #ddd;border-radius:4px}
+.ml{padding:.5rem 0;border-bottom:1px solid #eee;font-size:.8rem}
+.ml:last-child{border-bottom:none}
+.mlt{font-weight:700;color:#1d3557;display:block}.mlp{color:#185fa5}.mlk{font-size:.7rem;color:#888}
+.fg{margin-bottom:11px}
+.fl{display:block;font-size:.7rem;font-weight:700;color:#555;margin-bottom:3px;font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:.5px}
+input[type=text],input[type=email],input[type=tel],input[type=password],select,textarea{width:100%;padding:7px 10px;border:1px solid #ccc;border-radius:3px;font-size:.875rem;font-family:Arial,sans-serif;background:#fff;color:#2c2c2c}
+input:focus,select:focus,textarea:focus{outline:2px solid #185fa5;border-color:#185fa5}
+textarea{min-height:70px;resize:vertical}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.fg2{grid-template-columns:1fr}}
+.btn{padding:7px 16px;border:none;border-radius:3px;cursor:pointer;font-size:.82rem;font-weight:700;font-family:Arial,sans-serif}
+.bp{background:#1d3557;color:#fff}.bp:hover{background:#162844}
+.bg{background:#2e7d32;color:#fff}.bg:hover{background:#245e27}
+.br{background:#b71c1c;color:#fff}.br:hover{background:#9a1717}
+.by{background:#e9a825;color:#1d3557}.by:hover{background:#d49520}
+.bq{background:#f0f0eb;color:#333}
+.bs{padding:4px 10px;font-size:.75rem}
+.ok{background:#edf7e6;border-left:3px solid #4caf50;border-radius:0 3px 3px 0;padding:9px 12px;font-size:.82rem;color:#2e7d32;margin-bottom:10px;font-family:Arial,sans-serif}
+.err{background:#fdecea;border-left:3px solid #e53935;border-radius:0 3px 3px 0;padding:9px 12px;font-size:.82rem;color:#b71c1c;margin-bottom:10px;font-family:Arial,sans-serif}
+.ov{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:200;padding:1rem}
+.ov.open{display:flex}
+.modal{background:#fff;border-radius:6px;width:100%;max-width:520px;max-height:92vh;overflow-y:auto}
+.mh{background:#1d3557;color:#fff;padding:13px 18px;display:flex;justify-content:space-between;align-items:center;border-radius:6px 6px 0 0;position:sticky;top:0}
+.mh h2{font-size:.95rem;font-family:Arial,sans-serif;font-weight:700}
+.mc{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:0 4px}
+.mb{padding:16px 18px}
+.pov{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.65);display:none;align-items:flex-start;justify-content:center;z-index:300;padding:1rem;overflow-y:auto}
+.pov.open{display:flex}
+.portal{background:#f7f5f0;border-radius:6px;width:100%;max-width:840px;margin:auto;overflow:hidden}
+.ph{background:#1d3557;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.ph h2{font-size:1rem;font-family:Arial,sans-serif;font-weight:700}
+.ptabs{display:flex;overflow-x:auto;background:#162844}
+.pt{padding:9px 16px;border:none;background:none;color:rgba(255,255,255,.7);font-size:.78rem;font-family:Arial,sans-serif;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent}
+.pt.on{color:#fff;border-bottom:3px solid #e9a825}
+.pt:hover:not(.on){color:#fff;background:rgba(255,255,255,.08)}
+.pb{padding:18px 20px;min-height:400px}
+.ps{display:none}.ps.on{display:block}
+.psec{font-family:Arial,sans-serif;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:.5rem}
+.pc{background:#fff;border:1px solid #ddd;border-radius:4px;padding:12px 16px;margin-bottom:10px}
+.pct{font-size:.9rem;font-weight:700;font-family:Arial,sans-serif;color:#1d3557;margin-bottom:3px}
+.pcm{font-size:.75rem;color:#888;font-family:Arial,sans-serif;margin-bottom:6px}
+.pca{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.af{background:#fff;border:1px solid #ddd;border-radius:4px;padding:14px 16px;margin-bottom:16px}
+.af h3{font-size:.85rem;font-weight:700;font-family:Arial,sans-serif;color:#1d3557;margin-bottom:12px}
+footer{background:#1d3557;color:rgba(255,255,255,.65);font-family:Arial,sans-serif;font-size:.78rem;padding:1.5rem 2rem;text-align:center;line-height:1.8}
+footer strong{color:rgba(255,255,255,.9)}
+#sec{cursor:default;color:rgba(255,255,255,.2);font-size:.65rem;user-select:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <div class="logo-area">
+      <h1>Mission Bay Community News</h1>
+      <p>15333 Wicks Blvd, San Leandro, CA 94579 &mdash; Resident-Produced Since 2024</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div class="date-area"><span id="pub-date"></span><br>By Residents, For Residents</div>
+      <button class="post-btn" onclick="openAd()">+ Post Your Ad</button>
+    </div>
+  </div>
+  <nav>
+    <a href="#news">News</a><a href="#calendar">Calendar</a><a href="#notices">Notices</a>
+    <a href="#board">Board</a><a href="#contacts">Contacts</a><a href="#resources">Resources</a>
+    <a href="#newsletter">Newsletter</a><a href="#advertise">Advertise</a>
+  </nav>
+</header>
+
+<div class="wrapper">
+  <div class="page-body">
+    <main>
+      <div class="hero"><p>This site is run by residents of Mission Bay, not by park management. To submit news, events, or corrections email <strong>missionbaynews@gmail.com</strong>.</p></div>
+      <div id="news"></div>
+      <div class="sec-lbl">Community News</div>
+      <div id="news-list"></div>
+      <div id="newsletter" style="margin-top:1.5rem"></div>
+      <div class="sec-lbl">Newsletter Archive</div>
+      <article>
+        <h2>Monthly Print Edition</h2>
+        <div class="byline">Acting Editor: Alexandra McKeever</div>
+        <p>The Mission Bay News prints monthly. Back issues available at the clubhouse. Submit articles to <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a>. Deadline: <strong>10th of each month</strong>.</p>
+        <ul style="margin-top:.6rem;padding-left:1.2rem;font-size:.9rem;color:#3a3a3a">
+          <li><a href="#">May 2026 (current)</a></li>
+          <li><a href="#">April 2026</a></li>
+          <li><a href="#">March 2026</a></li>
+        </ul>
+      </article>
+      <div id="resources" style="margin-top:.5rem"></div>
+      <div class="sec-lbl">Resident Resources</div>
+      <article>
+        <h2>Know Your Rights as a Mobile Home Resident</h2>
+        <div class="byline">California HCD &bull; Reference</div>
+        <p>California residents in mobile home parks are protected under the Mobilehome Residency Law (MRL). You have rights around rent increases, eviction, park rules changes, and maintenance.</p>
+        <a href="https://www.hcd.ca.gov/mmh/mac/your-rights-mobilehome-park-resident" class="read-more">California HCD: Mobilehome Residency Law &rarr;</a>
+      </article>
+      <div id="board" style="margin-top:1rem"></div>
+      <div style="margin-top:1.5rem">
+        <div class="board-hd">
+          <div><div class="sec-lbl" style="margin-bottom:0">Community Board</div>
+          <p style="font-size:.8rem;font-family:Arial,sans-serif;color:#888;margin-top:2px">For sale, free items, services, and local business listings</p></div>
+          <button class="post-btn" onclick="openAd()">+ Post Your Ad</button>
+        </div>
+        <div class="fbar">
+          <button class="fb on" onclick="filterAds('all',this)">All</button>
+          <button class="fb" onclick="filterAds('For Sale',this)">For Sale</button>
+          <button class="fb" onclick="filterAds('Free / Giveaway',this)">Free</button>
+          <button class="fb" onclick="filterAds('Wanted',this)">Wanted</button>
+          <button class="fb" onclick="filterAds('Services',this)">Services</button>
+          <button class="fb" onclick="filterAds('Local Business',this)">Business</button>
+        </div>
+        <div id="ads-grid" class="ads-grid"></div>
+        <div id="board-empty" class="be" style="display:none">No listings in this category yet.</div>
+      </div>
+      <div id="advertise" style="margin-top:1.5rem"></div>
+      <div class="sec-lbl">Advertise</div>
+      <article>
+        <h2>Reach 366 Households in Your Community</h2>
+        <div class="byline">Advertising Inquiries</div>
+        <p>Post a free listing using <strong>+ Post Your Ad</strong>. For business banner ads or print newsletter placement contact the editor. Business rates available on request.</p>
+        <a href="mailto:missionbaynews@gmail.com" class="read-more">Email missionbaynews@gmail.com for rates &rarr;</a>
+      </article>
+    </main>
+    <aside>
+      <div id="calendar" class="sb"><div class="sb-head">Activity Calendar</div><div class="sb-body" id="cal-list"></div></div>
+      <div id="notices" class="sb"><div class="sb-head">Notices</div><div class="sb-body" id="notices-list"></div></div>
+      <div class="sb"><div class="sb-head">Recent Listings</div><div class="sb-body" id="sidebar-ads"><p style="font-size:.8rem;color:#888">No listings yet. <a href="#board">Be the first.</a></p></div></div>
+      <div id="contacts" class="sb"><div class="sb-head">Resident Contacts</div><div class="sb-body" id="contacts-list"></div></div>
+      <div class="sb"><div class="sb-head">State Resources</div><div class="sb-body"><ul>
+        <li><a href="https://www.hcd.ca.gov/mmh/mac/your-rights-mobilehome-park-resident">CA Mobilehome Residency Law</a></li>
+        <li><a href="https://www.hcd.ca.gov/mmh/mac/mrlpp">HCD Complaints Program</a></li>
+        <li><a href="https://oag.ca.gov/consumers/general/mobilehome">CA Attorney General</a></li>
+        <li><a href="https://www.acgov.org/acc/">Alameda County Consumer Affairs</a></li>
+        <li><a href="https://www.acgov.org/css/sen.htm">Alameda Co. Senior Services</a></li>
+        <li><a href="https://www.ftc.gov/scams">FTC Scam Reporting</a></li>
+      </ul></div></div>
+      <div class="ad-slot"><strong>Advertise Here</strong>Reach 366 households.<br><a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a></div>
+      <div class="ad-slot"><strong>Business Listing</strong>Local business listing available.<br><a href="mailto:missionbaynews@gmail.com">Request rates</a></div>
+    </aside>
+  </div>
+</div>
+
+<footer>
+  <strong>Mission Bay Community News</strong> &mdash; 15333 Wicks Blvd, San Leandro, CA 94579<br>
+  Resident-produced. Not affiliated with park management or BSM Communities.<br>
+  To submit news or corrections: <a href="mailto:missionbaynews@gmail.com" style="color:rgba(255,255,255,.7)">missionbaynews@gmail.com</a><br>
+  <span style="font-size:.7rem;opacity:.35">&copy; 2026 Mission Bay Residents <span id="sec" title="">&nbsp;&#9642;</span></span>
+</footer>
+
+<!-- POST AD MODAL -->
+<div class="ov" id="ad-ov" onclick="if(event.target===this)closeAd()">
+  <div class="modal">
+    <div class="mh"><h2>Post Your Ad</h2><button class="mc" onclick="closeAd()">&#x2715;</button></div>
+    <div class="mb">
+      <p style="font-size:.82rem;font-family:Arial,sans-serif;color:#555;margin-bottom:14px">Your ad appears after review. You can also email <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a>.</p>
+      <div id="ad-ok" class="ok" style="display:none">Submitted. Your ad will appear once approved.</div>
+      <div class="fg"><label class="fl">Listing Type *</label>
+        <select id="m-type" onchange="toggleBiz()">
+          <option>For Sale</option><option>Free / Giveaway</option><option>Wanted</option>
+          <option>Services</option><option>Local Business</option><option>Other</option>
+        </select></div>
+      <div class="fg2">
+        <div class="fg"><label class="fl">Your Name *</label><input type="text" id="m-name" placeholder="Full name"></div>
+        <div class="fg"><label class="fl">Space / Unit</label><input type="text" id="m-unit" placeholder="e.g. Space 14"></div>
+      </div>
+      <div class="fg2">
+        <div class="fg"><label class="fl">Phone</label><input type="tel" id="m-phone" placeholder="(510) 000-0000"></div>
+        <div class="fg"><label class="fl">Email</label><input type="email" id="m-email" placeholder="you@email.com"></div>
+      </div>
+      <div class="fg"><label class="fl">Ad Title *</label><input type="text" id="m-title" placeholder="e.g. Sofa for sale"></div>
+      <div class="fg2">
+        <div class="fg"><label class="fl">Price</label><input type="text" id="m-price" placeholder="$50, Free, Negotiable"></div>
+        <div class="fg" id="m-biz-wrap" style="display:none"><label class="fl">Business Name</label><input type="text" id="m-bizname" placeholder="Business name"></div>
+      </div>
+      <div class="fg"><label class="fl">Description *</label><textarea id="m-desc" placeholder="Describe what you are selling, offering, or looking for..."></textarea></div>
+      <button class="btn bp" onclick="submitAd()">Submit Ad</button>
+    </div>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div class="pov" id="p-ov" onclick="if(event.target===this)closePortal()">
+  <div class="portal">
+    <div class="ph"><h2>Site Management Portal</h2><button class="mc" onclick="closePortal()">&#x2715;</button></div>
+    <div id="p-lock" style="padding:20px">
+      <p style="font-family:Arial,sans-serif;font-size:.9rem;margin-bottom:12px">Enter your password to manage site content.</p>
+      <div id="p-err" class="err" style="display:none">Incorrect password.</div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <input type="password" id="p-pass" placeholder="Password" style="width:190px" onkeydown="if(event.key==='Enter')checkPortal()">
+        <button class="btn bp" onclick="checkPortal()">Unlock</button>
+      </div>
+      <p style="font-size:.7rem;color:#aaa;font-family:Arial,sans-serif;margin-top:8px">Default: mbn2026</p>
+    </div>
+    <div id="p-content" style="display:none">
+      <div class="ptabs">
+        <button class="pt on" onclick="showTab(this,'pt-news')">News</button>
+        <button class="pt" onclick="showTab(this,'pt-cal')">Calendar</button>
+        <button class="pt" onclick="showTab(this,'pt-not')">Notices</button>
+        <button class="pt" onclick="showTab(this,'pt-con')">Contacts</button>
+        <button class="pt" onclick="showTab(this,'pt-ads')">Ad Listings</button>
+      </div>
+      <div class="pb">
+
+        <div id="pt-news" class="ps on">
+          <div class="af"><h3>Add News Article</h3>
+            <div id="n-ok" class="ok" style="display:none">Article added.</div>
+            <div class="fg"><label class="fl">Headline *</label><input type="text" id="n-title" placeholder="Article headline"></div>
+            <div class="fg2">
+              <div class="fg"><label class="fl">Byline</label><input type="text" id="n-byline" placeholder="Author &bull; Month Year"></div>
+              <div class="fg"><label class="fl">Read More Link (optional)</label><input type="text" id="n-link" placeholder="URL or #"></div>
+            </div>
+            <div class="fg"><label class="fl">Body Text *</label><textarea id="n-body" placeholder="Article text..."></textarea></div>
+            <div class="fg"><label class="fl">Read More Label</label><input type="text" id="n-linktext" placeholder="e.g. Read full article in newsletter"></div>
+            <button class="btn bp" onclick="addNews()">Add Article</button>
+          </div>
+          <div class="psec">Current Articles</div>
+          <div id="p-news-list"></div>
+        </div>
+
+        <div id="pt-cal" class="ps">
+          <div class="af"><h3>Add Calendar Event</h3>
+            <div id="c-ok" class="ok" style="display:none">Event added.</div>
+            <div class="fg2">
+              <div class="fg"><label class="fl">Day Number *</label><input type="text" id="ev-day" placeholder="e.g. 15"></div>
+              <div class="fg"><label class="fl">Day of Week *</label><input type="text" id="ev-dow" placeholder="e.g. SAT"></div>
+            </div>
+            <div class="fg"><label class="fl">Event Description *</label><input type="text" id="ev-desc" placeholder="e.g. Potluck Dinner - Auditorium, 5 PM"></div>
+            <button class="btn bp" onclick="addEvent()">Add Event</button>
+          </div>
+          <div class="psec">Current Events</div>
+          <div id="p-cal-list"></div>
+        </div>
+
+        <div id="pt-not" class="ps">
+          <div class="af"><h3>Add Notice</h3>
+            <div id="nt-ok" class="ok" style="display:none">Notice added.</div>
+            <div class="fg"><label class="fl">Title *</label><input type="text" id="nt-title" placeholder="e.g. Pool Closure"></div>
+            <div class="fg"><label class="fl">Notice Text *</label><textarea id="nt-body" placeholder="Notice details..."></textarea></div>
+            <button class="btn bp" onclick="addNotice()">Add Notice</button>
+          </div>
+          <div class="psec">Current Notices</div>
+          <div id="p-not-list"></div>
+        </div>
+
+        <div id="pt-con" class="ps">
+          <div class="af"><h3>Add Contact</h3>
+            <div id="co-ok" class="ok" style="display:none">Contact added.</div>
+            <div class="fg2">
+              <div class="fg"><label class="fl">Name *</label><input type="text" id="co-name" placeholder="Full name"></div>
+              <div class="fg"><label class="fl">Role</label><input type="text" id="co-role" placeholder="e.g. MBRA President"></div>
+            </div>
+            <div class="fg2">
+              <div class="fg"><label class="fl">Phone</label><input type="text" id="co-phone" placeholder="(510) 000-0000"></div>
+              <div class="fg"><label class="fl">Email</label><input type="email" id="co-email" placeholder="email@example.com"></div>
+            </div>
+            <button class="btn bp" onclick="addContact()">Add Contact</button>
+          </div>
+          <div class="psec">Current Contacts</div>
+          <div id="p-con-list"></div>
+        </div>
+
+        <div id="pt-ads" class="ps">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+            <p style="font-family:Arial,sans-serif;font-size:.85rem;color:#555"><strong id="a-pending">0</strong> pending &nbsp;<strong id="a-live">0</strong> live</p>
+            <button class="btn by bs" onclick="exportCSV()">Export CSV</button>
+          </div>
+          <div class="psec">Pending Approval</div>
+          <div id="a-pending-list"></div>
+          <div id="a-pending-empty" style="display:none;font-size:.82rem;font-family:Arial,sans-serif;color:#888;padding:8px 0">No pending submissions.</div>
+          <div class="psec" style="margin-top:14px">Live Listings</div>
+          <div id="a-live-list"></div>
+          <div id="a-live-empty" style="display:none;font-size:.82rem;font-family:Arial,sans-serif;color:#888;padding:8px 0">No live listings yet.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var PASS="mbn2026";
+var DN=[
+  {id:1,title:"Tech Scammers Are Targeting Senior Communities",byline:"Mission Bay News Staff &bull; May 2026",body:"Phone and computer scams aimed at seniors have increased across Alameda County. Callers pose as Social Security agents, Medicare reps, and tech support workers. They pressure residents to buy gift cards or allow remote access to their computers. No legitimate agency will ever ask for payment by gift card.",link:"#",lt:"Read full article in the May newsletter"},
+  {id:2,title:"VIEU Chairman's Column",byline:"Peter Cleaveland, VIEU Chairman &bull; May 2026",body:"Updates from the Villa Independent Estates Union on resident rights, space rent, and current negotiations with park management. Peter Cleaveland's monthly bilingual column appears in print.",link:"#",lt:"See full column in print"},
+  {id:3,title:"Women's Club and Men's Club: Upcoming Events",byline:"Sara and Eddy Quintero &bull; May 2026",body:"The Women's Club and Men's Club have a full schedule of activities this spring. See the Activity Calendar on this page or pick up the print newsletter at the clubhouse.",link:"",lt:""}
+];
+var DC=[
+  {id:1,day:"5",dow:"MON",desc:"Morning Coffee Klatch &mdash; Clubhouse, 9 AM"},
+  {id:2,day:"8",dow:"THU",desc:"Card Games &mdash; Billiard Room, 1 PM"},
+  {id:3,day:"12",dow:"MON",desc:"Exercise Program &mdash; Clubhouse, 10 AM"},
+  {id:4,day:"17",dow:"SAT",desc:"Potluck Dinner &mdash; Auditorium, 5 PM"},
+  {id:5,day:"24",dow:"SAT",desc:"Dance &mdash; Auditorium, 6 PM"},
+  {id:6,day:"28",dow:"WED",desc:"Shuffleboard Tournament &mdash; 2 PM"}
+];
+var DT=[
+  {id:1,title:"Scam Alert",body:"If anyone asks you to buy gift cards as payment for anything &mdash; it is a scam. Hang up."},
+  {id:2,title:"Pool Hours",body:"Heated pool open daily 7 AM &ndash; 9 PM. One small pet permitted in common areas on leash."},
+  {id:3,title:"Laundry Room",body:"Report maintenance issues to the park office at (510) 352-4433."}
+];
+var DX=[
+  {id:1,name:"Deborah Acosta",role:"MBRA President",phone:"",email:""},
+  {id:2,name:"Peter Cleaveland",role:"VIEU Chairman",phone:"(510) 351-1742",email:""},
+  {id:3,name:"Brenda Gianni",role:"Activity Calendar",phone:"",email:""},
+  {id:4,name:"Shannon Howard",role:"Administrator",phone:"",email:""},
+  {id:5,name:"Newsletter Editor",role:"Acting Editor",phone:"",email:"missionbaynews@gmail.com"}
+];
+function ld(k,d){try{var s=localStorage.getItem(k);return s?JSON.parse(s):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function esc(s){if(!s)return"";return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function flash(id){var e=document.getElementById(id);e.style.display="block";setTimeout(function(){e.style.display="none"},3000)}
+
+function renderNews(){
+  var news=ld("mbn-news",DN);
+  document.getElementById("news-list").innerHTML=news.map(function(a){
+    return '<article><h2>'+esc(a.title)+'</h2><div class="byline">'+a.byline+'</div><p>'+esc(a.body)+'</p>'
+      +(a.link&&a.lt?'<a href="'+esc(a.link)+'" class="read-more">'+esc(a.lt)+' &rarr;</a>':"")
+      +'</article>';
+  }).join("");
+}
+
+function renderCal(){
+  var cal=ld("mbn-cal",DC);
+  var mo=new Date().toLocaleString("en-US",{month:"long",year:"numeric"});
+  document.getElementById("cal-list").innerHTML=
+    '<p style="font-size:.75rem;color:#888;margin-bottom:.7rem">Compiled by Brenda Gianni &mdash; '+mo+'</p>'
+    +cal.map(function(e){return'<div class="cal-item"><div class="cal-date"><span class="cal-day">'+esc(e.day)+'</span>'+esc(e.dow)+'</div><div class="cal-ev">'+e.desc+'</div></div>'}).join("")
+    +'<p style="margin-top:.75rem;font-size:.75rem;color:#888">Events subject to change. Check the clubhouse board for updates.</p>';
+}
+
+function renderNotices(){
+  var n=ld("mbn-notices",DT);
+  document.getElementById("notices-list").innerHTML=n.map(function(x){
+    return'<div class="notice"><div class="ntitle">'+esc(x.title)+'</div>'+x.body+'</div>';
+  }).join("");
+}
+
+function renderContacts(){
+  var c=ld("mbn-contacts",DX);
+  document.getElementById("contacts-list").innerHTML=c.map(function(x){
+    return'<div class="crow"><span class="cn">'+esc(x.name)+'</span>'
+      +(x.role?'<span class="cr">'+esc(x.role)+'</span>':"")
+      +(x.phone?'<span class="cp">'+esc(x.phone)+'</span>':"")
+      +(x.email?'<span class="cp"><a href="mailto:'+esc(x.email)+'">'+esc(x.email)+'</a></span>':"")
+      +'</div>';
+  }).join("");
+}
+
+var PH=[
+  {type:"For Sale",title:"Have something to sell?",sub:"Post a free listing for neighbors to see."},
+  {type:"Services",title:"Offering a service?",sub:"Dog walking, repairs, cleaning and more."},
+  {type:"Local Business",title:"Local business? Advertise here.",sub:"Reach 366 households in the park."}
+];
+
+function bc(t){return{"Free / Giveaway":"b-free","Wanted":"b-wanted","Services":"b-services","Local Business":"b-business","Other":"b-other"}[t]||""}
+
+function makeCard(a){
+  var ib=a.type==="Local Business";
+  var ct=a.phone?esc(a.phone):"";
+  if(a.email)ct+=(ct?" &bull; ":'')+'<a href="mailto:'+esc(a.email)+'">'+esc(a.email)+'</a>';
+  if(!ct)ct='<em>Contact via form</em>';
+  return'<div class="acard'+(ib?' biz':'')+'">'
+    +'<div class="astripe"></div><div class="abody">'
+    +(ib&&a.bizname?'<p class="abiz">'+esc(a.bizname)+'</p>':"")
+    +'<span class="abadge '+bc(a.type)+'">'+esc(a.type)+'</span>'
+    +'<p class="atitle">'+esc(a.title)+'</p>'
+    +(a.price?'<p class="aprice">'+esc(a.price)+'</p>':"")
+    +'<p class="adesc">'+esc(a.desc)+'</p>'
+    +'</div><div class="afoot"><span class="acontact">'+ct+'</span>'
+    +'<span class="adate">'+esc(a.submittedAt)+'</span></div></div>';
+}
+
+function renderBoard(filter){
+  var live=ld("mbn-ads",[]).filter(function(a){return a.status==="live"});
+  var shown=(!filter||filter==="all")?live:live.filter(function(a){return a.type===filter});
+  var grid=document.getElementById("ads-grid");
+  var empty=document.getElementById("board-empty");
+  if(!shown.length&&(!filter||filter==="all")){
+    empty.style.display="none";
+    grid.innerHTML=PH.map(function(p){
+      return'<div class="ph-card"><div class="ph-icon">+</div>'
+        +'<p class="ph-title">'+p.title+'</p><p class="ph-sub">'+p.sub+'</p>'
+        +'<span class="ph-link" onclick="openAd()">Post your listing &rarr;</span></div>';
+    }).join("");
+  } else if(!shown.length){grid.innerHTML="";empty.style.display="block";}
+  else{empty.style.display="none";grid.innerHTML=shown.map(makeCard).join("");}
+  var sa=document.getElementById("sidebar-ads");
+  if(!live.length){sa.innerHTML='<p style="font-size:.8rem;color:#888">No listings yet. <a href="#board">Be the first.</a></p>';return;}
+  sa.innerHTML=live.slice(0,5).map(function(a){
+    return'<div class="ml"><span class="mlt">'+esc(a.title)+'</span><span class="mlk">'+esc(a.type)+'</span>'
+      +(a.price?'<span class="mlp"> &mdash; '+esc(a.price)+'</span>':"")+'</div>';
+  }).join("")+'<p style="margin-top:6px;font-size:.75rem"><a href="#board">View all &rarr;</a></p>';
+}
+
+function filterAds(cat,btn){
+  document.querySelectorAll(".fb").forEach(function(b){b.classList.remove("on")});
+  btn.classList.add("on");renderBoard(cat);
+}
+
+function toggleBiz(){
+  document.getElementById("m-biz-wrap").style.display=document.getElementById("m-type").value==="Local Business"?"block":"none";
+}
+
+function submitAd(){
+  var name=document.getElementById("m-name").value.trim();
+  var title=document.getElementById("m-title").value.trim();
+  var desc=document.getElementById("m-desc").value.trim();
+  if(!name||!title||!desc){alert("Name, title, and description are required.");return;}
+  var ads=ld("mbn-ads",[]);
+  ads.push({id:Date.now(),status:"pending",type:document.getElementById("m-type").value,
+    title:title,desc:desc,price:document.getElementById("m-price").value.trim(),
+    name:name,unit:document.getElementById("m-unit").value.trim(),
+    phone:document.getElementById("m-phone").value.trim(),
+    email:document.getElementById("m-email").value.trim(),
+    bizname:document.getElementById("m-bizname").value.trim(),
+    submittedAt:new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})});
+  sv("mbn-ads",ads);
+  ["m-name","m-unit","m-phone","m-email","m-title","m-price","m-desc","m-bizname"].forEach(function(i){if(document.getElementById(i))document.getElementById(i).value=""});
+  flash("ad-ok");
+}
+
+function openAd(){document.getElementById("ad-ov").classList.add("open")}
+function closeAd(){document.getElementById("ad-ov").classList.remove("open")}
+
+var sc=0,st=null;
+document.getElementById("sec").addEventListener("click",function(){
+  sc++;if(st)clearTimeout(st);
+  st=setTimeout(function(){sc=0},2000);
+  if(sc>=3){sc=0;document.getElementById("p-ov").classList.add("open");}
+});
+
+function closePortal(){
+  document.getElementById("p-ov").classList.remove("open");
+  document.getElementById("p-lock").style.display="block";
+  document.getElementById("p-content").style.display="none";
+  document.getElementById("p-pass").value="";
+}
+
+function checkPortal(){
+  if(document.getElementById("p-pass").value===PASS){
+    document.getElementById("p-lock").style.display="none";
+    document.getElementById("p-content").style.display="block";
+    document.getElementById("p-err").style.display="none";
+    rAll();
+  } else{document.getElementById("p-err").style.display="block";}
+}
+
+function showTab(btn,id){
+  document.querySelectorAll(".pt").forEach(function(b){b.classList.remove("on")});
+  document.querySelectorAll(".ps").forEach(function(s){s.classList.remove("on")});
+  btn.classList.add("on");document.getElementById(id).classList.add("on");
+  if(id==="pt-ads")rAds();
+}
+
+function rAll(){rPN();rPC();rPT();rPX();rAds();}
+
+function addNews(){
+  var t=document.getElementById("n-title").value.trim(),b=document.getElementById("n-body").value.trim();
+  if(!t||!b){alert("Headline and body required.");return;}
+  var news=ld("mbn-news",DN);
+  news.unshift({id:Date.now(),title:t,byline:document.getElementById("n-byline").value.trim(),body:b,link:document.getElementById("n-link").value.trim(),lt:document.getElementById("n-linktext").value.trim()||"Read more"});
+  sv("mbn-news",news);["n-title","n-byline","n-body","n-link","n-linktext"].forEach(function(i){document.getElementById(i).value=""});
+  flash("n-ok");renderNews();rPN();
+}
+function delNews(id){if(!confirm("Delete?"))return;sv("mbn-news",ld("mbn-news",DN).filter(function(a){return a.id!==id}));renderNews();rPN();}
+function rPN(){
+  var news=ld("mbn-news",DN);
+  document.getElementById("p-news-list").innerHTML=news.length?news.map(function(a){
+    return'<div class="pc"><p class="pct">'+esc(a.title)+'</p><p class="pcm">'+a.byline+'</p>'
+      +'<div class="pca"><button class="btn br bs" onclick="delNews('+a.id+')">Delete</button></div></div>';
+  }).join(""):'<p style="font-size:.82rem;font-family:Arial,sans-serif;color:#888">No articles.</p>';
+}
+
+function addEvent(){
+  var day=document.getElementById("ev-day").value.trim(),dow=document.getElementById("ev-dow").value.trim().toUpperCase(),desc=document.getElementById("ev-desc").value.trim();
+  if(!day||!dow||!desc){alert("All fields required.");return;}
+  var cal=ld("mbn-cal",DC);cal.push({id:Date.now(),day:day,dow:dow,desc:esc(desc)});
+  cal.sort(function(a,b){return parseInt(a.day)-parseInt(b.day)});
+  sv("mbn-cal",cal);["ev-day","ev-dow","ev-desc"].forEach(function(i){document.getElementById(i).value=""});
+  flash("c-ok");renderCal();rPC();
+}
+function delEvent(id){if(!confirm("Delete?"))return;sv("mbn-cal",ld("mbn-cal",DC).filter(function(e){return e.id!==id}));renderCal();rPC();}
+function rPC(){
+  var cal=ld("mbn-cal",DC);
+  document.getElementById("p-cal-list").innerHTML=cal.length?cal.map(function(e){
+    return'<div class="pc"><p class="pct">'+esc(e.day)+' '+esc(e.dow)+' &mdash; '+e.desc+'</p>'
+      +'<div class="pca"><button class="btn br bs" onclick="delEvent('+e.id+')">Delete</button></div></div>';
+  }).join(""):'<p style="font-size:.82rem;font-family:Arial,sans-serif;color:#888">No events.</p>';
+}
+
+function addNotice(){
+  var t=document.getElementById("nt-title").value.trim(),b=document.getElementById("nt-body").value.trim();
+  if(!t||!b){alert("Title and text required.");return;}
+  var n=ld("mbn-notices",DT);n.push({id:Date.now(),title:t,body:esc(b)});
+  sv("mbn-notices",n);["nt-title","nt-body"].forEach(function(i){document.getElementById(i).value=""});
+  flash("nt-ok");renderNotices();rPT();
+}
+function delNotice(id){if(!confirm("Delete?"))return;sv("mbn-notices",ld("mbn-notices",DT).filter(function(n){return n.id!==id}));renderNotices();rPT();}
+function rPT(){
+  var n=ld("mbn-notices",DT);
+  document.getElementById("p-not-list").innerHTML=n.length?n.map(function(x){
+    return'<div class="pc"><p class="pct">'+esc(x.title)+'</p><p class="pcm">'+x.body+'</p>'
+      +'<div class="pca"><button class="btn br bs" onclick="delNotice('+x.id+')">Delete</button></div></div>';
+  }).join(""):'<p style="font-size:.82rem;font-family:Arial,sans-serif;color:#888">No notices.</p>';
+}
+
+function addContact(){
+  var n=document.getElementById("co-name").value.trim();
+  if(!n){alert("Name required.");return;}
+  var c=ld("mbn-contacts",DX);c.push({id:Date.now(),name:n,role:document.getElementById("co-role").value.trim(),phone:document.getElementById("co-phone").value.trim(),email:document.getElementById("co-email").value.trim()});
+  sv("mbn-contacts",c);["co-name","co-role","co-phone","co-email"].forEach(function(i){document.getElementById(i).value=""});
+  flash("co-ok");renderContacts();rPX();
+}
+function delContact(id){if(!confirm("Delete?"))return;sv("mbn-contacts",ld("mbn-contacts",DX).filter(function(c){return c.id!==id}));renderContacts();rPX();}
+function rPX(){
+  var c=ld("mbn-contacts",DX);
+  document.getElementById("p-con-list").innerHTML=c.length?c.map(function(x){
+    return'<div class="pc"><p class="pct">'+esc(x.name)+'</p><p class="pcm">'+esc(x.role)+(x.phone?' &bull; '+esc(x.phone):"")+(x.email?' &bull; '+esc(x.email):"")+'</p>'
+      +'<div class="pca"><button class="btn br bs" onclick="delContact('+x.id+')">Delete</button></div></div>';
+  }).join(""):'<p style="font-size:.82rem;font-family:Arial,sans-serif;color:#888">No contacts.</p>';
+}
+
+function rAds(){
+  var ads=ld("mbn-ads",[]);
+  var p=ads.filter(function(a){return a.status==="pending"}),l=ads.filter(function(a){return a.status==="live"});
+  document.getElementById("a-pending").textContent=p.length;document.getElementById("a-live").textContent=l.length;
+  var pel=document.getElementById("a-pending-list"),pem=document.getElementById("a-pending-empty");
+  if(!p.length){pel.innerHTML="";pem.style.display="block";}
+  else{pem.style.display="none";pel.innerHTML=p.map(function(a){
+    return'<div class="pc"><p class="pct">'+esc(a.title)+'</p>'
+      +'<p class="pcm">'+esc(a.type)+' &bull; '+esc(a.name)+(a.unit?' ('+esc(a.unit)+')':'')+' &bull; '+esc(a.submittedAt)+'</p>'
+      +'<p style="font-size:.82rem;color:#333">'+esc(a.desc)+'</p>'
+      +(a.price?'<p style="font-size:.82rem;color:#185fa5;font-weight:700">'+esc(a.price)+'</p>':"")
+      +'<p style="font-size:.75rem;color:#888;font-family:Arial,sans-serif">'+(a.phone?esc(a.phone)+" ":"")+esc(a.email)+'</p>'
+      +'<div class="pca"><button class="btn bg bs" onclick="approveAd('+a.id+')">Approve</button>'
+      +'<button class="btn br bs" onclick="delAd('+a.id+')">Delete</button></div></div>';
+  }).join("");}
+  var lel=document.getElementById("a-live-list"),lem=document.getElementById("a-live-empty");
+  if(!l.length){lel.innerHTML="";lem.style.display="block";}
+  else{lem.style.display="none";lel.innerHTML=l.map(function(a){
+    return'<div class="pc" style="border-left:3px solid #1d3557"><p class="pct">'+esc(a.title)+'</p>'
+      +'<p class="pcm">'+esc(a.type)+' &bull; '+esc(a.name)+' &bull; '+esc(a.submittedAt)+'</p>'
+      +'<div class="pca"><button class="btn br bs" onclick="delAd('+a.id+')">Remove</button></div></div>';
+  }).join("");}
+}
+function approveAd(id){
+  sv("mbn-ads",ld("mbn-ads",[]).map(function(a){return a.id===id?Object.assign({},a,{status:"live"}):a}));
+  rAds();renderBoard("all");document.querySelectorAll(".fb").forEach(function(b,i){b.classList.toggle("on",i===0)});
+}
+function delAd(id){if(!confirm("Remove?"))return;sv("mbn-ads",ld("mbn-ads",[]).filter(function(a){return a.id!==id}));rAds();renderBoard("all");}
+function exportCSV(){
+  var ads=ld("mbn-ads",[]);if(!ads.length){alert("No listings.");return;}
+  var h=["ID","Status","Type","Title","Price","Description","Name","Unit","Phone","Email","Business","Submitted"];
+  var rows=ads.map(function(a){return[a.id,a.status,a.type,'"'+String(a.title).replace(/"/g,'""')+'"',a.price,'"'+String(a.desc).replace(/"/g,'""')+'"',a.name,a.unit,a.phone,a.email,a.bizname,a.submittedAt].join(",")});
+  var blob=new Blob([h.join(",")+"\n"+rows.join("\n")],{type:"text/csv"});
+  var url=URL.createObjectURL(blob),el=document.createElement("a");el.href=url;el.download="MBN_Listings.csv";el.click();URL.revokeObjectURL(url);
+}
+
+var d=new Date(),mo=["January","February","March","April","May","June","July","August","September","October","November","December"];
+document.getElementById("pub-date").textContent=mo[d.getMonth()]+" "+d.getFullYear();
+renderNews();renderCal();renderNotices();renderContacts();renderBoard("all");
+</script>
+</body>
+</html>
