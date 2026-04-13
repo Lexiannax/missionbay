@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Bay Community News - San Leandro, CA</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, serif; font-size: 16px; line-height: 1.7; color: #2c2c2c; background: #f7f5f0; }
+  a { color: #185fa5; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* HEADER */
+  header { background: #1d3557; color: #fff; padding: 0; }
+  .header-top { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.15); }
+  .header-top .logo-area h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: 0.01em; }
+  .header-top .logo-area p { font-size: 0.85rem; opacity: 0.75; font-style: italic; margin-top: 2px; }
+  .header-top .date-area { font-size: 0.8rem; opacity: 0.65; text-align: right; }
+  nav { display: flex; gap: 0; overflow-x: auto; }
+  nav a { color: rgba(255,255,255,0.85); font-size: 0.85rem; padding: 0.65rem 1.2rem; white-space: nowrap; font-family: Arial, sans-serif; border-right: 1px solid rgba(255,255,255,0.1); transition: background 0.15s; }
+  nav a:hover { background: rgba(255,255,255,0.12); text-decoration: none; }
+
+  /* LAYOUT */
+  .wrapper { max-width: 1060px; margin: 0 auto; padding: 0 1.25rem; }
+  .page-body { display: grid; grid-template-columns: 1fr 300px; gap: 2rem; padding: 2rem 0 3rem; }
+  @media (max-width: 720px) { .page-body { grid-template-columns: 1fr; } .header-top { flex-direction: column; align-items: flex-start; gap: 0.5rem; } }
+
+  /* HERO STRIP */
+  .hero { background: #e8f4fd; border-left: 4px solid #185fa5; padding: 1rem 1.25rem; margin-bottom: 1.75rem; border-radius: 0 4px 4px 0; }
+  .hero p { font-size: 0.95rem; color: #2c2c2c; }
+  .hero strong { color: #185fa5; }
+
+  /* ARTICLES */
+  .section-label { font-family: Arial, sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.4rem; }
+  article { border-bottom: 1px solid #ddd; padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+  article:last-child { border-bottom: none; }
+  article h2 { font-size: 1.25rem; line-height: 1.3; color: #1d3557; margin-bottom: 0.3rem; }
+  article .byline { font-size: 0.8rem; color: #888; font-family: Arial, sans-serif; margin-bottom: 0.6rem; }
+  article p { font-size: 0.95rem; color: #3a3a3a; }
+  article .read-more { display: inline-block; margin-top: 0.5rem; font-size: 0.8rem; font-family: Arial, sans-serif; color: #185fa5; }
+
+  /* SIDEBAR */
+  aside { font-family: Arial, sans-serif; }
+  .sidebar-block { background: #fff; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1.25rem; overflow: hidden; }
+  .sidebar-block .sb-head { background: #1d3557; color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.6rem 1rem; }
+  .sidebar-block .sb-body { padding: 0.9rem 1rem; font-size: 0.875rem; line-height: 1.6; color: #3a3a3a; }
+  .sidebar-block .sb-body ul { padding-left: 1.1rem; }
+  .sidebar-block .sb-body li { margin-bottom: 0.35rem; }
+  .contact-row { display: flex; flex-direction: column; margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px solid #eee; }
+  .contact-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .contact-row .name { font-weight: 700; font-size: 0.85rem; color: #1d3557; }
+  .contact-row .role { font-size: 0.75rem; color: #888; }
+  .contact-row .phone { font-size: 0.8rem; color: #185fa5; }
+
+  /* AD SLOTS */
+  .ad-slot { background: #f0f0eb; border: 1px dashed #bbb; border-radius: 4px; padding: 0.75rem; text-align: center; font-size: 0.75rem; color: #999; font-family: Arial, sans-serif; margin-bottom: 1.25rem; }
+  .ad-slot strong { display: block; font-size: 0.85rem; color: #666; margin-bottom: 0.15rem; }
+
+  /* CALENDAR */
+  .cal-item { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.6rem; }
+  .cal-date { background: #1d3557; color: #fff; border-radius: 3px; min-width: 38px; text-align: center; padding: 2px 4px; font-size: 0.7rem; line-height: 1.3; }
+  .cal-date .cal-day { font-size: 1rem; font-weight: 700; display: block; }
+  .cal-event { font-size: 0.82rem; color: #2c2c2c; }
+
+  /* NOTICE BOARD */
+  .notice { background: #fffbea; border-left: 3px solid #e9a825; padding: 0.6rem 0.8rem; margin-bottom: 0.75rem; border-radius: 0 3px 3px 0; font-size: 0.82rem; }
+  .notice .notice-title { font-weight: 700; color: #7a5800; margin-bottom: 0.2rem; }
+
+  /* FOOTER */
+  footer { background: #1d3557; color: rgba(255,255,255,0.65); font-family: Arial, sans-serif; font-size: 0.78rem; padding: 1.5rem 2rem; text-align: center; line-height: 1.8; }
+  footer strong { color: rgba(255,255,255,0.9); }
+
+  /* PRINT */
+  @media print { nav, aside, .ad-slot { display: none; } .page-body { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="logo-area">
+      <h1>Mission Bay Community News</h1>
+      <p>15333 Wicks Blvd, San Leandro, CA 94579 &mdash; Resident-Produced Since 2024</p>
+    </div>
+    <div class="date-area">
+      <span id="pub-date"></span><br>
+      By Residents, For Residents
+    </div>
+  </div>
+  <nav>
+    <a href="#news">News</a>
+    <a href="#calendar">Calendar</a>
+    <a href="#notices">Notices</a>
+    <a href="#contacts">Contacts</a>
+    <a href="#resources">Resources</a>
+    <a href="#newsletter">Newsletter</a>
+    <a href="#advertise">Advertise</a>
+  </nav>
+</header>
+
+<div class="wrapper">
+  <div class="page-body">
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+      <div class="hero">
+        <p>This site is run by residents of Mission Bay, not by park management. For the monthly print newsletter, contact the editor directly. To submit news, events, or corrections, email <strong>missionbaynews@gmail.com</strong>.</p>
+      </div>
+
+      <!-- NEWS -->
+      <div id="news"></div>
+      <div class="section-label">Community News</div>
+
+      <article>
+        <h2>Tech Scammers Are Targeting Senior Communities &mdash; Here Is What to Watch For</h2>
+        <div class="byline">Mission Bay News Staff &bull; May 2026</div>
+        <p>Phone and computer scams aimed at seniors have increased across Alameda County. Callers pose as Social Security agents, Medicare reps, and tech support workers from companies like Microsoft or Apple. They pressure residents to buy gift cards or allow remote access to their computers. No legitimate agency will ever ask for payment by gift card.</p>
+        <a href="#" class="read-more">Read full article in the May newsletter &rarr;</a>
+      </article>
+
+      <article>
+        <h2>VIEU Chairman&#39;s Column</h2>
+        <div class="byline">Peter Cleaveland, VIEU Chairman &bull; May 2026</div>
+        <p>Updates from the Villa Independent Estates Union on resident rights, space rent, and current negotiations with park management. Peter Cleaveland&#39;s monthly bilingual column appears in print in the Mission Bay News.</p>
+        <a href="#" class="read-more">See full column in print &rarr;</a>
+      </article>
+
+      <article>
+        <h2>Women&#39;s Club and Men&#39;s Club: Upcoming Events</h2>
+        <div class="byline">Sara and Eddy Quintero &bull; May 2026</div>
+        <p>The Women&#39;s Club and Men&#39;s Club have a full schedule of activities this spring. See the Activity Calendar on this page or pick up the print newsletter at the clubhouse.</p>
+      </article>
+
+      <!-- NEWSLETTER ARCHIVE -->
+      <div id="newsletter" style="margin-top: 1.5rem;"></div>
+      <div class="section-label">Newsletter Archive</div>
+      <article>
+        <h2>Monthly Print Edition</h2>
+        <div class="byline">Acting Editor: Alexandra McKeever</div>
+        <p>The Mission Bay News prints monthly. Back issues are available at the clubhouse. If you would like to contribute an article, correction, or announcement, contact the editor at <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a>.</p>
+        <ul style="margin-top: 0.6rem; padding-left: 1.2rem; font-size: 0.9rem; color: #3a3a3a;">
+          <li><a href="#">May 2026 (current)</a></li>
+          <li><a href="#">April 2026</a></li>
+          <li><a href="#">March 2026</a></li>
+        </ul>
+      </article>
+
+      <!-- RESOURCES -->
+      <div id="resources" style="margin-top: 0.5rem;"></div>
+      <div class="section-label">Resident Resources</div>
+      <article>
+        <h2>Know Your Rights as a Mobile Home Resident</h2>
+        <div class="byline">California HCD &bull; Reference</div>
+        <p>California residents in mobile home parks are protected under the Mobilehome Residency Law (MRL). You have rights around rent increases, eviction, park rules changes, and maintenance. Key state resources are listed in the sidebar.</p>
+        <a href="https://hcd.ca.gov/manufactured-mobile-home/mobilehome-residency-law" target="_blank" class="read-more">California HCD: Mobilehome Residency Law &rarr;</a>
+      </article>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside>
+
+      <!-- ACTIVITY CALENDAR -->
+      <div id="calendar" class="sidebar-block">
+        <div class="sb-head">Activity Calendar &mdash; May 2026</div>
+        <div class="sb-body">
+          <p style="font-size:0.75rem; color:#888; margin-bottom:0.7rem;">Compiled by Brenda Gianni</p>
+          <div class="cal-item">
+            <div class="cal-date"><span class="cal-day">5</span>MON</div>
+            <div class="cal-event">Morning Coffee Klatch &mdash; Clubhouse, 9 AM</div>
+          </div>
+          <div class="cal-item">
+            <div class="cal-date"><span class="cal-day">8</span>THU</div>
+            <div class="cal-event">Card Games &mdash; Billiard Room, 1 PM</div>
+          </div>
+          <div class="cal-item">
+            <div class="cal-date"><span class="cal-day">12</span>MON</div>
+            <div class="cal-event">Exercise Program &mdash; Clubhouse, 10 AM</div>
+          </div>
+          <div class="cal-item">
+            <div class="cal-date"><span class="cal-day">17</span>SAT</div>
+            <div class="cal-event">Potluck Dinner &mdash; Auditorium, 5 PM</div>
+          </div>
+          <div class="cal-item">
+            <div class="cal-date"><span class="cal-day">24</span>SAT</div>
+            <div class="cal-event">Dance &mdash; Auditorium, 6 PM</div>
+          </div>
+          <div class="cal-item">
+            <div class="cal-date"><span class="cal-day">28</span>WED</div>
+            <div class="cal-event">Shuffleboard Tournament &mdash; 2 PM</div>
+          </div>
+          <p style="margin-top:0.75rem; font-size:0.75rem; color:#888;">Events subject to change. Check the clubhouse board for updates.</p>
+        </div>
+      </div>
+
+      <!-- NOTICES -->
+      <div id="notices" class="sidebar-block">
+        <div class="sb-head">Notices</div>
+        <div class="sb-body">
+          <div class="notice">
+            <div class="notice-title">Scam Alert</div>
+            If anyone asks you to buy gift cards as payment for anything &mdash; it is a scam. Hang up.
+          </div>
+          <div class="notice">
+            <div class="notice-title">Pool Hours</div>
+            Heated pool open daily 7 AM &ndash; 9 PM. One small pet per home permitted in common areas on leash.
+          </div>
+          <div class="notice">
+            <div class="notice-title">Laundry Room</div>
+            Report maintenance issues to the park office at (510) 352-4433.
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACTS -->
+      <div id="contacts" class="sidebar-block">
+        <div class="sb-head">Resident Contacts</div>
+        <div class="sb-body">
+          <div class="contact-row">
+            <span class="name">Deborah Acosta</span>
+            <span class="role">MBRA President</span>
+          </div>
+          <div class="contact-row">
+            <span class="name">Peter Cleaveland</span>
+            <span class="role">VIEU Chairman</span>
+            <span class="phone">(510) 351-1742</span>
+          </div>
+          <div class="contact-row">
+            <span class="name">Brenda Gianni</span>
+            <span class="role">Activity Calendar</span>
+          </div>
+          <div class="contact-row">
+            <span class="name">Shannon Howard</span>
+            <span class="role">Administrator</span>
+          </div>
+          <div class="contact-row">
+            <span class="name">Newsletter Editor</span>
+            <span class="role">Acting Editor</span>
+            <span class="phone"><a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE RESOURCES -->
+      <div class="sidebar-block">
+        <div class="sb-head">State Resources</div>
+        <div class="sb-body">
+          <ul>
+            <li><a href="https://hcd.ca.gov/manufactured-mobile-home/mobilehome-residency-law" target="_blank">CA Mobilehome Residency Law (HCD)</a></li>
+            <li><a href="https://oag.ca.gov/consumers/general/mobilehome" target="_blank">CA Attorney General &mdash; Mobilehome Rights</a></li>
+            <li><a href="https://www.acgov.org/acc/" target="_blank">Alameda County Consumer Affairs</a></li>
+            <li><a href="https://www.acgov.org/css/sen.htm" target="_blank">Alameda County Senior Services</a></li>
+            <li><a href="https://www.ftc.gov/scams" target="_blank">FTC Scam Reporting</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- AD SLOT -->
+      <div id="advertise" class="ad-slot">
+        <strong>Advertise Here</strong>
+        Reach 366 households in our community.<br>
+        Contact <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a>
+      </div>
+
+      <div class="ad-slot">
+        <strong>Business Ad</strong>
+        Local business listing available.<br>
+        <a href="mailto:missionbaynews@gmail.com">Request rates</a>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<footer>
+  <strong>Mission Bay Community News</strong> &mdash; 15333 Wicks Blvd, San Leandro, CA 94579<br>
+  Resident-produced. Not affiliated with park management or BSM Communities.<br>
+  To contribute news or submit corrections: <a href="mailto:missionbaynews@gmail.com" style="color:rgba(255,255,255,0.7);">missionbaynews@gmail.com</a><br>
+  <span style="font-size:0.7rem; opacity:0.5;">&copy; 2026 Mission Bay Residents</span>
+</footer>
+
+<script>
+  const d = new Date();
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('pub-date').textContent = months[d.getMonth()] + ' ' + d.getFullYear();
+</script>
+
+</body>
+</html>
