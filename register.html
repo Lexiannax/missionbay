@@ -66,14 +66,14 @@ footer a { color: rgba(255,255,255,0.8); }
   <div class="reg-wrap">
     <div class="reg-box">
       <h3>Register to Access All Issues</h3>
-      <p>Mission Bay residents only. Your lot number (1–366) verifies residency. Your details go into a private resident list and are never shared with management or any third party.</p>
+      <p>Mission Bay residents only. Your lot number (1–400) verifies residency. Your details go into a private resident list and are never shared with management or any third party.</p>
       <div class="reg-field">
         <label for="reg-name">Full Name *</label>
         <input type="text" id="reg-name" placeholder="e.g. Jane Smith" autocomplete="name">
       </div>
       <div class="reg-field">
-        <label for="reg-lot">Lot Number * (1–366)</label>
-        <input type="number" id="reg-lot" placeholder="e.g. 42" min="1" max="366">
+        <label for="reg-lot">Lot Number * (1–400)</label>
+        <input type="number" id="reg-lot" placeholder="e.g. 42" min="1" max="400">
       </div>
       <div class="reg-field">
         <label for="reg-email">Email Address *</label>
@@ -125,7 +125,7 @@ function registerResident() {
   errEl.style.display = 'none';
   okEl.style.display  = 'none';
   if (!name) { errEl.textContent = 'Please enter your full name.'; errEl.style.display='block'; return; }
-  if (!lot || lot < 1 || lot > 366) { errEl.textContent = 'Lot number must be between 1 and 366. Check your lease or contact the park office if unsure.'; errEl.style.display='block'; return; }
+  if (!lot || lot < 1 || lot > 400) { errEl.textContent = 'Lot number must be between 1 and 400. Check your lease or contact the park office if unsure.'; errEl.style.display='block'; return; }
   if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email address.'; errEl.style.display='block'; return; }
   sessionStorage.setItem('mbVerified','1');
   sessionStorage.setItem('mbName', name);
