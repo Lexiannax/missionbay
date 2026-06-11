@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — Mission Bay Community News</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, serif; font-size: 16px; line-height: 1.7; color: #2c2c2c; background: #f7f5f0; }
+a { color: #185fa5; }
+a:hover { text-decoration: underline; }
+header { background: #1d3557; color: #fff; }
+.header-top { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.12); flex-wrap: wrap; gap: 0.5rem; }
+.site-title { font-size: 1.5rem; font-weight: 700; }
+.site-subtitle { font-size: 0.82rem; opacity: 0.7; font-style: italic; margin-top: 2px; }
+.header-meta { font-size: 0.78rem; opacity: 0.6; text-align: right; }
+nav { display: flex; overflow-x: auto; background: #162a47; }
+nav a { color: rgba(255,255,255,0.8); font-size: 0.82rem; font-family: Arial,sans-serif; padding: 0.6rem 1.1rem; white-space: nowrap; border-right: 1px solid rgba(255,255,255,0.08); text-decoration: none; }
+nav a:hover { background: rgba(255,255,255,0.08); color:#fff; }
+nav a.active { background: rgba(255,255,255,0.12); color: #f4d35e; }
+main { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+h2 { font-family: Georgia,serif; font-size: 1.4rem; color: #1d3557; border-bottom: 2px solid #1d3557; padding-bottom: 0.4rem; margin-bottom: 1.25rem; }
+.reg-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+.reg-box { background: #fff; border: 2px solid #1d3557; border-radius: 6px; padding: 1.75rem 2rem; }
+.reg-box h3 { font-family: Georgia,serif; font-size: 1.1rem; color: #1d3557; margin-bottom: 0.4rem; }
+.reg-box p { font-size: 0.85rem; color: #666; margin-bottom: 1.25rem; line-height: 1.6; }
+.reg-field { margin-bottom: 1rem; }
+.reg-field label { display: block; font-family: Arial,sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #444; margin-bottom: 0.3rem; }
+.reg-field input { width: 100%; padding: 0.55rem 0.75rem; border: 1px solid #ccc; border-radius: 3px; font-size: 0.9rem; font-family: Georgia,serif; color: #2c2c2c; }
+.reg-field input:focus { outline: none; border-color: #1d3557; box-shadow: 0 0 0 2px rgba(29,53,87,0.15); }
+.reg-btn { background: #1d3557; color: #fff; border: none; padding: 0.65rem 1.5rem; font-size: 0.88rem; font-family: Arial,sans-serif; font-weight: 700; border-radius: 3px; cursor: pointer; width: 100%; margin-top: 0.5rem; }
+.reg-btn:hover { background: #163047; }
+.reg-error { background: #fdf2f2; border: 1px solid #e8c5c5; border-radius: 3px; padding: 0.65rem 0.9rem; font-size: 0.82rem; color: #c0392b; margin-top: 0.75rem; display: none; }
+.reg-success { background: #f0faf4; border: 1px solid #a8d5b5; border-radius: 3px; padding: 0.65rem 0.9rem; font-size: 0.82rem; color: #1e7e44; margin-top: 0.75rem; display: none; }
+.info-box { background: #eef3f9; border: 1px solid #c5d5e8; border-radius: 4px; padding: 1.25rem 1.5rem; font-size: 0.88rem; line-height: 1.8; }
+.info-box h3 { font-family: Arial,sans-serif; font-size: 0.9rem; color: #1d3557; margin-bottom: 0.75rem; }
+.info-box ul { padding-left: 1.25rem; }
+.info-box li { margin-bottom: 0.4rem; }
+footer { background: #1d3557; color: rgba(255,255,255,0.65); font-size: 0.78rem; font-family: Arial,sans-serif; text-align: center; padding: 1.5rem 1rem; margin-top: 4rem; }
+footer a { color: rgba(255,255,255,0.8); }
+@media (max-width:640px) {
+  .header-top { padding: 1rem; }
+  .reg-wrap { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <div>
+      <div class="site-title">Mission Bay Community News</div>
+      <div class="site-subtitle">15333 Wicks Blvd, San Leandro CA 94579 &nbsp;·&nbsp; Est. 1971</div>
+    </div>
+    <div class="header-meta">Resident-run newsletter<br>Editor: Alexandra McKeever<br>missionbaynews@gmail.com</div>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="register.html" class="active">Register</a>
+    <a href="newsletter.html">Newsletter</a>
+    <a href="members.html">Members Area</a>
+    <a href="https://lexiannax.github.io" target="_blank">Civic Watch</a>
+  </nav>
+</header>
+<main>
+  <h2>Resident Registration</h2>
+  <div class="reg-wrap">
+    <div class="reg-box">
+      <h3>Register to Access All Issues</h3>
+      <p>Mission Bay residents only. Your lot number (1–366) verifies residency. Your details go into a private resident list and are never shared with management or any third party.</p>
+      <div class="reg-field">
+        <label for="reg-name">Full Name *</label>
+        <input type="text" id="reg-name" placeholder="e.g. Jane Smith" autocomplete="name">
+      </div>
+      <div class="reg-field">
+        <label for="reg-lot">Lot Number * (1–366)</label>
+        <input type="number" id="reg-lot" placeholder="e.g. 42" min="1" max="366">
+      </div>
+      <div class="reg-field">
+        <label for="reg-email">Email Address *</label>
+        <input type="email" id="reg-email" placeholder="e.g. jane@email.com" autocomplete="email">
+      </div>
+      <div class="reg-field">
+        <label for="reg-phone">Phone Number (optional)</label>
+        <input type="tel" id="reg-phone" placeholder="e.g. 510-555-1234" autocomplete="tel">
+      </div>
+      <button class="reg-btn" onclick="registerResident()">Verify &amp; Get Access</button>
+      <div class="reg-error" id="reg-error"></div>
+      <div class="reg-success" id="reg-success"></div>
+    </div>
+    <div>
+      <div class="info-box">
+        <h3>What you get after registering:</h3>
+        <ul>
+          <li>Full access to every newsletter issue as a PDF</li>
+          <li>Access to the Members Area with Alameda County park data, rent comparisons, and RSO tools</li>
+          <li>Monthly email delivery of new issues</li>
+        </ul>
+        <br>
+        <h3>Your privacy:</h3>
+        <ul>
+          <li>Your details are only used for Mission Bay News</li>
+          <li>Your information is never shared with park management</li>
+          <li>You can unsubscribe at any time by emailing missionbaynews@gmail.com</li>
+        </ul>
+        <br>
+        <p style="font-size:0.82rem;color:#666;">Prefer to register by email? Send your name, lot number, and email to <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a> with subject line: <em>Newsletter Signup</em></p>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>
+  Mission Bay Community News &nbsp;·&nbsp; 15333 Wicks Blvd, San Leandro CA 94579 &nbsp;·&nbsp;
+  <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a> &nbsp;·&nbsp;
+  Editor: Alexandra McKeever<br>
+  <span style="opacity:0.5;font-size:0.72rem;">Not affiliated with park management. Content for general informational purposes only.</span>
+</footer>
+<script>
+function registerResident() {
+  var name  = document.getElementById('reg-name').value.trim();
+  var lot   = parseInt(document.getElementById('reg-lot').value, 10);
+  var email = document.getElementById('reg-email').value.trim();
+  var phone = document.getElementById('reg-phone').value.trim();
+  var errEl = document.getElementById('reg-error');
+  var okEl  = document.getElementById('reg-success');
+  errEl.style.display = 'none';
+  okEl.style.display  = 'none';
+  if (!name) { errEl.textContent = 'Please enter your full name.'; errEl.style.display='block'; return; }
+  if (!lot || lot < 1 || lot > 366) { errEl.textContent = 'Lot number must be between 1 and 366. Check your lease or contact the park office if unsure.'; errEl.style.display='block'; return; }
+  if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email address.'; errEl.style.display='block'; return; }
+  sessionStorage.setItem('mbVerified','1');
+  sessionStorage.setItem('mbName', name);
+  sessionStorage.setItem('mbLot', lot);
+  sessionStorage.setItem('mbEmail', email);
+  okEl.textContent = 'Welcome, ' + name + '! You are now registered. Taking you to the newsletter archive...';
+  okEl.style.display = 'block';
+  setTimeout(function(){ window.location.href = 'newsletter.html'; }, 1800);
+}
+</script>
+</body>
+</html>
