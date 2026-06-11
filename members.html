@@ -22,7 +22,9 @@ main { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
 section { margin-bottom: 3rem; }
 h2 { font-family: Georgia,serif; font-size: 1.4rem; color: #1d3557; border-bottom: 2px solid #1d3557; padding-bottom: 0.4rem; margin-bottom: 1.25rem; }
 h3 { font-family: Arial,sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin: 1.5rem 0 0.75rem; }
-.welcome-bar { background: #f0faf4; border: 1px solid #a8d5b5; border-radius: 4px; padding: 0.75rem 1.25rem; font-size: 0.88rem; color: #1e7e44; margin-bottom: 1.5rem; display: none; }
+.welcome-bar { background: #f0faf4; border: 1px solid #a8d5b5; border-radius: 4px; padding: 0.75rem 1.25rem; font-size: 0.88rem; color: #1e7e44; margin-bottom: 1.5rem; display: none; justify-content: space-between; align-items: center; }
+.logout-btn { background: none; border: 1px solid #1e7e44; color: #1e7e44; font-family: Arial,sans-serif; font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 3px; cursor: pointer; white-space: nowrap; }
+.logout-btn:hover { background: #1e7e44; color: #fff; }
 .gate { background: #fff; border: 2px solid #1d3557; border-radius: 6px; padding: 2rem; text-align: center; }
 .gate h3 { font-family: Georgia,serif; font-size: 1.1rem; color: #1d3557; margin-bottom: 0.5rem; text-transform: none; letter-spacing: 0; }
 .gate p { font-size: 0.88rem; color: #666; margin-bottom: 1.25rem; }
@@ -60,7 +62,7 @@ footer a { color: rgba(255,255,255,0.8); }
       <div class="site-title">Mission Bay Community News</div>
       <div class="site-subtitle">15333 Wicks Blvd, San Leandro CA 94579 &nbsp;·&nbsp; Est. 1971</div>
     </div>
-    <div class="header-meta">Resident-run newsletter<br>Editor: Alexandra McKeever<br>missionbaynews@gmail.com</div>
+    <div class="header-meta">Resident-run newsletter<br>Editor: Alexandra McKeever<br>editor@missionbaynews.us</div>
   </div>
   <nav>
     <a href="index.html">Home</a>
@@ -135,7 +137,7 @@ footer a { color: rgba(255,255,255,0.8); }
 </main>
 <footer>
   Mission Bay Community News &nbsp;·&nbsp; 15333 Wicks Blvd, San Leandro CA 94579 &nbsp;·&nbsp;
-  <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a> &nbsp;·&nbsp;
+  <a href="mailto:editor@missionbaynews.us">editor@missionbaynews.us</a> &nbsp;·&nbsp;
   Editor: Alexandra McKeever<br>
   <span style="opacity:0.5;font-size:0.72rem;">Not affiliated with park management. Content for general informational purposes only.</span>
 </footer>
@@ -145,10 +147,14 @@ window.addEventListener('DOMContentLoaded', function() {
     document.getElementById('gate').style.display = 'none';
     document.getElementById('members-content').style.display = 'block';
     var bar = document.getElementById('welcome-bar');
-    bar.textContent = 'Welcome, ' + sessionStorage.getItem('mbName') + ' (Lot ' + sessionStorage.getItem('mbLot') + '). Members area unlocked.';
-    bar.style.display = 'block';
+    bar.innerHTML = '<span>Welcome, ' + sessionStorage.getItem('mbName') + ' (Lot ' + sessionStorage.getItem('mbLot') + '). Members area unlocked.</span><button class="logout-btn" onclick="logout()">Log out</button>';
+    bar.style.display = 'flex';
   }
 });
+function logout() {
+  sessionStorage.clear();
+  window.location.href = "index.html";
+}
 </script>
 </body>
 </html>
