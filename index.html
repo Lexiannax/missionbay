@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Bay Community News — San Leandro, CA</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, serif; font-size: 16px; line-height: 1.7; color: #2c2c2c; background: #f7f5f0; }
+a { color: #185fa5; }
+a:hover { text-decoration: underline; }
+header { background: #1d3557; color: #fff; }
+.header-top { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.12); flex-wrap: wrap; gap: 0.5rem; }
+.site-title { font-size: 1.5rem; font-weight: 700; }
+.site-subtitle { font-size: 0.82rem; opacity: 0.7; font-style: italic; margin-top: 2px; }
+.header-meta { font-size: 0.78rem; opacity: 0.6; text-align: right; }
+nav { display: flex; overflow-x: auto; background: #162a47; }
+nav a { color: rgba(255,255,255,0.8); font-size: 0.82rem; font-family: Arial,sans-serif; padding: 0.6rem 1.1rem; white-space: nowrap; border-right: 1px solid rgba(255,255,255,0.08); text-decoration: none; }
+nav a:hover { background: rgba(255,255,255,0.08); color:#fff; }
+nav a.active { background: rgba(255,255,255,0.12); color: #f4d35e; }
+main { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+section { margin-bottom: 3rem; }
+h2 { font-family: Georgia,serif; font-size: 1.4rem; color: #1d3557; border-bottom: 2px solid #1d3557; padding-bottom: 0.4rem; margin-bottom: 1.25rem; }
+.hero { background: #1d3557; color: #fff; border-radius: 6px; padding: 2.5rem 2rem; margin-bottom: 2.5rem; text-align: center; }
+.hero h1 { font-size: 1.8rem; margin-bottom: 0.75rem; }
+.hero p { font-size: 0.95rem; opacity: 0.85; max-width: 600px; margin: 0 auto 1.5rem; line-height: 1.7; }
+.hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary { background: #f4d35e; color: #1d3557; font-weight: 700; font-family: Arial,sans-serif; font-size: 0.9rem; padding: 0.7rem 1.75rem; border-radius: 3px; text-decoration: none; }
+.btn-primary:hover { background: #f0c93a; text-decoration: none; color: #1d3557; }
+.btn-secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.5); font-family: Arial,sans-serif; font-size: 0.9rem; padding: 0.7rem 1.75rem; border-radius: 3px; text-decoration: none; }
+.btn-secondary:hover { background: rgba(255,255,255,0.1); text-decoration: none; color: #fff; }
+.stats-row { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; justify-content: center; }
+.stat-box { background: rgba(255,255,255,0.1); padding: 0.75rem 1.25rem; border-radius: 3px; min-width: 120px; text-align: center; }
+.stat-num { font-size: 1.6rem; font-weight: 700; color: #f4d35e; font-family: Arial,sans-serif; }
+.stat-label { font-size: 0.72rem; opacity: 0.75; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap: 1.25rem; }
+.card { background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 1.25rem 1.5rem; }
+.card h3 { font-family: Arial,sans-serif; font-size: 0.95rem; color: #1d3557; margin-bottom: 0.5rem; }
+.card p { font-size: 0.84rem; color: #555; line-height: 1.6; margin-bottom: 0.75rem; }
+.card a.card-link { font-size: 0.82rem; font-family: Arial,sans-serif; color: #185fa5; font-weight: 700; }
+.card.members-only { border-color: #1d3557; background: #f5f8fc; }
+.card.members-only h3::after { content: " 🔒"; font-size: 0.75rem; }
+.alert { border-left: 4px solid #c0392b; background: #fdf2f2; padding: 0.9rem 1.1rem; font-size: 0.85rem; margin-bottom: 1.25rem; border-radius: 0 3px 3px 0; line-height: 1.6; }
+.alert strong { color: #c0392b; }
+.rso-box { background: #eef3f9; border: 1px solid #c5d5e8; border-radius: 4px; padding: 1.25rem 1.5rem; font-size: 0.88rem; line-height: 1.8; }
+.resource-list { list-style: none; padding: 0; }
+.resource-list li { padding: 0.5rem 0; border-bottom: 1px solid #eee; font-size: 0.88rem; }
+.resource-list li:last-child { border-bottom: none; }
+.resource-org { font-weight: 700; color: #1d3557; display: block; }
+.resource-note { color: #666; font-size: 0.78rem; }
+.ad-banner { background: #2c3e50; color: #fff; border-radius: 6px; padding: 2rem; margin-bottom: 1.5rem; }
+.ad-banner h2 { color: #f4d35e; border-bottom-color: rgba(244,211,94,0.4); }
+.ad-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(170px,1fr)); gap: 1rem; margin: 1.25rem 0; }
+.ad-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 1rem; text-align: center; }
+.ad-size { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.7; font-family: Arial,sans-serif; }
+.ad-price { font-size: 1.4rem; font-weight: 700; color: #f4d35e; font-family: Arial,sans-serif; }
+.ad-desc { font-size: 0.75rem; opacity: 0.7; margin-top: 0.2rem; }
+.ad-cta { display: inline-block; margin-top: 1.25rem; background: #f4d35e; color: #2c3e50; font-weight: 700; font-family: Arial,sans-serif; font-size: 0.85rem; padding: 0.6rem 1.5rem; border-radius: 3px; text-decoration: none; }
+.ad-cta:hover { background: #f0c93a; text-decoration: none; color: #2c3e50; }
+.pay-banner { background: #fff; border: 2px solid #1d3557; border-radius: 6px; padding: 1.5rem 2rem; }
+.pay-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 1rem; margin-top: 1rem; }
+.pay-card { background: #f7f5f0; border: 1px solid #ddd; border-radius: 4px; padding: 1rem 1.25rem; font-size: 0.85rem; line-height: 1.7; }
+.pay-card h3 { font-size: 0.9rem; color: #1d3557; font-family: Arial,sans-serif; margin-bottom: 0.4rem; }
+footer { background: #1d3557; color: rgba(255,255,255,0.65); font-size: 0.78rem; font-family: Arial,sans-serif; text-align: center; padding: 1.5rem 1rem; }
+footer a { color: rgba(255,255,255,0.8); }
+@media (max-width:640px) {
+  .header-top { padding: 1rem; }
+  main { padding: 1.25rem 0.9rem 3rem; }
+  .hero { padding: 1.5rem 1rem; }
+  .hero h1 { font-size: 1.3rem; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <div>
+      <div class="site-title">Mission Bay Community News</div>
+      <div class="site-subtitle">15333 Wicks Blvd, San Leandro CA 94579 &nbsp;·&nbsp; Est. 1971</div>
+    </div>
+    <div class="header-meta">Resident-run newsletter<br>Editor: Alexandra McKeever<br>missionbaynews@gmail.com</div>
+  </div>
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="register.html">Register</a>
+    <a href="newsletter.html">Newsletter</a>
+    <a href="members.html">Members Area</a>
+    <a href="https://lexiannax.github.io" target="_blank">Civic Watch</a>
+  </nav>
+</header>
+<main>
+  <div class="hero">
+    <h1>Welcome to Mission Bay Community News</h1>
+    <p>The resident-run newsletter and information hub for Mission Bay Mobile Home Park, San Leandro. Not affiliated with park management.</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-num">366</div><div class="stat-label">Spaces</div></div>
+      <div class="stat-box"><div class="stat-num">1971</div><div class="stat-label">Est.</div></div>
+      <div class="stat-box"><div class="stat-num">$1,279</div><div class="stat-label">Space rent/mo</div></div>
+      <div class="stat-box"><div class="stat-num">2.2%</div><div class="stat-label">2026 RSO cap</div></div>
+    </div>
+    <div class="hero-btns">
+      <a href="register.html" class="btn-primary">Register as a Resident</a>
+      <a href="newsletter.html" class="btn-secondary">Read the Newsletter</a>
+    </div>
+  </div>
+
+  <section>
+    <h2>What's on This Site</h2>
+    <div class="card-grid">
+      <div class="card members-only">
+        <h3>Newsletter Archive</h3>
+        <p>Every issue of Mission Bay News from January 2026. Register with your lot number to access all PDF issues.</p>
+        <a href="register.html" class="card-link">Register to access &rarr;</a>
+      </div>
+      <div class="card members-only">
+        <h3>Park Directory &amp; Rent Data</h3>
+        <p>Space rents, ownership data, and RSO protections for every mobile home park in Alameda County.</p>
+        <a href="register.html" class="card-link">Register to access &rarr;</a>
+      </div>
+      <div class="card">
+        <h3>Your RSO Rights</h3>
+        <p>The San Leandro RSO caps your rent at 2.2% in 2026. Know your rights before management announces an increase.</p>
+        <a href="#rso" class="card-link">Read your rights &rarr;</a>
+      </div>
+      <div class="card">
+        <h3>Civic Watch San Leandro</h3>
+        <p>Environmental data, crime corridor mapping, park accountability tools, and civic journalism for San Leandro.</p>
+        <a href="https://lexiannax.github.io" target="_blank" class="card-link">Visit Civic Watch &rarr;</a>
+      </div>
+      <div class="card">
+        <h3>Resources &amp; Contacts</h3>
+        <p>RSO hotline, tenant counseling, HCD complaints, GSMOL, Bay Area Legal Aid, and park management contacts.</p>
+        <a href="#resources" class="card-link">See all resources &rarr;</a>
+      </div>
+      <div class="card">
+        <h3>Submit Newsletter Content</h3>
+        <p>Birthdays, anniversaries, club news, letters, corrections. Deadline: 10th of the month prior to publication.</p>
+        <a href="mailto:missionbaynews@gmail.com" class="card-link">missionbaynews@gmail.com &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="rso">
+    <h2>Your Rights: San Leandro RSO</h2>
+    <div class="alert">
+      <strong>2026 rent increase cap: 2.2%.</strong> At $1,279/month the maximum allowed increase is $28.14/month. Management must give 90 days written notice before any increase takes effect.
+    </div>
+    <div class="rso-box">
+      <strong>Key rules every Mission Bay resident should know:</strong><br><br>
+      Management must give <strong>90 days written notice</strong> before any rent increase.<br>
+      Capital improvements (pool repairs, wall work, etc.) require <strong>city approval</strong> before being added to your rent.<br>
+      If <strong>25% of residents sign a petition</strong>, the city must hold a formal hearing.<br>
+      Dispute a charge: <strong>510-577-6006</strong> or <a href="https://www.sanleandro.org" target="_blank">sanleandro.org</a><br>
+      Free tenant counseling: <strong>ECHO Housing 510-581-9380</strong>
+    </div>
+  </section>
+
+  <section id="resources">
+    <h2>Resources for Residents</h2>
+    <ul class="resource-list">
+      <li><span class="resource-org">MHAction — Resident Organizing</span><span class="resource-note">Active at Mission Bay. <a href="https://mhaction.org" target="_blank">mhaction.org</a></span></li>
+      <li><span class="resource-org">ECHO Housing — Free Tenant Counseling</span><span class="resource-note">510-581-9380 · <a href="https://www.echofairhousing.org" target="_blank">echofairhousing.org</a></span></li>
+      <li><span class="resource-org">City of San Leandro — RSO Hotline</span><span class="resource-note">510-577-6006 · <a href="https://www.sanleandro.org" target="_blank">sanleandro.org</a></span></li>
+      <li><span class="resource-org">California HCD — Mobile Home Complaints</span><span class="resource-note"><a href="https://www.hcd.ca.gov/manufactured-and-mobile-homes" target="_blank">hcd.ca.gov/manufactured-and-mobile-homes</a></span></li>
+      <li><span class="resource-org">California Mobilehome Residency Law (Civil Code 798)</span><span class="resource-note"><a href="https://leginfo.legislature.ca.gov" target="_blank">leginfo.legislature.ca.gov</a></span></li>
+      <li><span class="resource-org">GSMOL — Golden State Manufactured-Home Owners League</span><span class="resource-note">831-688-1293 · <a href="https://www.gsmol.org" target="_blank">gsmol.org</a></span></li>
+      <li><span class="resource-org">Bay Area Legal Aid</span><span class="resource-note"><a href="https://baylegal.org" target="_blank">baylegal.org</a></span></li>
+      <li><span class="resource-org">Park Management — BSM Group</span><span class="resource-note">Lydia Garcia: lgarcia@bsm-group.com · Ryan Jasinsky: ryan@bsm-group.com</span></li>
+      <li><span class="resource-org">Civic Watch San Leandro</span><span class="resource-note"><a href="https://lexiannax.github.io" target="_blank">lexiannax.github.io</a></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="ad-banner">
+      <h2>Advertise in Mission Bay News</h2>
+      <p style="font-size:0.88rem;opacity:0.85;line-height:1.6;">Mission Bay News reaches 366 households in a senior mobile home community in San Leandro. Professional businesses only. Ads reviewed before publication.</p>
+      <div class="ad-grid">
+        <div class="ad-card"><div class="ad-size">Small</div><div class="ad-price">$15<span style="font-size:0.8rem;font-weight:400;">/mo</span></div><div class="ad-desc">Business card size</div></div>
+        <div class="ad-card"><div class="ad-size">Medium</div><div class="ad-price">$30<span style="font-size:0.8rem;font-weight:400;">/mo</span></div><div class="ad-desc">Quarter page</div></div>
+        <div class="ad-card"><div class="ad-size">Large</div><div class="ad-price">$50<span style="font-size:0.8rem;font-weight:400;">/mo</span></div><div class="ad-desc">Half page</div></div>
+        <div class="ad-card"><div class="ad-size">Full Page</div><div class="ad-price">$75<span style="font-size:0.8rem;font-weight:400;">/mo</span></div><div class="ad-desc">Full page placement</div></div>
+      </div>
+      <p style="font-size:0.78rem;opacity:0.65;margin-top:0.75rem;">Rates are placeholder figures pending publisher confirmation.</p>
+      <a href="mailto:missionbaynews@gmail.com?subject=Advertising Enquiry — Mission Bay News" class="ad-cta">Enquire About Advertising</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="pay-banner">
+      <h2>Fee Payments &amp; Contacts</h2>
+      <div class="pay-grid">
+        <div class="pay-card">
+          <h3>Space Rent &amp; Park Fees</h3>
+          Paid to BSM Group (park management).<br>
+          <a href="mailto:missionbay@bsm-group.com">missionbay@bsm-group.com</a><br>
+          Lydia Garcia: <a href="mailto:lgarcia@bsm-group.com">lgarcia@bsm-group.com</a><br>
+          Ryan Jasinsky: <a href="mailto:ryan@bsm-group.com">ryan@bsm-group.com</a>
+        </div>
+        <div class="pay-card">
+          <h3>Newsletter &amp; Website Enquiries</h3>
+          Content, corrections, advertising, and website matters.<br>
+          <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a>
+        </div>
+        <div class="pay-card">
+          <h3>RSO Dispute or Complaint</h3>
+          City of San Leandro RSO office.<br>
+          <a href="tel:5105776006">510-577-6006</a> · <a href="https://www.sanleandro.org" target="_blank">sanleandro.org</a><br>
+          ECHO Housing: 510-581-9380
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<footer>
+  Mission Bay Community News &nbsp;·&nbsp; 15333 Wicks Blvd, San Leandro CA 94579 &nbsp;·&nbsp;
+  <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a> &nbsp;·&nbsp;
+  Editor: Alexandra McKeever &nbsp;·&nbsp;
+  <a href="https://lexiannax.github.io" target="_blank">Civic Watch San Leandro</a><br>
+  <span style="opacity:0.5;font-size:0.72rem;">Not affiliated with park management. Content for general informational purposes only.</span>
+</footer>
+</body>
+</html>
