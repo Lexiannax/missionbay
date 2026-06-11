@@ -170,24 +170,69 @@ footer a { color: rgba(255,255,255,0.8); }
     </ul>
   </section>
 
-  <section>
-    <div class="ad-banner">
-      <h2>Advertise in Mission Bay News</h2>
-      <p style="font-size:0.88rem;opacity:0.85;line-height:1.6;">Mission Bay News reaches 366 households in a senior mobile home community in San Leandro. Professional businesses only. Ads reviewed before publication.</p>
-      <div class="ad-grid">
-        <div class="ad-card"><div class="ad-size">Small</div><div class="ad-price">$15<span style="font-size:0.8rem;font-weight:400;">/mo</span></div><div class="ad-desc">Business card size</div></div>
-        <div class="ad-card"><div class="ad-size">Medium</div><div class="ad-price">$30<span style="font-size:0.8rem;font-weight:400;">/mo</span></div><div class="ad-desc">Quarter page</div></div>
-        <div class="ad-card"><div class="ad-size">Large</div><div class="ad-price">$50<span style="font-size:0.8rem;font-weight:400;">/mo</span></div><div class="ad-desc">Half page</div></div>
-        <div class="ad-card"><div class="ad-size">Full Page</div><div class="ad-price">$75<span style="font-size:0.8rem;font-weight:400;">/mo</span></div><div class="ad-desc">Full page placement</div></div>
-      </div>
-      <p style="font-size:0.78rem;opacity:0.65;margin-top:0.75rem;">Rates are placeholder figures pending publisher confirmation.</p>
-      <a href="mailto:missionbaynews@gmail.com?subject=Advertising Enquiry — Mission Bay News" class="ad-cta">Enquire About Advertising</a>
-    </div>
-  </section>
+
 
 
 
 </main>
+
+<!-- ADVERTISER TICKER BANNER -->
+<div class="ticker-wrap">
+  <div class="ticker-label">Sponsored</div>
+  <div class="ticker-outer">
+    <div class="ticker-track" id="tickerTrack">
+      <!-- AD SLOTS — replace placeholder text with real advertiser name, tagline, and link -->
+      <!-- To add a real ad: copy one .ticker-ad block, change the text and href -->
+      <div class="ticker-ad">
+        <a href="mailto:missionbaynews@gmail.com?subject=Advertising Enquiry" class="ticker-link">
+          <span class="ticker-biz">Your Business Here</span>
+          <span class="ticker-tag">Reach 366 Mission Bay households — enquire about advertising</span>
+        </a>
+      </div>
+      <div class="ticker-ad">
+        <a href="mailto:missionbaynews@gmail.com?subject=Advertising Enquiry" class="ticker-link">
+          <span class="ticker-biz">Advertise in Mission Bay News</span>
+          <span class="ticker-tag">Contact missionbaynews@gmail.com to reserve your spot</span>
+        </a>
+      </div>
+      <div class="ticker-ad">
+        <a href="mailto:missionbaynews@gmail.com?subject=Advertising Enquiry" class="ticker-link">
+          <span class="ticker-biz">Your Business Here</span>
+          <span class="ticker-tag">Supporting the Mission Bay community — enquire today</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.ticker-wrap { background: #1d3557; padding: 0; overflow: hidden; position: relative; display: flex; align-items: center; height: 52px; }
+.ticker-label { background: #f4d35e; color: #1d3557; font-family: Arial,sans-serif; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0 1rem; height: 100%; display: flex; align-items: center; white-space: nowrap; flex-shrink: 0; z-index: 2; }
+.ticker-outer { flex: 1; overflow: hidden; height: 100%; position: relative; }
+.ticker-track { display: flex; align-items: center; height: 100%; white-space: nowrap; animation: ticker-scroll 18s linear infinite; }
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-ad { display: inline-flex; align-items: center; padding: 0 3rem; height: 100%; border-right: 1px solid rgba(255,255,255,0.1); }
+.ticker-link { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+.ticker-link:hover { text-decoration: none; }
+.ticker-biz { color: #f4d35e; font-family: Arial,sans-serif; font-weight: 700; font-size: 0.85rem; white-space: nowrap; }
+.ticker-tag { color: rgba(255,255,255,0.75); font-family: Arial,sans-serif; font-size: 0.78rem; white-space: nowrap; }
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+</style>
+
+<script>
+// Duplicate ticker items so scroll loops seamlessly
+(function() {
+  var track = document.getElementById('tickerTrack');
+  if (track) {
+    var clone = track.innerHTML;
+    track.innerHTML = clone + clone;
+  }
+})();
+</script>
+
 <footer>
   Mission Bay Community News &nbsp;·&nbsp; 15333 Wicks Blvd, San Leandro CA 94579 &nbsp;·&nbsp;
   <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a> &nbsp;·&nbsp;
