@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newsletter Archive — Mission Bay Community News</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, serif; font-size: 16px; line-height: 1.7; color: #2c2c2c; background: #f7f5f0; }
+a { color: #185fa5; }
+a:hover { text-decoration: underline; }
+header { background: #1d3557; color: #fff; }
+.header-top { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.12); flex-wrap: wrap; gap: 0.5rem; }
+.site-title { font-size: 1.5rem; font-weight: 700; }
+.site-subtitle { font-size: 0.82rem; opacity: 0.7; font-style: italic; margin-top: 2px; }
+.header-meta { font-size: 0.78rem; opacity: 0.6; text-align: right; }
+nav { display: flex; overflow-x: auto; background: #162a47; }
+nav a { color: rgba(255,255,255,0.8); font-size: 0.82rem; font-family: Arial,sans-serif; padding: 0.6rem 1.1rem; white-space: nowrap; border-right: 1px solid rgba(255,255,255,0.08); text-decoration: none; }
+nav a:hover { background: rgba(255,255,255,0.08); color:#fff; }
+nav a.active { background: rgba(255,255,255,0.12); color: #f4d35e; }
+main { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+section { margin-bottom: 3rem; }
+h2 { font-family: Georgia,serif; font-size: 1.4rem; color: #1d3557; border-bottom: 2px solid #1d3557; padding-bottom: 0.4rem; margin-bottom: 1.25rem; }
+h3 { font-family: Arial,sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin: 1.5rem 0 0.75rem; }
+.welcome-bar { background: #f0faf4; border: 1px solid #a8d5b5; border-radius: 4px; padding: 0.75rem 1.25rem; font-size: 0.88rem; color: #1e7e44; margin-bottom: 1.5rem; display: none; }
+.gate { background: #fff; border: 2px solid #1d3557; border-radius: 6px; padding: 2rem; text-align: center; }
+.gate h3 { font-family: Georgia,serif; font-size: 1.1rem; color: #1d3557; margin-bottom: 0.5rem; text-transform: none; letter-spacing: 0; }
+.gate p { font-size: 0.88rem; color: #666; margin-bottom: 1.25rem; }
+.gate a.btn { display: inline-block; background: #1d3557; color: #fff; font-family: Arial,sans-serif; font-weight: 700; font-size: 0.88rem; padding: 0.65rem 1.75rem; border-radius: 3px; text-decoration: none; }
+.gate a.btn:hover { background: #163047; text-decoration: none; }
+.archive-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(175px,1fr)); gap: 1rem; }
+.archive-card { border: 1px solid #ddd; border-radius: 4px; padding: 1rem; background: #fff; }
+.archive-card.current { background: #fffdf5; border-color: #f4d35e; }
+.card-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; font-family: Arial,sans-serif; font-weight: 700; margin-bottom: 0.3rem; color: #1d3557; }
+.card-label.latest { color: #1e7e44; }
+.card-month { font-size: 1.05rem; font-weight: 700; color: #1d3557; }
+.card-year { font-size: 0.78rem; color: #999; }
+.card-btn { display: inline-block; margin-top: 0.75rem; font-size: 0.78rem; background: #1d3557; color: #fff; padding: 0.3rem 0.75rem; border-radius: 3px; text-decoration: none; font-family: Arial,sans-serif; }
+.card-btn:hover { background: #163047; text-decoration: none; color:#fff; }
+.card-pending { font-size: 0.75rem; color: #aaa; font-style: italic; margin-top: 0.5rem; }
+.submit-box { background: #eef3f9; border: 1px solid #c5d5e8; border-radius: 4px; padding: 1.25rem 1.5rem; margin-top: 1.5rem; font-size: 0.88rem; line-height: 1.7; }
+.submit-box strong { color: #1d3557; }
+footer { background: #1d3557; color: rgba(255,255,255,0.65); font-size: 0.78rem; font-family: Arial,sans-serif; text-align: center; padding: 1.5rem 1rem; }
+footer a { color: rgba(255,255,255,0.8); }
+@media (max-width:640px) {
+  .header-top { padding: 1rem; }
+  main { padding: 1.25rem 0.9rem 3rem; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <div>
+      <div class="site-title">Mission Bay Community News</div>
+      <div class="site-subtitle">15333 Wicks Blvd, San Leandro CA 94579 &nbsp;·&nbsp; Est. 1971</div>
+    </div>
+    <div class="header-meta">Resident-run newsletter<br>Editor: Alexandra McKeever<br>missionbaynews@gmail.com</div>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="register.html">Register</a>
+    <a href="newsletter.html" class="active">Newsletter</a>
+    <a href="members.html">Members Area</a>
+    <a href="https://lexiannax.github.io" target="_blank">Civic Watch</a>
+  </nav>
+</header>
+<main>
+  <h2>Mission Bay News — Newsletter Archive</h2>
+
+  <div class="welcome-bar" id="welcome-bar"></div>
+
+  <!-- GATE: shown to non-registered visitors -->
+  <div class="gate" id="gate">
+    <h3>Residents Only</h3>
+    <p>Register with your lot number (1–366) to access all newsletter issues. Takes 30 seconds.</p>
+    <a href="register.html" class="btn">Register to Read &rarr;</a>
+    <p style="margin-top:1rem;font-size:0.78rem;color:#aaa;">Already registered? Your access is session-based — if you closed the browser, <a href="register.html">register again</a> to unlock.</p>
+  </div>
+
+  <!-- ARCHIVE: shown after registration -->
+  <div id="archive" style="display:none;">
+    <h3>2026</h3>
+    <div class="archive-grid">
+      <div class="archive-card current">
+        <div class="card-label latest">Latest Issue</div>
+        <div class="card-month">July 2026</div>
+        <div class="card-year">Mission Bay News</div>
+        <a class="card-btn" href="https://drive.google.com/file/d/1d4EkzhVEz9mZZcvcRI_J_O6BmyeLskiu/view?usp=sharing" target="_blank">Read PDF</a>
+      </div>
+      <div class="archive-card">
+        <div class="card-label">Published</div>
+        <div class="card-month">June 2026</div>
+        <div class="card-year">Mission Bay News</div>
+        <a class="card-btn" href="https://drive.google.com/file/d/1T9HTUI5KMuNdTkyaBaU7RFiVpF_WcbRQ/view?usp=sharing" target="_blank">Read PDF</a>
+      </div>
+      <div class="archive-card">
+        <div class="card-label">Published</div>
+        <div class="card-month">May 2026</div>
+        <div class="card-year">Mission Bay News</div>
+        <a class="card-btn" href="https://drive.google.com/file/d/1BpVaIRDMfZvhMG117buBN6E0nHnDbfcu/view?usp=sharing" target="_blank">Read PDF</a>
+      </div>
+      <div class="archive-card">
+        <div class="card-label">Published</div>
+        <div class="card-month">April 2026</div>
+        <div class="card-year">Mission Bay News</div>
+        <a class="card-btn" href="https://drive.google.com/file/d/1RFyowhm6HbRNQbgQR_4CjXs7dov4PGEW/view?usp=sharing" target="_blank">Read PDF</a>
+      </div>
+      <div class="archive-card">
+        <div class="card-label">Published</div>
+        <div class="card-month">March 2026</div>
+        <div class="card-year">Mission Bay News</div>
+        <a class="card-btn" href="https://drive.google.com/file/d/1jJIjVoF7cse4SrKHc4i2Th1_jpepu-jm/view?usp=sharing" target="_blank">Read PDF</a>
+      </div>
+      <div class="archive-card">
+        <div class="card-label">Published</div>
+        <div class="card-month">February 2026</div>
+        <div class="card-year">Mission Bay News</div>
+        <a class="card-btn" href="https://drive.google.com/file/d/1HImigsxLMQ8949oQ3Tf9pdXT-D8o8Vn2/view?usp=sharing" target="_blank">Read PDF</a>
+      </div>
+      <div class="archive-card">
+        <div class="card-label">Published</div>
+        <div class="card-month">January 2026</div>
+        <div class="card-year">Mission Bay News</div>
+        <a class="card-btn" href="https://drive.google.com/file/d/1r3LRTCU6iUqYpkGekyl99L9iY69z25st/view?usp=sharing" target="_blank">Read PDF</a>
+      </div>
+    </div>
+
+    <h3>2025 — Adding as issues are located</h3>
+    <div class="archive-grid">
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">December 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">November 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">October 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">September 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">August 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">July 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">June 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">May 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">April 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">March 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">February 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+      <div class="archive-card"><div class="card-label">Published</div><div class="card-month">January 2025</div><div class="card-year">Mission Bay News</div><div class="card-pending">PDF coming soon</div></div>
+    </div>
+
+    <div class="submit-box">
+      <strong>Submit content for August 2026:</strong> Deadline July 10, 2026.<br>
+      Submissions are due by the 10th of the month prior to publication.<br>
+      Birthdays, anniversaries, club news, letters, corrections:
+      <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a><br>
+      Contributors: Brenda Gianni (calendar) · Peter Cleaveland (VIEU, 510-351-1742) · Sara &amp; Eddy Quintero (clubs) · Deborah Acosta (MBRA)
+    </div>
+  </div>
+</main>
+<footer>
+  Mission Bay Community News &nbsp;·&nbsp; 15333 Wicks Blvd, San Leandro CA 94579 &nbsp;·&nbsp;
+  <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a> &nbsp;·&nbsp;
+  Editor: Alexandra McKeever<br>
+  <span style="opacity:0.5;font-size:0.72rem;">Not affiliated with park management. Content for general informational purposes only.</span>
+</footer>
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  if (sessionStorage.getItem('mbVerified') === '1') {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('archive').style.display = 'block';
+    var bar = document.getElementById('welcome-bar');
+    bar.textContent = 'Welcome, ' + sessionStorage.getItem('mbName') + ' (Lot ' + sessionStorage.getItem('mbLot') + '). All issues are unlocked.';
+    bar.style.display = 'block';
+  }
+});
+</script>
+</body>
+</html>
