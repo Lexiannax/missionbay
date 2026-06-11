@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Members Area — Mission Bay Community News</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, serif; font-size: 16px; line-height: 1.7; color: #2c2c2c; background: #f7f5f0; }
+a { color: #185fa5; }
+a:hover { text-decoration: underline; }
+header { background: #1d3557; color: #fff; }
+.header-top { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.12); flex-wrap: wrap; gap: 0.5rem; }
+.site-title { font-size: 1.5rem; font-weight: 700; }
+.site-subtitle { font-size: 0.82rem; opacity: 0.7; font-style: italic; margin-top: 2px; }
+.header-meta { font-size: 0.78rem; opacity: 0.6; text-align: right; }
+nav { display: flex; overflow-x: auto; background: #162a47; }
+nav a { color: rgba(255,255,255,0.8); font-size: 0.82rem; font-family: Arial,sans-serif; padding: 0.6rem 1.1rem; white-space: nowrap; border-right: 1px solid rgba(255,255,255,0.08); text-decoration: none; }
+nav a:hover { background: rgba(255,255,255,0.08); color:#fff; }
+nav a.active { background: rgba(255,255,255,0.12); color: #f4d35e; }
+main { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+section { margin-bottom: 3rem; }
+h2 { font-family: Georgia,serif; font-size: 1.4rem; color: #1d3557; border-bottom: 2px solid #1d3557; padding-bottom: 0.4rem; margin-bottom: 1.25rem; }
+h3 { font-family: Arial,sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin: 1.5rem 0 0.75rem; }
+.welcome-bar { background: #f0faf4; border: 1px solid #a8d5b5; border-radius: 4px; padding: 0.75rem 1.25rem; font-size: 0.88rem; color: #1e7e44; margin-bottom: 1.5rem; display: none; }
+.gate { background: #fff; border: 2px solid #1d3557; border-radius: 6px; padding: 2rem; text-align: center; }
+.gate h3 { font-family: Georgia,serif; font-size: 1.1rem; color: #1d3557; margin-bottom: 0.5rem; text-transform: none; letter-spacing: 0; }
+.gate p { font-size: 0.88rem; color: #666; margin-bottom: 1.25rem; }
+.gate a.btn { display: inline-block; background: #1d3557; color: #fff; font-family: Arial,sans-serif; font-weight: 700; font-size: 0.88rem; padding: 0.65rem 1.75rem; border-radius: 3px; text-decoration: none; }
+.gate a.btn:hover { background: #163047; text-decoration: none; }
+.alert { border-left: 4px solid #c0392b; background: #fdf2f2; padding: 0.9rem 1.1rem; font-size: 0.85rem; margin-bottom: 1.25rem; border-radius: 0 3px 3px 0; line-height: 1.6; }
+.alert strong { color: #c0392b; }
+.park-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.park-table th { font-family: Arial,sans-serif; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.07em; padding: 0.5rem 0.6rem; text-align: left; border-bottom: 2px solid #1d3557; color: #666; background: #f7f5f0; }
+.park-table td { padding: 0.55rem 0.6rem; border-bottom: 1px solid #eee; vertical-align: top; }
+.park-table tr:hover td { background: #faf9f7; }
+.park-table tr.highlight td { background: #fffdf5; font-weight: 600; }
+td.rent { color: #c0392b; font-weight: 600; font-family: Arial,sans-serif; }
+td.rso-yes { color: #27ae60; font-size: 0.78rem; }
+td.rso-no { color: #aaa; font-size: 0.78rem; }
+.rso-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.rso-table th { font-family: Arial,sans-serif; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.07em; padding: 0.5rem 0.6rem; text-align: left; border-bottom: 2px solid #1d3557; color: #666; background: #f7f5f0; }
+.rso-table td { padding: 0.55rem 0.6rem; border-bottom: 1px solid #eee; }
+.rso-table tr.highlight td { background: #fffdf5; font-weight: 600; }
+.info-box { background: #eef3f9; border: 1px solid #c5d5e8; border-radius: 4px; padding: 1.25rem 1.5rem; font-size: 0.85rem; line-height: 1.8; margin-top: 1rem; }
+footer { background: #1d3557; color: rgba(255,255,255,0.65); font-size: 0.78rem; font-family: Arial,sans-serif; text-align: center; padding: 1.5rem 1rem; }
+footer a { color: rgba(255,255,255,0.8); }
+@media (max-width:640px) {
+  .header-top { padding: 1rem; }
+  main { padding: 1.25rem 0.9rem 3rem; }
+  .park-table { font-size: 0.72rem; }
+  .park-table th, .park-table td { padding: 0.35rem 0.35rem; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <div>
+      <div class="site-title">Mission Bay Community News</div>
+      <div class="site-subtitle">15333 Wicks Blvd, San Leandro CA 94579 &nbsp;·&nbsp; Est. 1971</div>
+    </div>
+    <div class="header-meta">Resident-run newsletter<br>Editor: Alexandra McKeever<br>missionbaynews@gmail.com</div>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="register.html">Register</a>
+    <a href="newsletter.html">Newsletter</a>
+    <a href="members.html" class="active">Members Area</a>
+    <a href="https://lexiannax.github.io" target="_blank">Civic Watch</a>
+  </nav>
+</header>
+<main>
+  <h2>Members Area — Resident Information</h2>
+  <div class="welcome-bar" id="welcome-bar"></div>
+
+  <div class="gate" id="gate">
+    <h3>Residents Only</h3>
+    <p>Register with your lot number to access park data, rent comparisons, and RSO tools.</p>
+    <a href="register.html" class="btn">Register to Access &rarr;</a>
+  </div>
+
+  <div id="members-content" style="display:none;">
+
+    <section>
+      <h2>Alameda County Park Directory</h2>
+      <div class="alert">
+        <strong>Zero resident-owned parks in Alameda County.</strong> Every park is privately or corporately owned. California has 176 resident-owned communities (34,872 spaces). Alameda County has none.
+      </div>
+      <p style="font-size:0.82rem;color:#666;margin-bottom:1rem;">Data compiled June 2026. RSO = Rent Stabilization Ordinance. AA = All-Ages. 55+ = Senior community.</p>
+      <table class="park-table">
+        <thead><tr><th>Park</th><th>City</th><th>Spaces</th><th>Type</th><th>Space Rent</th><th>RSO</th></tr></thead>
+        <tbody>
+          <tr class="highlight"><td><strong>Mission Bay</strong></td><td>San Leandro</td><td>366</td><td>55+</td><td class="rent">$1,279/mo</td><td class="rso-yes">Yes — 2.2% cap</td></tr>
+          <tr><td>Bayshore Commons</td><td>San Leandro</td><td>~200</td><td>AA</td><td class="rent">~$1,200/mo</td><td class="rso-yes">Yes — 2.2% cap</td></tr>
+          <tr><td>Estudillo Estates</td><td>San Leandro</td><td>~100</td><td>55+</td><td class="rent">~$1,150/mo</td><td class="rso-yes">Yes — 2.2% cap</td></tr>
+          <tr><td>Spanish Ranch I</td><td>Hayward</td><td>~300</td><td>55+</td><td class="rent">~$1,150/mo</td><td class="rso-yes">Yes — CPI-based</td></tr>
+          <tr><td>Spanish Ranch II</td><td>Hayward</td><td>~280</td><td>55+</td><td class="rent">~$1,100/mo</td><td class="rso-yes">Yes — CPI-based</td></tr>
+          <tr><td>Fairview Mobile Home Park</td><td>Hayward</td><td>~150</td><td>AA</td><td class="rent">~$1,050/mo</td><td class="rso-yes">Yes — CPI-based</td></tr>
+          <tr><td>Niles Canyon</td><td>Fremont</td><td>~200</td><td>55+</td><td class="rent">$1,275/mo</td><td class="rso-no">No RSO</td></tr>
+          <tr><td>Southlake Mobile Estates</td><td>Fremont</td><td>~180</td><td>AA</td><td class="rent">$1,240/mo</td><td class="rso-no">No RSO</td></tr>
+          <tr><td>Besaro Mobile Home Community</td><td>Fremont</td><td>~220</td><td>AA</td><td class="rent">$1,279/mo</td><td class="rso-no">No RSO</td></tr>
+          <tr><td>The Tropics</td><td>Union City</td><td>~250</td><td>55+</td><td class="rent">~$1,200/mo</td><td class="rso-no">No RSO</td></tr>
+          <tr><td>Skyline Mobile Home Park</td><td>Oakland</td><td>~180</td><td>AA</td><td class="rent">~$1,100/mo</td><td class="rso-yes">Yes — strongest</td></tr>
+          <tr><td>Pleasanton Meadows</td><td>Pleasanton</td><td>~160</td><td>55+</td><td class="rent">~$1,150/mo</td><td class="rso-no">No RSO</td></tr>
+          <tr><td>Newark Mobile Home Park</td><td>Newark</td><td>~200</td><td>AA</td><td class="rent">~$1,050/mo</td><td class="rso-no">No RSO</td></tr>
+          <tr><td>Livermore Mobile Home Park</td><td>Livermore</td><td>~140</td><td>AA</td><td class="rent">~$1,000/mo</td><td class="rso-no">No RSO</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>RSO Protections by City</h2>
+      <table class="rso-table">
+        <thead><tr><th>City</th><th>Ordinance</th><th>2026 Cap</th><th>Key Notes</th></tr></thead>
+        <tbody>
+          <tr class="highlight"><td><strong>San Leandro</strong></td><td>RSO Title 4, Ch. 4-39</td><td>2.2%</td><td>90-day notice. Capital improvements need city approval. 25% petition triggers hearing. 510-577-6006</td></tr>
+          <tr><td>Oakland</td><td>Mobilehome RSO</td><td>CPI-based</td><td>Strongest in county.</td></tr>
+          <tr><td>Hayward</td><td>Ord. 20-01 (2020)</td><td>CPI-based</td><td>Strong resident petition rights.</td></tr>
+          <tr><td>Fremont</td><td>None</td><td>No cap</td><td>Market rate increases permitted.</td></tr>
+          <tr><td>Union City</td><td>None</td><td>No cap</td><td>Market rate increases permitted.</td></tr>
+          <tr><td>Newark / Livermore / Pleasanton</td><td>None</td><td>No cap</td><td>Market rate increases permitted.</td></tr>
+        </tbody>
+      </table>
+      <div class="info-box">
+        <strong>What a 2.2% increase means at Mission Bay:</strong><br>
+        $1,279 x 2.2% = $28.14/month added. New rent: $1,307.14/month = $15,685/year.<br>
+        Over 10 years at 2.2% annually, the rent reaches approximately $1,589/month.<br><br>
+        <strong>To dispute a charge:</strong> Call 510-577-6006 or visit <a href="https://www.sanleandro.org" target="_blank">sanleandro.org</a><br>
+        <strong>Free counseling:</strong> ECHO Housing 510-581-9380
+      </div>
+    </section>
+
+  </div>
+</main>
+<footer>
+  Mission Bay Community News &nbsp;·&nbsp; 15333 Wicks Blvd, San Leandro CA 94579 &nbsp;·&nbsp;
+  <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a> &nbsp;·&nbsp;
+  Editor: Alexandra McKeever<br>
+  <span style="opacity:0.5;font-size:0.72rem;">Not affiliated with park management. Content for general informational purposes only.</span>
+</footer>
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  if (sessionStorage.getItem('mbVerified') === '1') {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('members-content').style.display = 'block';
+    var bar = document.getElementById('welcome-bar');
+    bar.textContent = 'Welcome, ' + sessionStorage.getItem('mbName') + ' (Lot ' + sessionStorage.getItem('mbLot') + '). Members area unlocked.';
+    bar.style.display = 'block';
+  }
+});
+</script>
+</body>
+</html>
