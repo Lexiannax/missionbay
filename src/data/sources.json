@@ -1,0 +1,43 @@
+[
+  {
+    "name": "City of San Leandro",
+    "category": "Local Government",
+    "url": "https://www.sanleandro.org/RSSFeed.aspx?ModID=1&CID=All-newsflash.xml"
+  },
+  {
+    "name": "NBC Bay Area",
+    "category": "Local News",
+    "url": "https://www.nbcbayarea.com/news/local/feed/"
+  },
+  {
+    "name": "KTVU Fox 2",
+    "category": "Local News",
+    "url": "https://www.ktvu.com/rss/category/news"
+  },
+  {
+    "name": "ABC7 News",
+    "category": "Local News",
+    "url": "https://abc7news.com/feed/",
+    "onlyHost": "abc7news.com"
+  },
+  {
+    "name": "The Oaklandside",
+    "category": "Local News",
+    "url": "https://oaklandside.org/feed/"
+  },
+  {
+    "name": "AC Transit",
+    "category": "Getting Around",
+    "url": "https://www.actransit.org/rss.xml"
+  },
+  {
+    "name": "California Housing & Community Development",
+    "category": "Housing & Rights",
+    "url": "https://www.hcd.ca.gov/rss.xml"
+  },
+  {
+    "name": "National Weather Service",
+    "category": "Weather Alerts",
+    "url": "https://api.weather.gov/alerts/active.atom?zone=CAZ508"
+  }
+]

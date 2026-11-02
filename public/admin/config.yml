@@ -1,0 +1,117 @@
+backend:
+  name: github
+  repo: Lexiannax/missionbay
+  branch: main
+
+site_url: https://missionbaynews.us
+display_url: https://missionbaynews.us
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: articles
+    label: Articles
+    label_singular: Article
+    folder: src/content/articles
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{date}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Date, widget: datetime, time_format: false, date_format: "yyyy-MM-dd", format: "yyyy-MM-dd" }
+      - { name: summary, label: Short summary (shown on the home page and in search results), widget: text }
+      - name: category
+        label: Category
+        widget: select
+        options: ["Park Notices", "Community", "Events & Clubs", "Rent & Rights", "Health & Safety", "Local Government"]
+        default: Community
+      - { name: image, label: Photo, widget: image, required: false }
+      - { name: imageAlt, label: Photo description (for people who cannot see the picture), widget: string, required: false }
+      - { name: pinned, label: Keep at the top of the home page, widget: boolean, default: false }
+      - { name: draft, label: Draft (turn on to keep this off the website), widget: boolean, default: false }
+      - { name: body, label: Article, widget: markdown }
+
+  - name: newsletters
+    label: Newsletter issues
+    label_singular: Newsletter issue
+    folder: src/content/newsletters
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{month}}"
+    summary: "{{title}}"
+    sortable_fields: [issueDate]
+    fields:
+      - { name: title, label: Title (for example, August 2026), widget: string }
+      - { name: issueDate, label: Issue date (use the 1st of the month), widget: datetime, time_format: false, date_format: "yyyy-MM-dd", format: "yyyy-MM-dd" }
+      - { name: pdf, label: PDF file, widget: file }
+
+  - name: pages
+    label: Pages
+    files:
+      - name: rights
+        label: Your Rights (RSO)
+        file: src/content/pages/rso.md
+        format: frontmatter
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Short description, widget: string, required: false }
+          - { name: body, label: Page text, widget: markdown }
+      - name: about
+        label: About
+        file: src/content/pages/about.md
+        format: frontmatter
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Short description, widget: string, required: false }
+          - { name: body, label: Page text, widget: markdown }
+
+  - name: data
+    label: Lists & settings
+    files:
+      - name: resources
+        label: Resources & contacts
+        file: src/data/resources.json
+        format: json
+        fields:
+          - name: items
+            label: Resources
+            widget: list
+            root: true
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: note, label: Description, widget: text, required: false }
+              - { name: phone, label: Phone number, widget: string, required: false }
+              - { name: url, label: Website, widget: string, required: false }
+      - name: sources
+        label: News sources (Local News page)
+        file: src/data/sources.json
+        format: json
+        fields:
+          - name: items
+            label: Sources
+            widget: list
+            root: true
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: category, label: Section on the Local News page, widget: string }
+              - { name: url, label: Feed address (RSS), widget: string }
+              - { name: onlyHost, label: Only show stories from this website (optional), widget: string, required: false }
+      - name: hidden-news
+        label: Hide a news story
+        file: src/data/hidden-news.json
+        format: json
+        fields:
+          - { name: items, label: "Links to hide (paste the story's web address)", widget: list, root: true, field: { name: link, label: Link, widget: string } }
+      - name: blocked-words
+        label: Words to keep off the Local News page
+        file: src/data/blocked-words.json
+        format: json
+        fields:
+          - { name: items, label: "Stories containing any of these words are skipped", widget: list, root: true, field: { name: word, label: Word, widget: string } }

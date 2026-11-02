@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getArticles } from '../../lib/content';
+
+const articles = await getArticles();
+---
+
+<Base title="Mission Bay News" description="News and announcements for the Mission Bay community.">
+  <h1>Mission Bay News</h1>
+  <p class="lede">What's happening in our community.</p>
+
+  {articles.length === 0 ? (
+    <p class="empty">No articles yet. Check back soon.</p>
+  ) : (
+    <div class="grid">
+      {articles.map((a) => <ArticleCard article={a} />)}
+    </div>
+  )}
+</Base>

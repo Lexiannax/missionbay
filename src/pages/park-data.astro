@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import data from '../data/parks.json';
+---
+
+<Base title="Park Rent Data" description="Space rents and rent stabilization protections for mobile home parks in Alameda County.">
+  <h1>Alameda County Park Directory</h1>
+
+  <div class="callout">
+    <p><strong>Zero resident-owned parks in Alameda County.</strong> Every park is privately or corporately owned. California has 176 resident-owned communities (34,872 spaces). Alameda County has none.</p>
+  </div>
+
+  <p class="meta">Data compiled {data.compiled}. RSO = Rent Stabilization Ordinance. AA = All-Ages. 55+ = Senior community. Figures marked ~ are approximate.</p>
+
+  <div class="table-wrap">
+    <table>
+      <caption class="sr-only">Mobile home parks in Alameda County</caption>
+      <thead><tr><th scope="col">Park</th><th scope="col">City</th><th scope="col">Spaces</th><th scope="col">Type</th><th scope="col">Space rent</th><th scope="col">RSO</th></tr></thead>
+      <tbody>
+        {data.parks.map((p) => (
+          <tr class={p.home ? 'home' : undefined}>
+            <th scope="row" style="background:none;color:inherit;font-weight:700">{p.park}</th>
+            <td>{p.city}</td><td>{p.spaces}</td><td>{p.type}</td><td>{p.rent}</td>
+            <td class={p.protected ? 'yes' : 'no'}>{p.rso}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Rent stabilization protections by city</h2>
+  <div class="table-wrap">
+    <table>
+      <caption class="sr-only">Rent stabilization rules by city</caption>
+      <thead><tr><th scope="col">City</th><th scope="col">Ordinance</th><th scope="col">2026 cap</th><th scope="col">Key notes</th></tr></thead>
+      <tbody>
+        {data.cities.map((c) => (
+          <tr class={c.home ? 'home' : undefined}>
+            <th scope="row" style="background:none;color:inherit;font-weight:700">{c.city}</th>
+            <td>{c.ordinance}</td><td>{c.cap}</td><td>{c.notes}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p><a class="more-link" href="/rights/">What does this mean for me? Read your rights →</a></p>
+</Base>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>

@@ -1,0 +1,102 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = 'Reliable local news for the residents of Mission Bay, San Leandro, California.', image } = Astro.props;
+const pageTitle = title === 'Home' ? 'Mission Bay Community News — San Leandro, CA' : `${title} — Mission Bay News`;
+const path = Astro.url.pathname;
+
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/articles/', label: 'Mission Bay News' },
+  { href: '/news/', label: 'Local News' },
+  { href: '/newsletter/', label: 'Newsletter' },
+  { href: '/resources/', label: 'Resources' },
+  { href: '/about/', label: 'About' },
+];
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const canonical = new URL(path, Astro.site);
+const ogImage = image ? new URL(image, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <link rel="alternate" type="application/rss+xml" title="Mission Bay News" href="/rss.xml" />
+    <script is:inline>
+      try {
+        var s = localStorage.getItem('mb-text-size');
+        if (s) document.documentElement.dataset.size = s;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/">
+          <span class="brand-title">Mission Bay Community News</span>
+          <span class="brand-sub">15333 Wicks Blvd, San Leandro CA · Est. 1971</span>
+        </a>
+        <div class="text-size" role="group" aria-label="Text size">
+          <span>Text size:</span>
+          <button type="button" data-size="" aria-label="Normal text size" aria-pressed="true">A</button>
+          <button type="button" data-size="large" aria-label="Large text size" aria-pressed="false" style="font-size:1.15em">A</button>
+          <button type="button" data-size="xlarge" aria-label="Extra large text size" aria-pressed="false" style="font-size:1.35em">A</button>
+        </div>
+      </div>
+      <nav class="main-nav" aria-label="Main">
+        <ul>
+          {nav.map((n) => (
+            <li><a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p><strong>Mission Bay Community News</strong> · 15333 Wicks Blvd, San Leandro CA 94579</p>
+      <p>Editor: Alexandra McKeever · <a href="mailto:editor@missionbaynews.us">editor@missionbaynews.us</a></p>
+      <p>Not affiliated with park management. Content is for general information only.</p>
+      <p><a href="/rss.xml">RSS feed</a> · <a href="https://lexiannax.github.io">Civic Watch San Leandro</a></p>
+    </footer>
+
+    <script is:inline>
+      (function () {
+        var buttons = document.querySelectorAll('.text-size button');
+        function mark(size) {
+          buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.size === size)); });
+        }
+        mark(document.documentElement.dataset.size || '');
+        buttons.forEach(function (b) {
+          b.addEventListener('click', function () {
+            var size = b.dataset.size;
+            if (size) document.documentElement.dataset.size = size;
+            else delete document.documentElement.dataset.size;
+            try { localStorage.setItem('mb-text-size', size); } catch (e) {}
+            mark(size);
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

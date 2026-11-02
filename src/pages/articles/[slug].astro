@@ -1,0 +1,26 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getArticles, formatDay } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const { title, date, summary, category, image, imageAlt } = article.data;
+---
+
+<Base title={title} description={summary} image={image}>
+  <article class="prose">
+    <p class="meta"><span class="tag">{category}</span>{formatDay(date)}</p>
+    <h1>{title}</h1>
+    {image && <img class="article-image" src={image} alt={imageAlt} />}
+    <div class="article-body">
+      <Content />
+    </div>
+  </article>
+  <p><a class="more-link" href="/articles/">← All Mission Bay news</a></p>
+</Base>

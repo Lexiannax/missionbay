@@ -1,0 +1,17 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Sponsor from '../components/Sponsor.astro';
+
+const page = await getEntry('pages', 'about');
+if (!page) throw new Error('Missing content page: src/content/pages/about.md');
+const { Content } = await render(page);
+---
+
+<Base title={page.data.title} description={page.data.description}>
+  <div class="prose">
+    <h1>{page.data.title}</h1>
+    <Content />
+  </div>
+  <Sponsor />
+</Base>

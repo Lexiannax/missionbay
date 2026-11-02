@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import { getNewsletters, formatMonth } from '../lib/content';
+
+const issues = await getNewsletters();
+const [latest, ...older] = issues;
+const years = [...new Set(older.map((i) => i.data.issueDate.getUTCFullYear()))];
+---
+
+<Base title="Newsletter" description="Every issue of the Mission Bay News monthly newsletter, as a PDF.">
+  <h1>Newsletter Archive</h1>
+  <p class="lede">Every monthly issue of Mission Bay News. Open to everyone.</p>
+
+  {latest && (
+    <div class="card">
+      <p class="meta"><span class="tag">Latest issue</span></p>
+      <h3>Mission Bay News — {formatMonth(latest.data.issueDate)}</h3>
+      <p><a class="button dark" href={latest.data.pdf}>Read the PDF</a></p>
+    </div>
+  )}
+
+  {years.map((year) => (
+    <section>
+      <h2>{year}</h2>
+      <div class="grid">
+        {older.filter((i) => i.data.issueDate.getUTCFullYear() === year).map((i) => (
+          <div class="card">
+            <h3>{formatMonth(i.data.issueDate)}</h3>
+            <p><a href={i.data.pdf}>Read the PDF</a></p>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <div class="callout">
+    <p><strong>Send us your news for the next issue.</strong></p>
+    <p>Birthdays, anniversaries, club news, letters and corrections. Deadline: the 10th of the month before publication.</p>
+    <p><a href="mailto:editor@missionbaynews.us">editor@missionbaynews.us</a></p>
+  </div>
+</Base>
