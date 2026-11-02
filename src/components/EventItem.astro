@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  event: CollectionEntry<'events'>;
+}
+const { event } = Astro.props;
+const { title, date, startTime, endTime, location, summary } = event.data;
+
+const dt = (opts: Intl.DateTimeFormatOptions) => date.toLocaleDateString('en-US', { ...opts, timeZone: 'UTC' });
+const when = [startTime, endTime].filter(Boolean).join(' – ');
+---
+
+<li>
+  <div class="event-date" aria-hidden="true">
+    <span class="mon">{dt({ month: 'short' })}</span>
+    <span class="day">{dt({ day: 'numeric' })}</span>
+    <span class="dow">{dt({ weekday: 'short' })}</span>
+  </div>
+  <div class="event-body">
+    <h3>{title}</h3>
+    <p class="meta">{dt({ weekday: 'long', month: 'long', day: 'numeric' })}{when && ` · ${when}`}{location && ` · ${location}`}</p>
+    {summary && <p>{summary}</p>}
+    <p><a class="button dark small" href={`/events/${event.id}.ics`}>Add to my calendar</a></p>
+  </div>
+</li>

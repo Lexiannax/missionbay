@@ -27,13 +27,32 @@ collections:
       - name: category
         label: Category
         widget: select
-        options: ["Park Notices", "Community", "Events & Clubs", "Rent & Rights", "Health & Safety", "Local Government"]
+        options: ["Park Notices", "Community", "Events & Clubs", "Neighbor Spotlight", "Rent & Rights", "Health & Safety", "Local Government"]
         default: Community
       - { name: image, label: Photo, widget: image, required: false }
       - { name: imageAlt, label: Photo description (for people who cannot see the picture), widget: string, required: false }
       - { name: pinned, label: Keep at the top of the home page, widget: boolean, default: false }
       - { name: draft, label: Draft (turn on to keep this off the website), widget: boolean, default: false }
       - { name: body, label: Article, widget: markdown }
+
+  - name: events
+    label: Events
+    label_singular: Event
+    folder: src/content/events
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{date}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Event name, widget: string }
+      - { name: date, label: Date, widget: datetime, time_format: false, date_format: "yyyy-MM-dd", format: "yyyy-MM-dd" }
+      - { name: startTime, label: Start time (for example 2:00 PM), widget: string, required: false }
+      - { name: endTime, label: End time (for example 4:00 PM), widget: string, required: false }
+      - { name: location, label: Where (for example Clubhouse), widget: string, required: false }
+      - { name: summary, label: What to expect, widget: text, required: false }
+      - { name: body, label: Extra details (optional), widget: markdown, required: false }
 
   - name: newsletters
     label: Newsletter issues
