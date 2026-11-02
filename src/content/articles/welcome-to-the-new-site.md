@@ -13,7 +13,7 @@ Here's what's new:
 
 - **Community articles** will be posted here as news comes in, so you don't have to wait for the next monthly issue.
 - **Local News** gathers headlines from the City of San Leandro, local TV and newspapers, AC Transit and weather alerts. Each headline links to the original story.
-- **The newsletter archive is now open to everyone.** There is no longer a registration step.
+- **The newsletter archive** is for Mission Bay residents. Register once with your name and lot number, and you can read every issue.
 - You can make the text bigger using the **Text size** buttons at the top of every page.
 
 Have news to share? Email [alexandramckeever14@gmail.com](mailto:alexandramckeever14@gmail.com). The deadline for the monthly newsletter is the 10th of the month before publication.
