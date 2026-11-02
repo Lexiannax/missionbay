@@ -7,35 +7,71 @@ const [latest, ...older] = issues;
 const years = [...new Set(older.map((i) => i.data.issueDate.getUTCFullYear()))];
 ---
 
-<Base title="Newsletter" description="Every issue of the Mission Bay News monthly newsletter, as a PDF.">
+<Base title="Newsletter" description="The Mission Bay News monthly newsletter archive for residents.">
   <h1>Newsletter Archive</h1>
-  <p class="lede">Every monthly issue of Mission Bay News. Open to everyone.</p>
+  <p class="lede">Every monthly issue of Mission Bay News, for Mission Bay residents.</p>
 
-  {latest && (
-    <div class="card">
-      <p class="meta"><span class="tag">Latest issue</span></p>
-      <h3>Mission Bay News — {formatMonth(latest.data.issueDate)}</h3>
-      <p><a class="button dark" href={latest.data.pdf}>Read the PDF</a></p>
-    </div>
-  )}
-
-  {years.map((year) => (
-    <section>
-      <h2>{year}</h2>
-      <div class="grid">
-        {older.filter((i) => i.data.issueDate.getUTCFullYear() === year).map((i) => (
-          <div class="card">
-            <h3>{formatMonth(i.data.issueDate)}</h3>
-            <p><a href={i.data.pdf}>Read the PDF</a></p>
-          </div>
-        ))}
-      </div>
-    </section>
-  ))}
-
-  <div class="callout">
-    <p><strong>Send us your news for the next issue.</strong></p>
-    <p>Birthdays, anniversaries, club news, letters and corrections. Deadline: the 10th of the month before publication.</p>
-    <p><a href="mailto:alexandramckeever14@gmail.com">alexandramckeever14@gmail.com</a></p>
+  <div id="gate" class="framed">
+    <h2 style="margin-top:0">Please register to read</h2>
+    <p>The newsletter archive is for Mission Bay residents. Registering takes about 30 seconds.</p>
+    <p><a class="button dark" href="/register/">Register to read</a></p>
+    <noscript><p>This page needs JavaScript turned on. Or email <a href="mailto:alexandramckeever14@gmail.com">alexandramckeever14@gmail.com</a> for a copy.</p></noscript>
   </div>
+
+  <div id="archive" hidden>
+    <p class="meta"><span id="welcome"></span> <button type="button" id="signout" class="linklike">Not you? Sign out</button></p>
+
+    {latest && (
+      <div class="card">
+        <p class="meta"><span class="tag">Latest issue</span></p>
+        <h3>Mission Bay News — {formatMonth(latest.data.issueDate)}</h3>
+        <p><a class="button dark" href={latest.data.pdf}>Read the PDF</a></p>
+      </div>
+    )}
+
+    {years.map((year) => (
+      <section>
+        <h2>{year}</h2>
+        <div class="grid">
+          {older.filter((i) => i.data.issueDate.getUTCFullYear() === year).map((i) => (
+            <div class="card">
+              <h3>{formatMonth(i.data.issueDate)}</h3>
+              <p><a href={i.data.pdf}>Read the PDF</a></p>
+            </div>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    <div class="callout">
+      <p><strong>Send us your news for the next issue.</strong></p>
+      <p>Birthdays, anniversaries, club news, letters and corrections. Deadline: the 10th of the month before publication.</p>
+      <p><a href="mailto:alexandramckeever14@gmail.com">alexandramckeever14@gmail.com</a></p>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var ok = false, name = '';
+      try {
+        ok = localStorage.getItem('mb-resident') === '1';
+        name = localStorage.getItem('mb-resident-name') || '';
+      } catch (e) {}
+      if (!ok) return;
+      document.getElementById('gate').hidden = true;
+      document.getElementById('archive').hidden = false;
+      document.getElementById('welcome').textContent = name ? 'Welcome, ' + name + '.' : 'Welcome.';
+      document.getElementById('signout').addEventListener('click', function () {
+        try { localStorage.removeItem('mb-resident'); localStorage.removeItem('mb-resident-name'); } catch (e) {}
+        window.location.reload();
+      });
+    })();
+  </script>
 </Base>
+
+<style is:global>
+  .linklike {
+    font: inherit; font-family: var(--label); font-size: 0.8rem; background: none; border: 0; padding: 0.6rem 0.4rem; min-height: 2.75rem;
+    color: var(--link); text-decoration: underline; text-decoration-color: var(--gold); cursor: pointer;
+  }
+</style>
