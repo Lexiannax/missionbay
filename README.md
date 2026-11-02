@@ -4,7 +4,7 @@ Source for https://missionbaynews.us. See `docs/superpowers/specs/2026-11-01-mis
 
 ## Publishing (for the editor)
 
-1. Go to https://missionbaynews.us/admin/ and click **Sign In with Token**. The pop-up has a link that opens GitHub's token page with the right permissions already chosen. Create the token, copy it, paste it into the box and sign in. (The plain "Sign in with GitHub" button needs an extra login helper that this site does not have.) Keep the token private, like a password.
+1. Go to https://missionbaynews.us/admin/ and click **Sign In Using Access Token** (the second button, not "Sign In with GitHub"). The pop-up has a link that opens GitHub's token page with the right permissions already chosen. Create the token, copy it, paste it into the box and sign in. (The plain "Sign in with GitHub" button needs an extra login helper that this site does not have.) Keep the token private, like a password.
 2. Choose **Articles → New Article**, fill it in and click **Publish**.
 3. The site rebuilds automatically and shows the change in about a minute or two.
 
