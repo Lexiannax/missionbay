@@ -61,7 +61,7 @@ collections:
     create: true
     extension: md
     format: frontmatter
-    slug: "{{year}}-{{month}}"
+    slug: "{{slug}}"
     summary: "{{title}}"
     sortable_fields: [issueDate]
     fields:
