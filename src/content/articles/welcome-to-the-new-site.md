@@ -16,4 +16,4 @@ Here's what's new:
 - **The newsletter archive** is for Mission Bay residents. Register once with your name and lot number, and you can read every issue.
 - You can make the text bigger using the **Text size** buttons at the top of every page.
 
-Have news to share? Email [alexandramckeever14@gmail.com](mailto:alexandramckeever14@gmail.com). The deadline for the monthly newsletter is the 10th of the month before publication.
+Have news to share? Email [missionbaynews@gmail.com](mailto:missionbaynews@gmail.com). The deadline for the monthly newsletter is the 10th of the month before publication.
