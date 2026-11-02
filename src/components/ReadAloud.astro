@@ -1,0 +1,56 @@
+---
+interface Props {
+  /** id of the element whose text is read */
+  target: string;
+}
+const { target } = Astro.props;
+---
+
+<div class="read-aloud" data-target={target} hidden>
+  <button type="button" data-action="play">Read this aloud</button>
+  <button type="button" data-action="stop" hidden>Stop</button>
+  <span class="hint" role="status" aria-live="polite"></span>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.read-aloud').forEach((box) => {
+    if (!('speechSynthesis' in window)) return;
+    const source = document.getElementById(box.dataset.target ?? '');
+    if (!source) return;
+
+    const play = box.querySelector<HTMLButtonElement>('[data-action="play"]')!;
+    const stop = box.querySelector<HTMLButtonElement>('[data-action="stop"]')!;
+    const hint = box.querySelector<HTMLElement>('.hint')!;
+    box.hidden = false;
+
+    const finish = () => {
+      stop.hidden = true;
+      play.hidden = false;
+      hint.textContent = '';
+    };
+
+    play.addEventListener('click', () => {
+      window.speechSynthesis.cancel();
+      // Read one paragraph at a time; long single passages can cut off in some browsers.
+      const parts = Array.from(source.querySelectorAll('h1, h2, h3, p, li')).map((el) => el.textContent?.trim() ?? '').filter(Boolean);
+      parts.forEach((text, i) => {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-US';
+        u.rate = 0.9;
+        if (i === parts.length - 1) u.onend = finish;
+        u.onerror = finish;
+        window.speechSynthesis.speak(u);
+      });
+      play.hidden = true;
+      stop.hidden = false;
+      hint.textContent = 'Reading…';
+    });
+
+    stop.addEventListener('click', () => {
+      window.speechSynthesis.cancel();
+      finish();
+    });
+
+    window.addEventListener('pagehide', () => window.speechSynthesis.cancel());
+  });
+</script>

@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { getCollection } from 'astro:content';
+import { dayKey, parseTime, todayKey } from './calendar';
 
 export interface NewsItem {
   title: string;
@@ -46,3 +47,32 @@ export const formatPublished = (iso: string | null) =>
   iso
     ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/Los_Angeles' })
     : '';
+
+export interface Weather {
+  generatedAt: string | null;
+  periods: { name: string; temperature: number; unit: string; summary: string }[];
+}
+
+/** Forecast saved by scripts/fetch-weather.mjs. Missing file means no weather yet. */
+export function loadWeather(): Weather {
+  try {
+    return JSON.parse(readFileSync('src/data/weather.json', 'utf8'));
+  } catch {
+    return { generatedAt: null, periods: [] };
+  }
+}
+
+/** Events happening today or later, soonest first. The site rebuilds every 3 hours, so past events drop off on their own. */
+export async function getUpcomingEvents() {
+  const today = todayKey();
+  const all = await getCollection('events');
+  return all
+    .filter((e) => dayKey(e.data.date) >= today)
+    .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf() || (parseTime(a.data.startTime)?.h ?? 0) - (parseTime(b.data.startTime)?.h ?? 0));
+}
+
+export const formatEventDay = (d: Date) =>
+  d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' });
+
+export const formatEventShort = (d: Date) =>
+  d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });

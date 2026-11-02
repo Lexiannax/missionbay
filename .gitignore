@@ -3,3 +3,5 @@ dist/
 .astro/
 src/data/news.json
 .env
+.superpowers/
+src/data/weather.json

@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import EventItem from '../../components/EventItem.astro';
+import { getUpcomingEvents } from '../../lib/content';
+
+const events = await getUpcomingEvents();
+---
+
+<Base title="Events" description="Upcoming events and activities for Mission Bay residents.">
+  <h1>Upcoming Events</h1>
+  <p class="lede">What's happening at Mission Bay. Use "Add to my calendar" to save an event on your phone or computer.</p>
+
+  {events.length === 0 ? (
+    <div class="callout">
+      <p><strong>No events are posted right now.</strong></p>
+      <p>Have an event to share? Email <a href="mailto:editor@missionbaynews.us">editor@missionbaynews.us</a>.</p>
+    </div>
+  ) : (
+    <ul class="event-list">
+      {events.map((e) => <EventItem event={e} />)}
+    </ul>
+  )}
+</Base>

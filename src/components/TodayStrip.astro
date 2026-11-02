@@ -1,0 +1,55 @@
+---
+import { getUpcomingEvents, loadNews, loadWeather, formatEventShort } from '../lib/content';
+
+const weather = loadWeather();
+const events = (await getUpcomingEvents()).slice(0, 3);
+const news = loadNews().items;
+const alerts = news.filter((i) => i.category === 'Weather Alerts').slice(0, 2);
+const transit = news.filter((i) => i.category === 'Getting Around').slice(0, 2);
+const [today, tonight] = weather.periods;
+---
+
+<section class="today" aria-label="Today at Mission Bay">
+  <div class="today-col">
+    <h2>Weather</h2>
+    {today ? (
+      <>
+        <p class="big">{today.temperature}°{today.unit} · {today.summary}</p>
+        <p>{today.name}{tonight && <span> · {tonight.name}: {tonight.temperature}°{tonight.unit}, {tonight.summary}</span>}</p>
+      </>
+    ) : (
+      <p class="quiet">Forecast unavailable right now.</p>
+    )}
+    {alerts.length > 0 && (
+      <ul>
+        {alerts.map((a) => <li><strong>Alert:</strong> <a href={a.link}>{a.title}</a></li>)}
+      </ul>
+    )}
+  </div>
+
+  <div class="today-col">
+    <h2>Coming up</h2>
+    {events.length > 0 ? (
+      <ul>
+        {events.map((e) => (
+          <li><strong>{formatEventShort(e.data.date)}</strong>{e.data.startTime && ` · ${e.data.startTime}`}<br />{e.data.title}</li>
+        ))}
+      </ul>
+    ) : (
+      <p class="quiet">No events posted yet.</p>
+    )}
+    <p><a href="/events/">All events</a></p>
+  </div>
+
+  <div class="today-col">
+    <h2>Bus service</h2>
+    {transit.length > 0 ? (
+      <ul>
+        {transit.map((t) => <li><a href={t.link} rel="noopener noreferrer" target="_blank">{t.title}</a></li>)}
+      </ul>
+    ) : (
+      <p class="quiet">No AC Transit notices right now.</p>
+    )}
+    <p><a href="/news/#getting-around">More AC Transit notices</a></p>
+  </div>
+</section>

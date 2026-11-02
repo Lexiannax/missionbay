@@ -1,6 +1,7 @@
 ---
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import ReadAloud from '../../components/ReadAloud.astro';
 import { getArticles, formatDay } from '../../lib/content';
 
 export async function getStaticPaths() {
@@ -18,7 +19,8 @@ const { title, date, summary, category, image, imageAlt } = article.data;
     <p class="meta"><span class="tag">{category}</span>{formatDay(date)}</p>
     <h1>{title}</h1>
     {image && <img class="article-image" src={image} alt={imageAlt} />}
-    <div class="article-body">
+    <ReadAloud target="article-text" />
+    <div class="article-body" id="article-text">
       <Content />
     </div>
   </article>

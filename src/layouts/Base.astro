@@ -5,9 +5,11 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  /** Pages that should not appear in site search (search results, the aggregator). */
+  searchable?: boolean;
 }
 
-const { title, description = 'Reliable local news for the residents of Mission Bay, San Leandro, California.', image } = Astro.props;
+const { title, description = 'Reliable local news for the residents of Mission Bay, San Leandro, California.', image, searchable = true } = Astro.props;
 const pageTitle = title === 'Home' ? 'Mission Bay Community News — San Leandro, CA' : `${title} — Mission Bay News`;
 const path = Astro.url.pathname;
 
@@ -15,9 +17,9 @@ const nav = [
   { href: '/', label: 'Home' },
   { href: '/articles/', label: 'Mission Bay News' },
   { href: '/news/', label: 'Local News' },
+  { href: '/events/', label: 'Events' },
   { href: '/newsletter/', label: 'Newsletter' },
   { href: '/resources/', label: 'Resources' },
-  { href: '/about/', label: 'About' },
 ];
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 const canonical = new URL(path, Astro.site);
@@ -38,6 +40,12 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
     <meta property="og:url" content={canonical} />
     {ogImage && <meta property="og:image" content={ogImage} />}
     <link rel="alternate" type="application/rss+xml" title="Mission Bay News" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Josefin+Sans:wght@400;600&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+    />
     <script is:inline>
       try {
         var s = localStorage.getItem('mb-text-size');
@@ -48,18 +56,29 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="/">
-          <span class="brand-title">Mission Bay Community News</span>
-          <span class="brand-sub">15333 Wicks Blvd, San Leandro CA · Est. 1971</span>
-        </a>
-        <div class="text-size" role="group" aria-label="Text size">
-          <span>Text size:</span>
-          <button type="button" data-size="" aria-label="Normal text size" aria-pressed="true">A</button>
-          <button type="button" data-size="large" aria-label="Large text size" aria-pressed="false" style="font-size:1.15em">A</button>
-          <button type="button" data-size="xlarge" aria-label="Extra large text size" aria-pressed="false" style="font-size:1.35em">A</button>
+      <div class="utility">
+        <div class="utility-inner">
+          <div class="utility-links">
+            <a href="/search/">Search</a>
+            <a href="/about/">About</a>
+          </div>
+          <div class="text-size" role="group" aria-label="Text size">
+            <span>Text size</span>
+            <button type="button" data-size="" aria-label="Normal text size" aria-pressed="true">A</button>
+            <button type="button" data-size="large" aria-label="Large text size" aria-pressed="false" style="font-size:1.15em">A</button>
+            <button type="button" data-size="xlarge" aria-label="Extra large text size" aria-pressed="false" style="font-size:1.35em">A</button>
+          </div>
         </div>
       </div>
+
+      <div class="masthead">
+        <a href="/">
+          <span class="est">★ Established 1971 ★</span>
+          <span class="name">MISSION BAY</span>
+          <span class="sub">Community News · San Leandro</span>
+        </a>
+      </div>
+
       <nav class="main-nav" aria-label="Main">
         <ul>
           {nav.map((n) => (
@@ -69,15 +88,18 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
       </nav>
     </header>
 
-    <main id="main">
+    <main id="main" data-pagefind-body={searchable ? '' : undefined}>
       <slot />
     </main>
 
     <footer class="site-footer">
-      <p><strong>Mission Bay Community News</strong> · 15333 Wicks Blvd, San Leandro CA 94579</p>
+      <p class="footer-name">Mission Bay Community News</p>
+      <p>15333 Wicks Blvd, San Leandro CA 94579</p>
       <p>Editor: Alexandra McKeever · <a href="mailto:editor@missionbaynews.us">editor@missionbaynews.us</a></p>
       <p>Not affiliated with park management. Content is for general information only.</p>
-      <p><a href="/rss.xml">RSS feed</a> · <a href="https://lexiannax.github.io">Civic Watch San Leandro</a></p>
+      <p>
+        <a href="/search/">Search</a> &middot; <a href="/about/">About</a> &middot; <a href="/rss.xml">RSS feed</a> &middot; <a href="https://lexiannax.github.io">Civic Watch San Leandro</a> &middot; <a href="/admin/">Editor sign-in</a>
+      </p>
     </footer>
 
     <script is:inline>

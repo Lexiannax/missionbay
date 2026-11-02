@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Search" description="Search Mission Bay Community News." searchable={false}>
+  <h1>Search the site</h1>
+  <p class="lede">Type a word or two, such as <em>rent</em>, <em>newsletter</em> or <em>bingo</em>.</p>
+
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <div id="search"></div>
+  <noscript><p>Search needs JavaScript turned on.</p></noscript>
+
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', function () {
+      if (!window.PagefindUI) {
+        document.getElementById('search').innerHTML = '<p class="empty">Search is only available on the published site.</p>';
+        return;
+      }
+      new PagefindUI({ element: '#search', showImages: false, showSubResults: false, resetStyles: false, autofocus: true });
+    });
+  </script>
+</Base>

@@ -5,6 +5,7 @@ export const CATEGORIES = [
   'Park Notices',
   'Community',
   'Events & Clubs',
+  'Neighbor Spotlight',
   'Rent & Rights',
   'Health & Safety',
   'Local Government',
@@ -21,6 +22,18 @@ const articles = defineCollection({
     imageAlt: z.string().default(''),
     pinned: z.boolean().default(false),
     draft: z.boolean().default(false),
+  }),
+});
+
+const events = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/events' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    startTime: z.string().optional(),
+    endTime: z.string().optional(),
+    location: z.string().optional(),
+    summary: z.string().optional(),
   }),
 });
 
@@ -42,4 +55,4 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { articles, newsletters, pages };
+export const collections = { articles, events, newsletters, pages };

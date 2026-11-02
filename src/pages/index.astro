@@ -1,27 +1,39 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import NewsList from '../components/NewsList.astro';
 import Sponsor from '../components/Sponsor.astro';
+import TodayStrip from '../components/TodayStrip.astro';
+import Fan from '../components/Fan.astro';
+import street from '../assets/street.jpg';
 import { getArticles, getNewsletters, loadNews, formatMonth } from '../lib/content';
 
 const articles = await getArticles();
 const sorted = [...articles].sort((a, b) => Number(b.data.pinned) - Number(a.data.pinned));
 const latest = sorted.slice(0, 3);
 const [latestIssue] = await getNewsletters();
-const headlines = loadNews().items.slice(0, 6);
+const headlines = loadNews().items.filter((i) => i.category !== 'Weather Alerts' && i.category !== 'Getting Around').slice(0, 6);
 ---
 
 <Base title="Home">
   <section class="hero">
-    <h1>Welcome to Mission Bay Community News</h1>
-    <p>
-      The resident-run newsletter and information hub for the Mission Bay community in San Leandro. Not affiliated with park
-      management.
-    </p>
-    {latestIssue && <a class="button" href="/newsletter/">Read the {formatMonth(latestIssue.data.issueDate)} issue</a>}
-    <a class="button secondary" href="/rights/">Know your rent rights</a>
+    <div>
+      <p class="eyebrow">Our neighborhood · Our news</p>
+      <h1>Welcome home to Mission Bay</h1>
+      <p>
+        The resident-run newsletter and news hub for the Mission Bay community in San Leandro. Not affiliated with park
+        management.
+      </p>
+      {latestIssue && <a class="button" href="/newsletter/">Read the {formatMonth(latestIssue.data.issueDate)} issue</a>}
+      <a class="button secondary" href="/rights/">Know your rent rights</a>
+    </div>
+    <figure class="hero-photo">
+      <Image src={street} alt="A tree-lined Mission Bay street on an autumn afternoon, with homes and gardens on both sides" width={720} loading="eager" />
+    </figure>
   </section>
+
+  <TodayStrip />
 
   <section>
     <h2>Latest from Mission Bay</h2>
@@ -34,6 +46,8 @@ const headlines = loadNews().items.slice(0, 6);
     )}
     <a class="more-link" href="/articles/">All Mission Bay news →</a>
   </section>
+
+  <Fan />
 
   <section>
     <h2>Local news headlines</h2>
