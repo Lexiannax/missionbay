@@ -18,10 +18,10 @@ Mission Bay Community News is a resident-run newsletter and information site for
 
 Birthdays, anniversaries, club news, letters and corrections are welcome. The deadline is the **10th of the month** before publication.
 
-Email the editor, Alexandra McKeever, at [alexandramckeever14@gmail.com](mailto:alexandramckeever14@gmail.com).
+Email the editor, Alexandra McKeever, at [missionbaynews@gmail.com](mailto:missionbaynews@gmail.com).
 
 Newsletter contributors: Brenda Gianni (calendar), Peter Cleaveland (VIEU, 510-351-1742), Sara & Eddy Quintero (clubs), Deborah Acosta (MBRA).
 
 ## Advertising
 
-Reach Mission Bay households by advertising in Mission Bay News. Email [alexandramckeever14@gmail.com](mailto:alexandramckeever14@gmail.com?subject=Advertising%20Enquiry) to reserve a spot.
+Reach Mission Bay households by advertising in Mission Bay News. Email [missionbaynews@gmail.com](mailto:missionbaynews@gmail.com?subject=Advertising%20Enquiry) to reserve a spot.

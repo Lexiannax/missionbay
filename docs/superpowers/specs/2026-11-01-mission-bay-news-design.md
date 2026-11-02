@@ -57,7 +57,7 @@ Home · Mission Bay News (articles) · Local News (aggregator) · Newsletter arc
 ## Decisions made
 
 - The newsletter archive sits behind a **register-to-read page** (name and lot number, remembered on the visitor's own device, nothing collected or stored). This is a courtesy step, **not security**: the site is static and the PDFs are in a public repo, so anyone with a PDF link can open it. Real protection would need a login service such as Supabase with private file storage and approval of each resident. Decided by the editor on 2026-11-01 to keep the simple wall for now.
-- Contact email shown on the site is alexandramckeever14@gmail.com.
+- Contact email shown on the site is missionbaynews@gmail.com.
 - Newsletter PDFs were moved from Google Drive into the repo (`public/newsletters/`).
 - The repo is public so GitHub Pages works on a free plan. **Anything committed to the repo is public, including drafts. Never put private information in it.**
 
