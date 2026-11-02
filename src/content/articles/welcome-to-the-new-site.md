@@ -16,4 +16,4 @@ Here's what's new:
 - **The newsletter archive is now open to everyone.** There is no longer a registration step.
 - You can make the text bigger using the **Text size** buttons at the top of every page.
 
-Have news to share? Email [editor@missionbaynews.us](mailto:editor@missionbaynews.us). The deadline for the monthly newsletter is the 10th of the month before publication.
+Have news to share? Email [alexandramckeever14@gmail.com](mailto:alexandramckeever14@gmail.com). The deadline for the monthly newsletter is the 10th of the month before publication.
