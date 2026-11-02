@@ -1,0 +1,17 @@
+{
+  "name": "mission-bay-news",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "fetch-news": "node scripts/fetch-news.mjs",
+    "build": "node scripts/fetch-news.mjs && astro build",
+    "build:offline": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.4.4",
+    "fast-xml-parser": "^5.11.2"
+  }
+}

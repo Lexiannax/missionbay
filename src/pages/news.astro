@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import NewsList from '../components/NewsList.astro';
+import { loadNews } from '../lib/content';
+
+const { items, generatedAt } = loadNews();
+
+const order = ['Local Government', 'Local News', 'Getting Around', 'Housing & Rights', 'Weather Alerts'];
+const present = [...new Set(items.map((i) => i.category))];
+const categories = [...order.filter((c) => present.includes(c)), ...present.filter((c) => !order.includes(c))];
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+const updated = generatedAt
+  ? new Date(generatedAt).toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short', timeZone: 'America/Los_Angeles' })
+  : null;
+---
+
+<Base title="Local News" description="Headlines from local and official sources, with links to the original stories.">
+  <h1>Local News</h1>
+  <p class="lede">
+    Headlines gathered from local and official sources. Each one links to the original story on the publisher's website.
+    {updated && <span> Last updated {updated}.</span>}
+  </p>
+
+  {categories.length > 1 && (
+    <nav class="news-filters" aria-label="Jump to a topic">
+      {categories.map((c) => <a href={`#${slug(c)}`}>{c}</a>)}
+    </nav>
+  )}
+
+  {categories.length === 0 ? (
+    <NewsList items={[]} />
+  ) : (
+    categories.map((c) => (
+      <section id={slug(c)}>
+        <h2>{c}</h2>
+        <NewsList items={items.filter((i) => i.category === c)} />
+      </section>
+    ))
+  )}
+
+  <p class="meta">Mission Bay News does not write or edit these stories. We link to them as a convenience.</p>
+</Base>

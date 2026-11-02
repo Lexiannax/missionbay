@@ -1,0 +1,16 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const page = await getEntry('pages', 'rso');
+if (!page) throw new Error('Missing content page: src/content/pages/rso.md');
+const { Content } = await render(page);
+---
+
+<Base title={page.data.title} description={page.data.description}>
+  <div class="prose">
+    <h1>{page.data.title}</h1>
+    <Content />
+    <p><a class="button dark" href="/park-data/">Compare rents and protections across Alameda County</a></p>
+  </div>
+</Base>

@@ -1,0 +1,27 @@
+{
+  "compiled": "June 2026",
+  "parks": [
+    { "park": "Mission Bay", "city": "San Leandro", "spaces": "366", "type": "55+", "rent": "$1,279/mo", "rso": "Yes — 2.2% cap", "protected": true, "home": true },
+    { "park": "Bayshore Commons", "city": "San Leandro", "spaces": "~200", "type": "AA", "rent": "~$1,200/mo", "rso": "Yes — 2.2% cap", "protected": true },
+    { "park": "Estudillo Estates", "city": "San Leandro", "spaces": "~100", "type": "55+", "rent": "~$1,150/mo", "rso": "Yes — 2.2% cap", "protected": true },
+    { "park": "Spanish Ranch I", "city": "Hayward", "spaces": "~300", "type": "55+", "rent": "~$1,150/mo", "rso": "Yes — CPI-based", "protected": true },
+    { "park": "Spanish Ranch II", "city": "Hayward", "spaces": "~280", "type": "55+", "rent": "~$1,100/mo", "rso": "Yes — CPI-based", "protected": true },
+    { "park": "Fairview Mobile Home Park", "city": "Hayward", "spaces": "~150", "type": "AA", "rent": "~$1,050/mo", "rso": "Yes — CPI-based", "protected": true },
+    { "park": "Niles Canyon", "city": "Fremont", "spaces": "~200", "type": "55+", "rent": "$1,275/mo", "rso": "No RSO", "protected": false },
+    { "park": "Southlake Mobile Estates", "city": "Fremont", "spaces": "~180", "type": "AA", "rent": "$1,240/mo", "rso": "No RSO", "protected": false },
+    { "park": "Besaro Mobile Home Community", "city": "Fremont", "spaces": "~220", "type": "AA", "rent": "$1,279/mo", "rso": "No RSO", "protected": false },
+    { "park": "The Tropics", "city": "Union City", "spaces": "~250", "type": "55+", "rent": "~$1,200/mo", "rso": "No RSO", "protected": false },
+    { "park": "Skyline Mobile Home Park", "city": "Oakland", "spaces": "~180", "type": "AA", "rent": "~$1,100/mo", "rso": "Yes — strongest", "protected": true },
+    { "park": "Pleasanton Meadows", "city": "Pleasanton", "spaces": "~160", "type": "55+", "rent": "~$1,150/mo", "rso": "No RSO", "protected": false },
+    { "park": "Newark Mobile Home Park", "city": "Newark", "spaces": "~200", "type": "AA", "rent": "~$1,050/mo", "rso": "No RSO", "protected": false },
+    { "park": "Livermore Mobile Home Park", "city": "Livermore", "spaces": "~140", "type": "AA", "rent": "~$1,000/mo", "rso": "No RSO", "protected": false }
+  ],
+  "cities": [
+    { "city": "San Leandro", "ordinance": "RSO Title 4, Ch. 4-39", "cap": "2.2%", "notes": "90-day notice. Capital improvements need city approval. 25% petition triggers hearing. 510-577-6006", "home": true },
+    { "city": "Oakland", "ordinance": "Mobilehome RSO", "cap": "CPI-based", "notes": "Strongest in county." },
+    { "city": "Hayward", "ordinance": "Ord. 20-01 (2020)", "cap": "CPI-based", "notes": "Strong resident petition rights." },
+    { "city": "Fremont", "ordinance": "None", "cap": "No cap", "notes": "Market rate increases permitted." },
+    { "city": "Union City", "ordinance": "None", "cap": "No cap", "notes": "Market rate increases permitted." },
+    { "city": "Newark / Livermore / Pleasanton", "ordinance": "None", "cap": "No cap", "notes": "Market rate increases permitted." }
+  ]
+}

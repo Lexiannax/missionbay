@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import resources from '../data/resources.json';
+---
+
+<Base title="Resources" description="Phone numbers, agencies and information for Mission Bay residents.">
+  <h1>Resources &amp; Contacts</h1>
+  <p class="lede">Who to call for help with rent, repairs, legal questions and park issues.</p>
+
+  <div class="callout">
+    <p><strong>Know your rights.</strong> San Leandro's Rent Stabilization Ordinance caps 2026 rent increases at 2.2%.</p>
+    <p><a href="/rights/">Read your rights</a> · <a href="/park-data/">See rent data for Alameda County parks</a></p>
+  </div>
+
+  <ul class="resource-list">
+    {resources.map((r) => (
+      <li>
+        <strong>{r.name}</strong>
+        {r.note && <p>{r.note}</p>}
+        {r.phone && <p><a class="phone" href={`tel:${r.phone.replace(/\D/g, '')}`}>{r.phone}</a></p>}
+        {r.url && <p><a href={r.url} rel="noopener noreferrer" target="_blank">{r.url.replace(/^https?:\/\/(www\.)?/, '')}</a></p>}
+      </li>
+    ))}
+  </ul>
+</Base>
