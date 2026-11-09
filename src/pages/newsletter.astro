@@ -9,15 +9,15 @@ const open = issues.filter((i) => i.data.access !== 'residents' && i.data.pdf);
 const years = [...new Set(open.map((i) => i.data.issueDate.getUTCFullYear()))].sort((a, b) => b - a);
 ---
 
-<Base title="Newsletter" description="The Mission Bay News monthly newsletter archive.">
+<Base title="Newsletter" description="The Mission Bay News monthly newsletter, kept in a private library for Mission Bay residents.">
   <h1>Newsletter Archive</h1>
-  <p class="lede">Every monthly issue of Mission Bay News. Older issues are open to everyone. Recent issues are for Mission Bay residents.</p>
+  <p class="lede">Every monthly issue of Mission Bay News is kept in a private library for Mission Bay residents.</p>
 
   {recent.length > 0 && (
     <div class="framed">
-      <h2 style="margin-top:0">Recent issues: residents only</h2>
+      <h2 style="margin-top:0">Residents only</h2>
       <p>
-        {recent.length} recent issues ({formatMonth(recent[recent.length - 1].data.issueDate)} to {formatMonth(recent[0].data.issueDate)})
+        {recent.length} issues ({formatMonth(recent[recent.length - 1].data.issueDate)} to {formatMonth(recent[0].data.issueDate)})
         are in the private residents' library.
       </p>
       <p>

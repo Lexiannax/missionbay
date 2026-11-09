@@ -5,7 +5,7 @@
 1. Finish the issue and save the PDF as `mission-bay-news-YYYY-MM.pdf` (for example `mission-bay-news-2026-12.pdf`).
 2. Upload the PDF to the private residents' library (Google Drive).
 3. On the site, go to `/admin/` → **Newsletter issues → New**. Set the title ("December 2026"), the issue date (the 1st of the month) and **Who can read it: Residents only**. Leave the PDF empty.
-4. After about 12 months, change that issue to **Everyone (public)** and attach its PDF so it joins the public archive.
+4. Also save the PDF in the private GitHub repo `Lexiannax/missionbay-resident-library`, as the master copy. Never put newsletter PDFs in the public site repo.
 
 ## Other everyday jobs (all in `/admin/`)
 
