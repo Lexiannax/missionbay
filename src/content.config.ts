@@ -42,7 +42,9 @@ const newsletters = defineCollection({
   schema: z.object({
     title: z.string(),
     issueDate: z.coerce.date(),
-    pdf: z.string(),
+    // Public issues have a PDF on this site. Resident-only issues are kept in the private library instead.
+    access: z.enum(['public', 'residents']).default('public'),
+    pdf: z.string().optional(),
     summary: z.string().optional(),
   }),
 });

@@ -1,39 +1,76 @@
 ---
-// Maintenance Mode
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import NewsList from '../components/NewsList.astro';
+import Sponsor from '../components/Sponsor.astro';
+import TodayStrip from '../components/TodayStrip.astro';
+import Fan from '../components/Fan.astro';
+import Maintenance from '../components/Maintenance.astro';
+import status from '../data/site-status.json';
+import street from '../assets/street.jpg';
+import { getArticles, loadNews } from '../lib/content';
+
+const articles = await getArticles();
+const sorted = [...articles].sort((a, b) => Number(b.data.pinned) - Number(a.data.pinned));
+const latest = sorted.slice(0, 3);
+// Maintenance mode only applies to the published site, so the real home page can still be previewed with `npm run dev`.
+const maintenance = status.maintenance && !import.meta.env.DEV;
+const headlines = loadNews().items.filter((i) => i.category !== 'Weather Alerts' && i.category !== 'Getting Around').slice(0, 6);
 ---
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Under Construction | Mission Bay Community News</title>
-    <style>
-      body {
-        font-family: system-ui, -apple-system, sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        margin: 0;
-        background-color: #0c1a24;
-        color: #f4efe6;
-        text-align: center;
-        padding: 1.5rem;
-      }
-      .card {
-        max-width: 520px;
-        border: 1px solid #d4af37;
-        padding: 2.5rem 2rem;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.03);
-      }
-      h1 { font-size: 1.8rem; margin-bottom: 0.75rem; color: #d4af37; }
-      p { line-height: 1.6; color: #cbd5e1; }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <h1>Site Under Construction</h1>
-      <p>Mission Bay Community News is undergoing updates. Please check back soon!</p>
+
+{maintenance ? <Maintenance /> : (
+<Base title="Home">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Our neighborhood · Our news</p>
+      <h1>Welcome home to Mission Bay</h1>
+      <p>
+        The resident-run newsletter and news hub for the Mission Bay community in San Leandro. Not affiliated with park
+        management.
+      </p>
+      <a class="button" href="/newsletter/">Newsletter archive</a>
+      <a class="button secondary" href="/rights/">Know your rent rights</a>
     </div>
-  </body>
-</html>
+    <figure class="hero-photo">
+      <Image src={street} alt="A tree-lined Mission Bay street on an autumn afternoon, with homes and gardens on both sides" width={720} loading="eager" />
+    </figure>
+  </section>
+
+  <TodayStrip />
+
+  <section>
+    <h2>Latest from Mission Bay</h2>
+    {latest.length === 0 ? (
+      <p class="empty">No articles yet. Check back soon.</p>
+    ) : (
+      <div class="grid">
+        {latest.map((a) => <ArticleCard article={a} />)}
+      </div>
+    )}
+    <a class="more-link" href="/articles/">All Mission Bay news →</a>
+  </section>
+
+  <Fan />
+
+  <section>
+    <h2>Local news headlines</h2>
+    <NewsList items={headlines} />
+    <a class="more-link" href="/news/">More local news →</a>
+  </section>
+
+  <div class="callout">
+    <p><strong>Mission Bay residents: there is a private space for you.</strong></p>
+    <p>Read recent newsletter issues, join the residents' group and find park resources.</p>
+    <p><a href="/residents/">Residents area →</a></p>
+  </div>
+
+  <div class="callout">
+    <p><strong>Your rights: San Leandro's Rent Stabilization Ordinance.</strong></p>
+    <p>The 2026 rent increase cap is 2.2%, and management must give you 90 days' written notice. <a href="/rights/">Read what that means for you.</a></p>
+    <p>Dispute a charge: <span class="phone">510-577-6006</span> · Free tenant counseling: <span class="phone">510-581-9380</span></p>
+  </div>
+
+  <Sponsor />
+</Base>
+)}

@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import links from '../data/resident-links.json';
+---
+
+<Base title="Residents" description="The private area for Mission Bay residents: recent newsletters, the residents' group and resources.">
+  <h1>Residents Area</h1>
+  <p class="lede">A private space for the people who live in Mission Bay. It is run by volunteers and is not connected to park management.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Recent newsletters</h3>
+      <p>The last year of Mission Bay News, before it joins the public archive.</p>
+      <p>
+        {links.libraryUrl
+          ? <a class="button dark" href={links.libraryUrl} rel="noopener">Open the library</a>
+          : <span class="meta">Available once you are approved.</span>}
+      </p>
+    </div>
+    <div class="card">
+      <h3>{links.groupName}</h3>
+      <p>Ask questions, share news and help each other. Only approved residents can read or post.</p>
+      <p>
+        {links.groupUrl
+          ? <a class="button dark" href={links.groupUrl} rel="noopener">Open the group</a>
+          : <span class="meta">Available once you are approved.</span>}
+      </p>
+    </div>
+    <div class="card">
+      <h3>Resident survey</h3>
+      <p>Tell us what the community needs. The survey is anonymous.</p>
+      <p>
+        {links.surveyUrl
+          ? <a class="button dark" href={links.surveyUrl} rel="noopener">Take the survey</a>
+          : <span class="meta">Coming soon.</span>}
+      </p>
+    </div>
+  </div>
+
+  <h2>How to get in</h2>
+  <ol>
+    <li>Fill in the short <a href="/join/">sign-up form</a> (name, space number and email).</li>
+    <li>A volunteer checks it against the resident list. This usually takes a few days.</li>
+    <li>You get an email with your access.</li>
+  </ol>
+  <p>Prefer paper or phone? Email <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a> and a volunteer will help.</p>
+  <p class="meta">Read how we handle your details on the <a href="/privacy/">privacy page</a>.</p>
+</Base>

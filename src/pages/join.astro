@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import links from '../data/resident-links.json';
+---
+
+<Base title="Join" description="Ask to join the Mission Bay residents' area." searchable={false}>
+  <h1>Join the Residents Area</h1>
+  <p class="lede">For people who live in Mission Bay. It takes about a minute.</p>
+
+  <div class="framed">
+    <p><strong>We ask for:</strong> your name, your space number, your email and (if you like) a phone number. Nothing else.</p>
+    <p><strong>We use it only</strong> to confirm that you live here and to send you access. We never sell or share it. Details are in the <a href="/privacy/">privacy notice</a>.</p>
+    <p>
+      {links.joinFormUrl
+        ? <a class="button dark" href={links.joinFormUrl} rel="noopener">Open the sign-up form</a>
+        : <span><strong>The sign-up form is not open yet.</strong> Email <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a> and a volunteer will add you.</span>}
+    </p>
+  </div>
+
+  <p>Not a resident? Everything on the rest of this site is open to you, including older newsletter issues.</p>
+</Base>

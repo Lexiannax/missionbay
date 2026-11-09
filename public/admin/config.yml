@@ -67,7 +67,8 @@ collections:
     fields:
       - { name: title, label: Title (for example, August 2026), widget: string }
       - { name: issueDate, label: Issue date (use the 1st of the month), widget: datetime, time_format: false, date_format: "yyyy-MM-dd", format: "yyyy-MM-dd" }
-      - { name: pdf, label: PDF file, widget: file }
+      - { name: access, label: Who can read it, widget: select, options: [{ label: Everyone (public), value: public }, { label: Residents only, value: residents }], default: public, hint: "Residents-only issues do not get a PDF here. Upload them to the private library instead." }
+      - { name: pdf, label: PDF file (public issues only), widget: file, required: false }
 
   - name: pages
     label: Pages
@@ -134,3 +135,19 @@ collections:
         format: json
         fields:
           - { name: items, label: "Stories containing any of these words are skipped", widget: list, root: true, field: { name: word, label: Word, widget: string } }
+      - name: resident-links
+        label: Residents area links
+        file: src/data/resident-links.json
+        format: json
+        fields:
+          - { name: joinFormUrl, label: Sign-up form web address, widget: string, required: false }
+          - { name: surveyUrl, label: Survey web address, widget: string, required: false }
+          - { name: libraryUrl, label: Private newsletter library web address, widget: string, required: false }
+          - { name: groupUrl, label: Residents group web address, widget: string, required: false }
+          - { name: groupName, label: Group name, widget: string }
+      - name: site-status
+        label: Site on or off (Under Construction page)
+        file: src/data/site-status.json
+        format: json
+        fields:
+          - { name: maintenance, label: Show the Under Construction page instead of the home page, widget: boolean, default: true }

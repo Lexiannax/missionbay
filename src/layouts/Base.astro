@@ -19,6 +19,7 @@ const nav = [
   { href: '/news/', label: 'Local News' },
   { href: '/events/', label: 'Events' },
   { href: '/newsletter/', label: 'Newsletter' },
+  { href: '/residents/', label: 'Residents' },
   { href: '/resources/', label: 'Resources' },
 ];
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
@@ -98,7 +99,7 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
       <p>Editor: Alexandra McKeever · <a href="mailto:missionbaynews@gmail.com">missionbaynews@gmail.com</a></p>
       <p>Not affiliated with park management. Content is for general information only.</p>
       <p>
-        <a href="/search/">Search</a> &middot; <a href="/about/">About</a> &middot; <a href="/rss.xml">RSS feed</a> &middot; <a href="https://lexiannax.github.io">Civic Watch San Leandro</a> &middot; <a href="/admin/">Editor sign-in</a>
+        <a href="/search/">Search</a> &middot; <a href="/about/">About</a> &middot; <a href="/privacy/">Privacy</a> &middot; <a href="/rss.xml">RSS feed</a> &middot; <a href="https://lexiannax.github.io">Civic Watch San Leandro</a> &middot; <a href="/admin/">Editor sign-in</a>
       </p>
     </footer>
 

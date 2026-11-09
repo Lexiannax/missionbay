@@ -10,6 +10,11 @@ Editor details are kept outside this repository.
 
 Editor details are kept outside this repository.
 
+## Guides
+
+- `docs/MONTHLY-CHECKLIST.md`: publishing each month, turning the site on and off, fixing problems.
+- `docs/RESIDENT-AREA-SETUP.md`: the sign-up form, private library and residents' group.
+
 ## Running locally
 
 ```

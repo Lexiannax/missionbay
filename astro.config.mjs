@@ -4,4 +4,5 @@ export default defineConfig({
   site: 'https://missionbaynews.us',
   output: 'static',
   trailingSlash: 'always',
+  redirects: { '/register/': '/join/' },
 });
