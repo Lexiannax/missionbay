@@ -1,11 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 import resources from '../data/resources.json';
+import seniors from '../data/senior-resources.json';
+const tel = (r) => r.tel ?? r.phone.replace(/\D/g, '');
 ---
 
 <Base title="Resources" description="Phone numbers, agencies and information for Mission Bay residents.">
   <h1>Resources &amp; Contacts</h1>
   <p class="lede">Who to call for help with rent, repairs, legal questions and park issues.</p>
+  <p><a href="#seniors"><strong>Jump to the Senior Resource Guide:</strong> emergency, health, food, rides and more phone numbers</a></p>
 
   <div class="callout">
     <p><strong>Know your rights.</strong> San Leandro's Rent Stabilization Ordinance caps 2026 rent increases at 2.2%.</p>
@@ -22,4 +25,46 @@ import resources from '../data/resources.json';
       </li>
     ))}
   </ul>
+
+  <section id="seniors" class="senior-guide">
+    <h2>Senior Resource Guide and Important Phone Numbers</h2>
+    <p class="lede">Keep this list, even if the big storms never come. Tap a number to call it from your phone. In an emergency, call 9-1-1.</p>
+    <nav class="senior-jump" aria-label="Senior guide sections">
+      {seniors.map((g, i) => <a href={`#seniors-${i}`}>{g.group}</a>)}
+    </nav>
+    {seniors.map((g, i) => (
+      <div class="senior-group" id={`seniors-${i}`}>
+        <h3>{g.group}</h3>
+        {g.note && <p class="senior-note">{g.note}</p>}
+        <ul class="senior-list">
+          {g.items.map((r) => (
+            <li>
+              <span class="senior-name">{r.name}</span>
+              {r.phone && <a class="phone" href={`tel:${tel(r)}`}>{r.phone}</a>}
+              {r.note && <span class="senior-sub">{r.note}</span>}
+              {r.url && <a class="senior-sub" href={r.url} rel="noopener noreferrer" target="_blank">{r.url.replace(/^https?:\/\/(www\.)?/, '')}</a>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+    <p class="senior-note">Sources: Mission Bay News December 2026 Senior Resource Guide, Food Assistance and Getting Around pages, the City of San Leandro staff directory, Spectrum Community Services and transit agency websites, checked November 2026. Numbers change, so confirm with the agency. For information only, not legal or emergency advice.</p>
+  </section>
 </Base>
+
+<style>
+  .senior-guide { margin-top: 2.5rem; scroll-margin-top: 1rem; }
+  .senior-jump { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin: 1rem 0 1.5rem; font-size: 1.1rem; }
+  .senior-group { margin: 1.75rem 0; scroll-margin-top: 1rem; }
+  .senior-group h3 { font-size: 1.4rem; margin: 0 0 0.4rem; }
+  .senior-note { color: var(--muted); margin: 0.25rem 0 0.75rem; }
+  .senior-list { list-style: none; padding: 0; margin: 0; }
+  .senior-list li { display: grid; grid-template-columns: 1fr auto; gap: 0.15rem 1rem; padding: 0.7rem 0; border-bottom: 1px solid rgba(19, 32, 58, 0.15); font-size: 1.15rem; }
+  .senior-name { font-weight: 600; }
+  .senior-list .phone { white-space: nowrap; text-align: right; }
+  .senior-sub { grid-column: 1 / -1; color: var(--muted); font-size: 1rem; overflow-wrap: anywhere; }
+  @media (max-width: 520px) {
+    .senior-list li { grid-template-columns: 1fr; }
+    .senior-list .phone { text-align: left; }
+  }
+</style>

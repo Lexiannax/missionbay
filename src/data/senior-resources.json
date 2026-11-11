@@ -1,0 +1,107 @@
+[
+  {
+    "group": "Emergency and protection",
+    "items": [
+      { "name": "Emergency: ambulance, fire, police", "phone": "911" },
+      { "name": "Police non-emergency (San Leandro)", "phone": "(510) 577-2740" },
+      { "name": "Crisis Support Services (24 hours)", "phone": "(800) 309-2131" },
+      { "name": "Elder Abuse Hotline (Adult Protective Services)", "phone": "(866) 225-5277" },
+      { "name": "Adult Protective Services, local 24-hour line", "phone": "(510) 577-3500" },
+      { "name": "Ombudsman Program (care homes)", "phone": "(510) 638-6878" },
+      { "name": "Consumer fraud reporting", "phone": "(415) 553-7400" },
+      { "name": "AC Alert, Alameda County emergency alerts", "note": "Sign up free, and help a neighbor sign up.", "url": "https://acalert.org" },
+      { "name": "PG&E power outages", "phone": "1-800-743-5000" }
+    ]
+  },
+  {
+    "group": "Health and care",
+    "items": [
+      { "name": "Area Agency on Aging", "phone": "(510) 577-3530" },
+      { "name": "In-Home Supportive Services", "phone": "(510) 577-1900" },
+      { "name": "Alzheimer's Services of the East Bay", "phone": "(510) 644-8292" },
+      { "name": "Family Caregiver Alliance", "phone": "(800) 445-8106" },
+      { "name": "LIFE ElderCare", "phone": "(510) 894-0370" },
+      { "name": "Center for Independent Living", "phone": "(510) 841-4776" },
+      { "name": "Center for Elders' Independence (PACE)", "note": "1850 Fairway Dr, San Leandro", "phone": "844-319-1150" },
+      { "name": "California Department of Aging", "phone": "(800) 510-2020" },
+      { "name": "American Diabetes Association", "phone": "(510) 654-4499" },
+      { "name": "Arthritis Foundation", "phone": "(888) 391-9389" },
+      { "name": "California Smokers' Helpline", "phone": "(800) 662-8887" },
+      { "name": "California Relay Service (hearing impaired)", "phone": "711" }
+    ]
+  },
+  {
+    "group": "Health insurance",
+    "items": [
+      { "name": "Medi-Cal (Alameda County)", "phone": "(510) 670-6000" },
+      { "name": "Covered California", "phone": "(800) 300-1506" },
+      { "name": "Health Insurance Counseling and Advocacy (HICAP, Medicare help)", "phone": "(510) 839-0393" }
+    ]
+  },
+  {
+    "group": "Legal and benefits",
+    "items": [
+      { "name": "Legal Assistance for Seniors", "phone": "(510) 832-3040" },
+      { "name": "Senior Legal Hotline of Northern California", "phone": "(800) 222-1753" },
+      { "name": "Social Security Administration", "phone": "(800) 772-1213" },
+      { "name": "DMV", "phone": "(800) 777-0133" }
+    ]
+  },
+  {
+    "group": "Mobile home and housing",
+    "items": [
+      { "name": "HCD Mobilehome Assistance Center and Residency Law Protection Program", "phone": "(800) 952-8356" },
+      { "name": "ECHO Housing", "phone": "(510) 581-9380" },
+      { "name": "City of San Leandro Minor Home Repair", "phone": "(510) 625-0316 ext. 102", "tel": "5106250316,102" },
+      { "name": "PG&E Smarter Energy Line", "phone": "(800) 933-9555" },
+      { "name": "Spectrum Community Services, utility bill help (LIHEAP) and weatherization", "phone": "(510) 881-0300" }
+    ]
+  },
+  {
+    "group": "Food and meals",
+    "note": "Most programs serve seniors 60 and over. Some need registration or income qualification. Call first, because schedules change.",
+    "items": [
+      { "name": "Spectrum Senior Meals, hot lunch at the Senior Center", "note": "Calls Monday to Friday, 8:30 am to 5 pm. Closed Dec 24, Dec 25 and Jan 1.", "phone": "(510) 881-0300", "url": "https://spectrumcs.org" },
+      { "name": "Spectrum lunch reservations (Senior Center)", "phone": "(510) 825-9793" },
+      { "name": "S.O.S. Meals on Wheels, home-delivered hot meals", "note": "2235 Polvorosa Ave, San Leandro. Daily delivery.", "phone": "(510) 582-1263" },
+      { "name": "Davis Street Family Resource Center, food pantry", "note": "3081 Teagarden St, San Leandro. Monday to Friday.", "phone": "(510) 347-4620" },
+      { "name": "Mercy Brown Bag Program, extra groceries", "note": "3431 Foothill Blvd, Oakland. Scheduled distribution.", "phone": "(510) 534-8540 ext. 369", "tel": "5105348540,369" },
+      { "name": "Alameda County Community Food Bank and Mobile Pantry", "note": "7900 Edgewater Dr, Oakland. Through partners and mobile stops.", "phone": "(510) 635-3663" },
+      { "name": "Cross Streets Community Food Pantry", "note": "20600 John Dr, Castro Valley. By appointment.", "phone": "(510) 537-2464" },
+      { "name": "San Lorenzo Family Help Center", "note": "20960 Corsair Blvd, Hayward. By appointment, Mon, Fri, Sat.", "phone": "(341) 314-6770" },
+      { "name": "South Hayward Parish", "note": "27287 Patrick Ave, Hayward. By appointment.", "phone": "(510) 785-3663" },
+      { "name": "Ashland Cherryland Food Pantry", "note": "27880 Hesperian Blvd, Hayward. Weekly distributions.", "phone": "(510) 606-8676" },
+      { "name": "J-Sei Japanese Meals Program", "note": "1285 66th St, Emeryville. Call for schedule.", "phone": "(510) 654-4000" }
+    ]
+  },
+  {
+    "group": "Getting around",
+    "note": "The free FLEX Shuttle stops at Mission Bay on Mondays, Tuesdays and Thursdays, about 43 minutes past each hour, 8:30 am to 5:30 pm. It goes to the Marina Community Center, Walmart and FoodMaxx on Hesperian, Bay Fair BART, Bayfair Center (Target) and the Senior Center.",
+    "items": [
+      { "name": "FLEX RIDES sign-up, City of San Leandro", "note": "Free shuttle for San Leandro residents 50 and over or paratransit certified. Bring photo ID and proof of address. On Demand low-cost Uber rides, 24 hours, for members 70 and over.", "phone": "(510) 577-7985" },
+      { "name": "FLEX Shuttle running late", "phone": "(510) 895-9911 ext. 5", "tel": "5108959911,5" },
+      { "name": "East Bay Paratransit", "note": "Door-to-door rides. Apply first. Book 8 am to 5 pm daily, at least the day before.", "phone": "(510) 287-5000" },
+      { "name": "RideCare volunteer drivers, medical trips, age 50 and over", "phone": "(925) 222-2273 option 1", "tel": "9252222273" },
+      { "name": "AC Transit Line 35 and trip times", "note": "Stop at Wicks Blvd and Mission Bay, to Bay Fair BART or San Leandro BART. Seniors 65 and over ride half fare with a Senior Clipper card.", "phone": "511", "url": "https://www.actransit.org" },
+      { "name": "BART", "note": "Bay Fair is closest. Seniors 65 and over get 62.5% off with a Senior Clipper card.", "url": "https://www.bart.gov" }
+    ]
+  },
+  {
+    "group": "Community centers and classes",
+    "items": [
+      { "name": "San Leandro Marina Community Center", "note": "15301 Wicks Blvd, next door to the park. Fax (510) 352-3049.", "phone": "(510) 577-6080" },
+      { "name": "San Leandro Senior Community Center", "note": "13909 E 14th St. Fax (510) 577-3470.", "phone": "(510) 577-3462" },
+      { "name": "San Leandro Adult School", "phone": "(510) 667-6287" }
+    ]
+  },
+  {
+    "group": "City and park contacts",
+    "items": [
+      { "name": "Mission Bay park office (BSM)", "note": "missionbay@bsm-group.com", "phone": "(510) 352-4433" },
+      { "name": "Mission Bay Residents Association (MBRA)", "note": "mbhoasl@gmail.com" },
+      { "name": "San Leandro City Council office", "note": "City Hall, 835 E 14th St. CityCouncil@sanleandro.org. Councilmember Fred Simon (District 4, our district): fsimon@sanleandro.org", "phone": "(510) 577-3357" },
+      { "name": "Mayor Juan González III", "note": "jgonzalez@sanleandro.org", "phone": "(510) 577-3355" },
+      { "name": "Alameda County Fire, Fire and Life Safety Services", "note": "Deputy Chief Paige Bowie, paige.bowie@alamedacountyfire.gov", "phone": "(510) 693-3403" }
+    ]
+  }
+]
