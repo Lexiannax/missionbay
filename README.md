@@ -1,17 +1,6 @@
 # Mission Bay Community News
 
-Source for https://missionbaynews.us.
-
-## Overview
-
-Editor details are kept outside this repository.
-Editor details are kept outside this repository.
-Editor details are kept outside this repository.
-
-Editor details are kept outside this repository.
-
-## Guides
-
+Source code for the Mission Bay Community News website.
 
 ## Running locally
 
