@@ -1,6 +1,6 @@
 # Mission Bay Community News
 
-Source for https://missionbaynews.us. See `docs/superpowers/specs/2026-11-01-mission-bay-news-design.md` for the design brief.
+Source for https://missionbaynews.us.
 
 ## Overview
 
@@ -12,8 +12,6 @@ Editor details are kept outside this repository.
 
 ## Guides
 
-- `docs/MONTHLY-CHECKLIST.md`: publishing each month, turning the site on and off, fixing problems.
-- `docs/RESIDENT-AREA-SETUP.md`: the sign-up form, private library and residents' group.
 
 ## Running locally
 
