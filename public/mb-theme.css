@@ -1,0 +1,73 @@
+/* Mission Bay News theme for the Civic Watch and Crime Corridor pages.
+   Navy and gold on white, matching src/styles/global.css. Data colors on charts and maps are left alone. */
+:root {
+  --mb-navy: #13203a; --mb-navy-deep: #0d172c; --mb-gold: #d4af37; --mb-gold-ink: #6f5408;
+  --mb-paper: #fffdf8; --mb-ink: #1b2133; --mb-muted: #4d5366; --mb-link: #1b3f86; --mb-line: #e6dcc0;
+  --mb-display: 'Cormorant Garamond', Georgia, serif;
+  --mb-label: 'Josefin Sans', Arial, sans-serif;
+  --mb-body: Lora, Georgia, serif;
+}
+
+/* Site bar shown at the top of every page */
+.mb-bar { background: var(--mb-navy); border-bottom: 3px double var(--mb-gold); color: #fff;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 18px;
+  padding: 10px 16px; font-family: var(--mb-label); position: relative; z-index: 2000; }
+.mb-bar a { color: #fff; text-decoration: none; }
+.mb-bar .mb-home { display: flex; align-items: baseline; gap: 10px; }
+.mb-bar .mb-home b { font-family: var(--mb-label); font-weight: 600; letter-spacing: 0.22em; font-size: 17px; }
+.mb-bar .mb-home i { font-family: var(--mb-display); color: var(--mb-gold); font-size: 17px; }
+.mb-bar nav { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; }
+.mb-bar nav a { border-bottom: 2px solid transparent; padding-bottom: 2px; }
+.mb-bar nav a:hover, .mb-bar nav a[aria-current] { border-bottom-color: var(--mb-gold); }
+
+/* Civic Watch */
+body.mb-civic {
+  --oxblood: #13203a; --oxblood-dark: #0d172c; --ink: #1b2133; --bone: #ffffff; --paper: #fffdf8;
+  --paper-dark: #f4eedd; --rule: #13203a; --muted: #4d5366; --muted-light: #8a8f9e;
+  --serif: 'Cormorant Garamond', Georgia, serif; --mono: 'Josefin Sans', Arial, sans-serif;
+  font-family: var(--mb-body);
+}
+body.mb-civic p, body.mb-civic li, body.mb-civic .content-p { font-family: var(--mb-body); }
+
+/* Crime Corridor dashboard */
+body.mb-stats {
+  --ink: #1b2133; --white: #ffffff; --off-white: #fffdf8; --light-gray: #f8f4e8; --mid-gray: #e6dcc0;
+  --muted: #4d5366; --rule: #e6dcc0;
+  --black-bold: 'Cormorant Garamond', Georgia, serif; --sans: Lora, Georgia, serif; --mono: 'Josefin Sans', Arial, sans-serif;
+}
+
+/* Crime Corridor hub */
+body.mb-hub { --ink: #13203a; --red: #6f5408; --red-dim: #13203a; --off: #fffdf8; --mid: #4d5366; --rule: #e6dcc0;
+  font-family: var(--mb-body) !important; }
+body.mb-hub .header { background: var(--mb-navy) !important; border-bottom-color: var(--mb-gold) !important; }
+body.mb-hub .header-eyebrow, body.mb-hub .header-title span { color: var(--mb-gold) !important; }
+body.mb-hub .header-title { font-family: var(--mb-display) !important; font-weight: 700; }
+body.mb-hub [class*="mono"], body.mb-hub .section-label, body.mb-hub .header-sub, body.mb-hub .data-key { font-family: var(--mb-label) !important; }
+body.mb-hub .data-strip { background: var(--mb-navy) !important; }
+body.mb-hub .data-val { font-family: var(--mb-display) !important; }
+
+/* Crime Corridor map: light theme */
+body.mb-map { font-family: var(--mb-label) !important; background: #fff !important; color: var(--mb-ink) !important; }
+body.mb-map #header { background: var(--mb-paper) !important; border-bottom: 1px solid var(--mb-line) !important; }
+body.mb-map #header h1 { color: var(--mb-navy) !important; font-family: var(--mb-display); font-size: 20px !important; letter-spacing: 0.04em !important; text-transform: none !important; }
+body.mb-map #header .sub { color: var(--mb-muted) !important; font-size: 12px !important; }
+body.mb-map #controls { background: #fff !important; border-bottom: 1px solid var(--mb-line) !important; }
+body.mb-map .filter-btn { background: #fff !important; color: var(--mb-navy) !important; border-color: var(--mb-line) !important; font-size: 12px !important; }
+body.mb-map .filter-btn.active[data-cat="ALL"] { background: var(--mb-navy) !important; border-color: var(--mb-navy) !important; color: #fff !important; }
+body.mb-map .filter-btn.active[data-cat]:not([data-cat="ALL"]) { color: #fff !important; }
+body.mb-map #stats-bar { background: var(--mb-paper) !important; border-bottom: 1px solid var(--mb-line) !important; }
+body.mb-map .stat { color: var(--mb-muted) !important; font-size: 12px !important; }
+body.mb-map .stat span { color: var(--mb-ink) !important; }
+body.mb-map #panel, body.mb-map #note-panel { background: rgba(255,253,248,0.96) !important; border-color: var(--mb-line) !important; color: var(--mb-ink) !important; top: auto; }
+body.mb-map #panel { top: 175px !important; }
+body.mb-map #panel-header { background: var(--mb-navy) !important; color: #fff !important; border-bottom-color: var(--mb-gold) !important; }
+body.mb-map .leg-label { color: var(--mb-ink) !important; font-size: 12px !important; }
+body.mb-map .leg-count { color: var(--mb-muted) !important; }
+body.mb-map #note-panel * { color: var(--mb-ink); }
+
+@media (max-width: 600px) { .mb-bar .mb-home i { display: none; } }
+
+/* Dashboard header accents: gold instead of red (data colors unchanged) */
+body.mb-stats .header { background: var(--mb-navy) !important; border-bottom-color: var(--mb-gold) !important; }
+body.mb-stats .brand-mark { background: var(--mb-gold) !important; color: var(--mb-navy) !important; }
+body.mb-stats .hnav-btn.active { border-bottom-color: var(--mb-gold) !important; }
