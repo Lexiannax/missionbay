@@ -1,5 +1,5 @@
 ---
-title: Council and Police Records: What the Public Record Shows
+title: "Council and Police Records: What the Public Record Shows"
 description: Confirmed San Leandro council, oversight and federal court records on council members and the police department, with links to each source.
 ---
 
