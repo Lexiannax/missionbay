@@ -40,5 +40,15 @@
   {
     "name": "Park Management — BSM Group",
     "note": "Park office: Shannon Howard, Community Administrator, 510-352-4433, missionbay@bsm-group.com · Lydia Garcia: lgarcia@bsm-group.com · Ryan Jasinsky: ryan@bsm-group.com"
+  },
+  {
+    "name": "Civic Watch",
+    "note": "Community map for reporting property crime, vehicle crime, scams and fraud in California, with official crime data. Reports you file are saved only on your own device.",
+    "url": "https://missionbaynews.us/civic-watch/"
+  },
+  {
+    "name": "San Leandro Crime Corridor Data Hub",
+    "note": "Crime map and dashboard for Oakland and San Leandro from SLPD and OPD public data, 2023 to 2026.",
+    "url": "https://missionbaynews.us/crime-corridor-map/"
   }
 ]

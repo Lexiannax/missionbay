@@ -1,0 +1,2854 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Civic Watch — California Consumer Incident Registry</title>
+<meta name="description" content="Community-sourced registry for property crime, vehicle crime, scams, fraud, and consumer issues across California.">
+
+<!-- Leaflet for real interactive map -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ───── DESIGN TOKENS ─────────────────────────────────────── */
+:root {
+  --oxblood: #8B1A1A;
+  --oxblood-dark: #6B1414;
+  --ink: #1a1612;
+  --bone: #faf7f2;
+  --paper: #f0ebe2;
+  --paper-dark: #e6dfd3;
+  --rule: #3a2f28;
+  --muted: #6b5d50;
+  --muted-light: #a09489;
+  --focus: #2563eb;
+  --serif: 'Fraunces', Georgia, serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --base-size: 16px;
+  --space: 8px;
+}
+
+/* High contrast mode */
+body.high-contrast {
+  --oxblood: #6B0000;
+  --ink: #000000;
+  --bone: #ffffff;
+  --paper: #f5f5f5;
+  --rule: #000000;
+  --muted: #2a2a2a;
+}
+
+/* Larger text mode */
+body.large-text {
+  --base-size: 19px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ───── BASE ──────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: var(--base-size);
+  line-height: 1.55;
+  background: var(--bone);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Focus indicators for keyboard users */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+button:focus-visible, a:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Skip link for screen readers */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--bone);
+  padding: 12px 20px;
+  font-family: var(--mono);
+  font-size: 13px;
+  text-decoration: none;
+  z-index: 9999;
+}
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+}
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ───── HEADER ────────────────────────────────────────────── */
+header {
+  background: var(--bone);
+  border-bottom: 2px solid var(--rule);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  color: inherit;
+  text-align: left;
+}
+.brand-mark {
+  width: 52px;
+  height: 52px;
+  background: var(--oxblood);
+  border: 1.5px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.brand-mark svg { width: 28px; height: 28px; }
+.brand-text { display: flex; flex-direction: column; gap: 2px; }
+.brand-title {
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+.brand-sub {
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+nav {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.nav-btn {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  font-weight: 600;
+  min-height: 44px; /* WCAG tap target */
+}
+.nav-btn:hover { color: var(--ink); }
+.nav-btn[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--oxblood);
+}
+
+/* Accessibility toolbar */
+.a11y-bar {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  padding: 8px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+.a11y-label {
+  color: var(--muted);
+  align-self: center;
+}
+.a11y-btn {
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 6px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--ink);
+  min-height: 32px;
+  font-weight: 600;
+}
+.a11y-btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--bone);
+}
+
+/* Alert bar */
+.alert-bar {
+  background: var(--ink);
+  color: var(--bone);
+  padding: 10px 24px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+}
+.alert-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d4a056;
+  box-shadow: 0 0 0 3px rgba(212,160,86,0.25);
+  flex-shrink: 0;
+}
+
+/* ───── MAIN ──────────────────────────────────────────────── */
+main {
+  flex: 1;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+.view { display: none; }
+.view.active { display: block; }
+
+/* ───── MAP VIEW ──────────────────────────────────────────── */
+.map-wrap {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  min-height: calc(100vh - 200px);
+  border-top: 1px solid rgba(58,47,40,0.2);
+}
+@media (max-width: 900px) {
+  .map-wrap { grid-template-columns: 1fr; }
+}
+aside.sidebar {
+  background: var(--paper);
+  padding: 24px;
+  border-right: 1px solid rgba(58,47,40,0.2);
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+@media (max-width: 900px) {
+  aside.sidebar { max-height: none; border-right: none; border-bottom: 1px solid var(--rule); }
+}
+
+.stat-block {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(58,47,40,0.2);
+}
+.stat-number {
+  font-family: var(--mono);
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--oxblood);
+  line-height: 1;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+.primary-btn {
+  width: 100%;
+  background: var(--oxblood);
+  color: var(--bone);
+  border: 2px solid var(--oxblood);
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-bottom: 12px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.primary-btn:hover { background: var(--oxblood-dark); border-color: var(--oxblood-dark); }
+
+.secondary-btn {
+  width: 100%;
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--rule);
+  padding: 12px 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-bottom: 24px;
+  min-height: 44px;
+}
+.secondary-btn:hover { background: var(--paper-dark); }
+
+.section-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.filter-btn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 12px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--ink);
+  border-bottom: 1px solid rgba(58,47,40,0.1);
+  text-align: left;
+  min-height: 44px;
+}
+.filter-btn:hover { background: var(--bone); }
+.filter-btn[aria-pressed="true"] {
+  background: var(--bone);
+  font-weight: 600;
+  border-left: 4px solid var(--oxblood);
+  padding-left: 6px;
+}
+.filter-row { display: flex; align-items: center; gap: 12px; }
+.filter-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.filter-count {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--paper-dark);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* Map panel */
+.map-panel { position: relative; min-height: 500px; }
+#map { width: 100%; height: 100%; min-height: 500px; background: var(--paper); }
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(250,247,242,0.85);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  z-index: 500;
+}
+
+/* Map legend overlay */
+.map-legend {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: var(--bone);
+  border: 1.5px solid var(--rule);
+  padding: 12px 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  z-index: 500;
+  max-width: 240px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.map-legend-title { font-weight: 700; margin-bottom: 8px; color: var(--oxblood); }
+.legend-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-weight: 500; }
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--bone);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+}
+
+/* Selected card */
+.selected-card {
+  background: var(--bone);
+  border: 1.5px solid var(--rule);
+  padding: 16px;
+  margin-top: 20px;
+  box-shadow: 4px 4px 0 var(--oxblood);
+}
+.selected-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+.cat-tag {
+  color: var(--bone);
+  padding: 4px 10px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sample-badge {
+  background: #d4a056;
+  color: var(--ink);
+  padding: 4px 10px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: 1.5px dashed var(--ink);
+}
+.sample-banner {
+  background: rgba(212,160,86,0.15);
+  border: 1.5px dashed #d4a056;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.sample-banner strong {
+  color: var(--oxblood);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--muted);
+  line-height: 1;
+  padding: 0 4px;
+  min-width: 32px;
+  min-height: 32px;
+}
+.close-btn:hover { color: var(--ink); }
+.selected-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.selected-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.selected-photo {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 1px solid rgba(58,47,40,0.2);
+}
+.selected-desc { font-size: 14px; line-height: 1.55; margin-bottom: 10px; }
+.selected-footer {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(58,47,40,0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+}
+.flag-btn {
+  background: transparent;
+  border: 1px solid rgba(58,47,40,0.4);
+  padding: 6px 12px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 600;
+  min-height: 32px;
+}
+.flag-btn:hover { border-color: var(--oxblood); color: var(--oxblood); }
+.flag-btn[aria-pressed="true"] {
+  color: var(--oxblood);
+  border-color: var(--oxblood);
+  cursor: default;
+}
+.flag-count {
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--oxblood);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: right;
+  font-weight: 600;
+}
+
+/* ───── FORM VIEW ─────────────────────────────────────────── */
+.form-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+.page-header {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--rule);
+}
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--oxblood);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.page-title {
+  font-family: var(--serif);
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.5px;
+}
+.page-intro {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted);
+  font-style: italic;
+  margin: 0;
+}
+
+.form-grid { display: flex; flex-direction: column; gap: 24px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.field-required::after {
+  content: ' *';
+  color: var(--oxblood);
+}
+.field-hint {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 2px;
+}
+.input, select, textarea {
+  border: 1.5px solid rgba(58,47,40,0.4);
+  background: var(--bone);
+  padding: 14px;
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--ink);
+  outline: none;
+  border-radius: 0;
+  width: 100%;
+  min-height: 48px;
+}
+.input:focus, select:focus, textarea:focus { border-color: var(--ink); }
+textarea { line-height: 1.5; resize: vertical; min-height: 140px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 600px) {
+  .row2 { grid-template-columns: 1fr; }
+}
+
+/* Category grid */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (max-width: 600px) {
+  .cat-grid { grid-template-columns: 1fr; }
+}
+.cat-btn {
+  background: var(--bone);
+  border: 1.5px solid rgba(58,47,40,0.3);
+  padding: 16px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: inherit;
+  min-height: 100px;
+}
+.cat-btn:hover { background: var(--paper); }
+.cat-btn[aria-pressed="true"] {
+  background: var(--paper);
+}
+.cat-btn-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cat-btn-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+.cat-btn-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.cat-btn-desc {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Location toggle */
+.loc-toggle {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.toggle-btn {
+  flex: 1;
+  background: var(--bone);
+  color: var(--muted);
+  border: 1.5px solid rgba(58,47,40,0.3);
+  padding: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  min-height: 44px;
+}
+.toggle-btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--bone);
+  border-color: var(--ink);
+}
+
+/* Photo upload */
+.file-input { display: none; }
+.file-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 28px;
+  background: var(--bone);
+  border: 2px dashed rgba(58,47,40,0.5);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: var(--ink);
+  text-transform: uppercase;
+  font-weight: 600;
+  min-height: 56px;
+}
+.file-label:hover { border-color: var(--oxblood); background: var(--paper); }
+.file-icon-svg { width: 24px; height: 24px; color: var(--oxblood); }
+.photo-preview-wrap { display: flex; flex-direction: column; gap: 10px; }
+.photo-preview {
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border: 1.5px solid rgba(58,47,40,0.4);
+}
+.remove-photo-btn {
+  background: transparent;
+  color: var(--oxblood);
+  border: 1.5px solid var(--oxblood);
+  padding: 10px 18px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: fit-content;
+  min-height: 40px;
+}
+
+/* Attestation block */
+.attest-box {
+  background: var(--paper);
+  border: 2px solid var(--rule);
+  padding: 20px;
+  margin-top: 8px;
+  box-shadow: 4px 4px 0 var(--oxblood);
+}
+.attest-title {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--oxblood);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(58,47,40,0.3);
+}
+.attest-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  cursor: pointer;
+}
+.attest-check {
+  margin-top: 4px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  accent-color: var(--oxblood);
+  flex-shrink: 0;
+}
+.attest-text {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.inline-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--oxblood);
+  text-decoration: underline;
+  font: inherit;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.error-box {
+  background: rgba(139,26,26,0.1);
+  border: 1.5px solid var(--oxblood);
+  padding: 14px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--oxblood);
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.btn-cancel {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--rule);
+  padding: 14px 24px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  min-height: 48px;
+}
+.btn-submit {
+  background: var(--oxblood);
+  color: var(--bone);
+  border: 2px solid var(--oxblood);
+  padding: 14px 36px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  min-height: 48px;
+}
+.btn-submit:hover { background: var(--oxblood-dark); }
+.btn-submit:disabled, .btn-submit[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Success panel */
+.success-panel {
+  max-width: 500px;
+  margin: 120px auto;
+  padding: 56px 40px;
+  text-align: center;
+  border: 2px solid var(--rule);
+  background: var(--paper);
+  box-shadow: 8px 8px 0 var(--oxblood);
+}
+.success-mark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--oxblood);
+  color: var(--bone);
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-weight: 700;
+}
+.success-title {
+  font-family: var(--serif);
+  font-size: 34px;
+  margin-bottom: 8px;
+}
+.success-sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* ───── OFFICIAL DATA ─────────────────────────────────────── */
+.official-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 2px solid var(--rule);
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.official-tab {
+  background: transparent;
+  border: none;
+  padding: 14px 20px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  min-height: 48px;
+}
+.official-tab:hover { color: var(--ink); }
+.official-tab[aria-selected="true"] {
+  color: var(--ink);
+  border-bottom-color: var(--oxblood);
+  background: var(--paper);
+}
+.official-panel { display: none; }
+.official-panel.active { display: block; }
+
+.official-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.official-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+@media (max-width: 700px) {
+  .official-stats { grid-template-columns: repeat(2, 1fr); }
+}
+.sl-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+@media (max-width: 600px) {
+  .sl-stats-grid { grid-template-columns: 1fr; }
+}
+.stat-card {
+  background: var(--paper);
+  border: 1px solid rgba(58,47,40,0.2);
+  border-left: 4px solid var(--oxblood);
+  padding: 18px;
+}
+.stat-card-num {
+  font-family: var(--mono);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-card-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.stat-card-sub {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 6px;
+}
+
+.official-map-wrap {
+  position: relative;
+  margin-bottom: 28px;
+  border: 1.5px solid var(--rule);
+}
+#oak-map { width: 100%; height: 480px; background: var(--paper); }
+
+.official-breakdown {
+  background: var(--paper);
+  padding: 20px;
+  border: 1px solid rgba(58,47,40,0.2);
+  margin-bottom: 20px;
+}
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(58,47,40,0.1);
+}
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-label {
+  font-family: var(--serif);
+  font-size: 15px;
+}
+.breakdown-count {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--oxblood);
+}
+.breakdown-bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: rgba(58,47,40,0.1);
+  margin: 0 16px;
+  position: relative;
+}
+.breakdown-bar {
+  height: 100%;
+  background: var(--oxblood);
+}
+
+.api-error {
+  background: rgba(139,26,26,0.08);
+  border: 1.5px solid var(--oxblood);
+  padding: 20px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+  letter-spacing: 0.3px;
+  margin-bottom: 20px;
+}
+.api-error-title {
+  color: var(--oxblood);
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.sl-cat-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.sl-cat-pill {
+  background: var(--bone);
+  border: 1px solid rgba(58,47,40,0.3);
+  padding: 8px 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.iframe-wrap {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  border: 1.5px solid var(--rule);
+  background: var(--paper);
+  overflow: hidden;
+}
+.iframe-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+.iframe-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+  background: var(--paper);
+  z-index: 1;
+}
+@media (max-width: 600px) {
+  .iframe-wrap { height: 450px; }
+}
+.mine-list { display: flex; flex-direction: column; gap: 16px; }
+.mine-card {
+  background: var(--paper);
+  padding: 24px;
+  border: 1px solid rgba(58,47,40,0.2);
+  border-left: 4px solid var(--oxblood);
+}
+.mine-card-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.mine-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+.mine-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.mine-location {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.mine-photo {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 1px solid rgba(58,47,40,0.2);
+}
+.mine-desc { font-size: 15px; line-height: 1.6; }
+
+/* Empty state */
+.empty-state {
+  max-width: 500px;
+  margin: 100px auto;
+  padding: 48px;
+  text-align: center;
+}
+.empty-illustration {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 24px;
+  color: var(--oxblood);
+  opacity: 0.7;
+}
+.empty-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+.empty-sub {
+  font-size: 15px;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* ───── ABOUT / LEGAL PAGES ───────────────────────────────── */
+.content-wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+.legal-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 40px;
+  text-transform: uppercase;
+}
+.content-section { margin-bottom: 32px; }
+.content-h2 {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(58,47,40,0.3);
+  font-weight: 700;
+}
+.content-p { font-size: 16px; line-height: 1.7; margin: 0 0 12px 0; }
+.content-list {
+  font-size: 16px;
+  line-height: 1.8;
+  padding-left: 24px;
+  margin: 0;
+}
+.content-list li { margin-bottom: 6px; }
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+@media (max-width: 600px) {
+  .resource-grid { grid-template-columns: 1fr; }
+}
+.resource-card {
+  background: var(--paper);
+  padding: 18px;
+  border: 1px solid rgba(58,47,40,0.3);
+  border-left: 4px solid var(--oxblood);
+}
+.resource-agency {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--oxblood);
+  margin-bottom: 4px;
+}
+.resource-desc { font-size: 14px; margin-bottom: 8px; }
+.resource-url {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ───── FOOTER ────────────────────────────────────────────── */
+footer {
+  border-top: 2px solid var(--rule);
+  background: var(--ink);
+  color: var(--bone);
+  padding: 24px;
+  margin-top: 40px;
+}
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.footer-link {
+  background: none;
+  border: none;
+  color: var(--bone);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  padding: 4px 0;
+  min-height: 32px;
+}
+.footer-link:hover { color: var(--oxblood); }
+.footer-sep { color: #5a4f43; }
+.footer-sub { color: var(--muted-light); margin-top: 4px; }
+
+/* Leaflet marker custom style override */
+.cw-marker { background: transparent; border: none; }
+
+/* Decorative graphic at top of form */
+.deco-graphic {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto 24px;
+  display: block;
+  color: var(--oxblood);
+  opacity: 0.85;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<!-- Live region for screen reader announcements -->
+<div id="live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+<header role="banner">
+  <div class="a11y-bar" role="region" aria-label="Accessibility controls">
+    <span class="a11y-label">Display:</span>
+    <button class="a11y-btn" id="hc-toggle" aria-pressed="false" onclick="toggleHighContrast()">High contrast</button>
+    <button class="a11y-btn" id="lt-toggle" aria-pressed="false" onclick="toggleLargeText()">Larger text</button>
+  </div>
+
+  <div class="header-inner">
+    <button class="brand" onclick="switchView('map')" aria-label="Civic Watch home">
+      <div class="brand-mark" aria-hidden="true">
+        <!-- Shield + eye logo -->
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 2L4 6V14C4 19.5 8.5 24.5 14 26C19.5 24.5 24 19.5 24 14V6L14 2Z" stroke="#faf7f2" stroke-width="2" fill="none"/>
+          <circle cx="14" cy="13" r="3" fill="#faf7f2"/>
+          <circle cx="14" cy="13" r="1" fill="#8B1A1A"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-title">CIVIC WATCH</div>
+        <div class="brand-sub">California Consumer Incident Registry</div>
+      </div>
+    </button>
+    <nav role="navigation" aria-label="Main navigation">
+      <button class="nav-btn" data-view="map" aria-current="page" onclick="switchView('map')">Public Map</button>
+      <button class="nav-btn" data-view="report" onclick="switchView('report')">File Report</button>
+      <button class="nav-btn" data-view="official" onclick="switchView('official')">Official Data</button>
+      <button class="nav-btn" data-view="mine" onclick="switchView('mine')">My Reports</button>
+      <button class="nav-btn" data-view="about" onclick="switchView('about')">About</button>
+    </nav>
+  </div>
+
+  <div class="alert-bar" role="region" aria-label="Service notice">
+    <span class="alert-dot" aria-hidden="true"></span>
+    <span>Community-sourced. Filing here does not replace a police report or formal complaint.</span>
+  </div>
+</header>
+
+<main id="main-content" role="main">
+
+  <!-- ============ MAP VIEW ============ -->
+  <section class="view active" id="view-map" aria-labelledby="map-heading">
+    <h1 class="sr-only" id="map-heading">Public incident map</h1>
+    <div class="map-wrap">
+      <aside class="sidebar" aria-label="Map controls and details">
+        <div class="sample-banner" id="sample-banner" role="note">
+          <strong>Sample data shown</strong><br>
+          The map currently shows 5 placeholder reports marked SAMPLE so it isn't empty. Real community reports appear here as residents file them.
+        </div>
+
+        <div class="stat-block">
+          <div class="stat-number" id="stat-count" aria-live="polite">0</div>
+          <div class="stat-label">incidents logged</div>
+        </div>
+
+        <button class="primary-btn" onclick="switchView('report')">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2.5"/>
+          </svg>
+          File a New Report
+        </button>
+
+        <button class="secondary-btn" onclick="exportCSV()">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align: middle; margin-right: 6px;">
+            <path d="M8 2v9M4 7l4 4 4-4M2 14h12"/>
+          </svg>
+          Export CSV
+        </button>
+
+        <div role="group" aria-label="Filter incidents by category">
+          <div class="section-title">Filter by type</div>
+          <div id="filter-list"></div>
+        </div>
+
+        <div id="selected-card-container" aria-live="polite"></div>
+      </aside>
+
+      <div class="map-panel">
+        <div id="map" role="application" aria-label="Interactive map of California incidents"></div>
+        <div class="loading-overlay" id="map-loading">Loading map…</div>
+        <div class="map-legend" role="region" aria-label="Map legend">
+          <div class="map-legend-title">Incident types</div>
+          <div id="legend-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REPORT FORM ============ -->
+  <section class="view" id="view-report" aria-labelledby="form-heading">
+    <div class="form-wrap">
+      <div class="page-header">
+        <!-- Decorative graphic -->
+        <svg class="deco-graphic" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="0" y1="40" x2="200" y2="40" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="40" cy="40" r="6" fill="currentColor"/>
+          <circle cx="100" cy="40" r="10" fill="currentColor"/>
+          <circle cx="160" cy="40" r="6" fill="currentColor"/>
+          <line x1="40" y1="40" x2="40" y2="20" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="100" y1="40" x2="100" y2="10" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="160" y1="40" x2="160" y2="25" stroke="currentColor" stroke-width="1.5"/>
+          <text x="40" y="14" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="currentColor">REPORT</text>
+          <text x="100" y="6" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="currentColor">YOURS</text>
+          <text x="160" y="20" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="currentColor">REPORT</text>
+        </svg>
+
+        <div class="kicker">INTAKE FORM 01</div>
+        <h1 class="page-title" id="form-heading">File a Community Report</h1>
+        <p class="page-intro">
+          Reports appear on the public map. Your contribution helps neighbors see patterns law enforcement and regulators often miss. Do not include personally identifying information about victims or specific names of accused individuals.
+        </p>
+      </div>
+
+      <form class="form-grid" id="incident-form" onsubmit="submitForm(event)" novalidate>
+
+        <div class="field">
+          <span class="field-label">Incident type</span>
+          <div class="cat-grid" role="radiogroup" aria-label="Choose incident type" id="cat-grid"></div>
+        </div>
+
+        <div class="field">
+          <label class="field-label field-required" for="f-title">Short headline</label>
+          <input class="input" type="text" id="f-title" placeholder="e.g., Catalytic converter stolen overnight" maxlength="120" required aria-required="true">
+        </div>
+
+        <div class="field">
+          <span class="field-label field-required">Location</span>
+          <div class="loc-toggle" role="tablist" aria-label="Location entry mode">
+            <button type="button" class="toggle-btn" aria-pressed="true" id="loc-pick" onclick="setLocMode('pick')">Quick pick</button>
+            <button type="button" class="toggle-btn" aria-pressed="false" id="loc-custom" onclick="setLocMode('custom')">Type any California city</button>
+          </div>
+          <select class="input" id="f-city">
+            <option value="San Leandro">San Leandro</option>
+            <option value="Oakland">Oakland</option>
+            <option value="San Francisco">San Francisco</option>
+            <option value="Berkeley">Berkeley</option>
+            <option value="Hayward">Hayward</option>
+            <option value="Fremont">Fremont</option>
+            <option value="San Jose">San Jose</option>
+            <option value="Palo Alto">Palo Alto</option>
+            <option value="Sacramento">Sacramento</option>
+            <option value="Los Angeles">Los Angeles</option>
+            <option value="San Diego">San Diego</option>
+            <option value="Fresno">Fresno</option>
+          </select>
+          <input class="input" type="text" id="f-custom-city" placeholder="e.g., Modesto, Eureka, Bakersfield" style="display:none;" aria-label="Type any California city">
+          <p class="field-hint" id="loc-hint">Select your nearest city.</p>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label class="field-label" for="f-address">Block or street (optional)</label>
+            <input class="input" type="text" id="f-address" placeholder="1400 block of MacArthur Blvd">
+            <p class="field-hint">Block-level only. No house numbers.</p>
+          </div>
+          <div class="field">
+            <label class="field-label field-required" for="f-date">Date of incident</label>
+            <input class="input" type="date" id="f-date" required aria-required="true">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label field-required" for="f-desc">What happened</label>
+          <textarea class="input" id="f-desc" rows="6" required aria-required="true"
+            placeholder="Describe the incident. Include time of day, vehicle descriptions, dollar amounts, and whether you filed elsewhere (police, FTC, BBB, CSLB)."></textarea>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Photo evidence (optional)</span>
+          <div id="photo-area">
+            <input type="file" id="f-photo" accept="image/*" class="file-input" onchange="handlePhoto(event)">
+            <label for="f-photo" class="file-label">
+              <svg class="file-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="1"/>
+                <circle cx="9" cy="11" r="2"/>
+                <path d="M3 17l5-5 4 4 3-3 6 6"/>
+              </svg>
+              <span>Upload image</span>
+            </label>
+            <p class="field-hint">Crop out faces and license plates before uploading. Images compressed automatically.</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="f-name">Your name or handle (optional)</label>
+          <input class="input" type="text" id="f-name" placeholder="Leave blank to post as Anonymous" maxlength="40">
+        </div>
+
+        <div class="attest-box">
+          <div class="attest-title">Submission Attestation</div>
+          <label class="attest-label" for="f-attest">
+            <input type="checkbox" id="f-attest" class="attest-check" aria-describedby="attest-desc">
+            <span class="attest-text" id="attest-desc">
+              I attest that this report is true and accurate to the best of my knowledge. I understand that knowingly false reports may be removed, may result in a permanent ban from Civic Watch, and may expose me to civil liability to any party harmed by my false statements. I agree to the
+              <button type="button" class="inline-link" onclick="switchView('terms')">Terms of Use</button>,
+              <button type="button" class="inline-link" onclick="switchView('privacy')">Privacy Policy</button>, and
+              <button type="button" class="inline-link" onclick="switchView('takedown')">Takedown Policy</button>,
+              and I agree to indemnify Civic Watch and its operators against any claim arising from my submission.
+            </span>
+          </label>
+        </div>
+
+        <div class="error-box" id="form-error" style="display:none;" role="alert"></div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" onclick="switchView('map')">Cancel</button>
+          <button type="submit" class="btn-submit" id="submit-btn">File Report</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ MY REPORTS ============ -->
+  <!-- ============ OFFICIAL DATA ============ -->
+  <section class="view" id="view-official" aria-labelledby="official-heading">
+    <div class="form-wrap" style="max-width: 1100px;">
+      <div class="page-header">
+        <div class="kicker">GOVERNMENT DATA · LIVE FEED</div>
+        <h1 class="page-title" id="official-heading">Official Crime Data</h1>
+        <p class="page-intro">
+          Live feed from city open-data portals. This is what the police departments themselves publish. Use it alongside the community map to see what's reported officially versus what neighbors are seeing on the ground.
+        </p>
+      </div>
+
+      <div class="official-tabs" role="tablist" aria-label="Choose data source">
+        <button class="official-tab" role="tab" aria-selected="true" id="tab-oak" onclick="setOfficialTab('oakland')">Oakland Live API</button>
+        <button class="official-tab" role="tab" aria-selected="false" id="tab-sl" onclick="setOfficialTab('sanleandro')">San Leandro Dashboard</button>
+        <button class="official-tab" role="tab" aria-selected="false" id="tab-sources" onclick="setOfficialTab('sources')">Sources &amp; Caveats</button><button class="official-tab" role="tab" aria-selected="false" id="tab-corridor" onclick="setOfficialTab('corridor')">Crime Corridor Map</button>
+      </div>
+
+      <!-- Oakland panel -->
+      <div class="official-panel active" id="panel-oakland" role="tabpanel" aria-labelledby="tab-oak">
+        <div class="official-controls">
+          <div>
+            <div class="section-title">Source</div>
+            <div style="font-family: var(--mono); font-size: 13px; margin-bottom: 14px;">data.oaklandca.gov · CrimeWatch 90-day dataset</div>
+          </div>
+          <button class="secondary-btn" style="width:auto;margin:0;" onclick="fetchOaklandData()">↻ Refresh</button>
+        </div>
+
+        <div class="official-stats" id="oak-stats">
+          <div class="stat-card">
+            <div class="stat-card-num" id="oak-total">—</div>
+            <div class="stat-card-label">Total incidents · 90 days</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num" id="oak-violent">—</div>
+            <div class="stat-card-label">Violent crime</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num" id="oak-vehicle">—</div>
+            <div class="stat-card-label">Vehicle-related</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num" id="oak-property">—</div>
+            <div class="stat-card-label">Property crime</div>
+          </div>
+        </div>
+
+        <div class="official-map-wrap">
+          <div id="oak-map" role="application" aria-label="Oakland official crime map"></div>
+          <div class="loading-overlay" id="oak-loading" style="display:none;">Fetching Oakland data…</div>
+        </div>
+
+        <div class="official-breakdown">
+          <div class="section-title">Top incident types (last 90 days)</div>
+          <div id="oak-breakdown"></div>
+        </div>
+
+        <p class="field-hint" style="margin-top: 20px;">
+          Block-level coordinates only. Exact addresses are masked by OPD to protect victim privacy. Data refreshes from the city portal in real time.
+        </p>
+      </div>
+
+      <!-- San Leandro panel -->
+      <div class="official-panel" id="panel-sanleandro" role="tabpanel" aria-labelledby="tab-sl">
+        <div class="official-controls">
+          <div>
+            <div class="section-title">Source</div>
+            <div style="font-family: var(--mono); font-size: 13px; margin-bottom: 14px;">sanleandro.org · Police CityDash · CAD dispatch · Hourly refresh</div>
+          </div>
+          <a href="https://sanleandro.city911.citydata.ai/" target="_blank" rel="noopener" class="secondary-btn" style="width:auto;margin:0;text-decoration:none;display:inline-flex;align-items:center;">
+            ↗ Open Official Dashboard
+          </a>
+        </div>
+
+        <!-- Top-level 2024 stats -->
+        <div class="sl-stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-num" style="color: var(--oxblood);">499</div>
+            <div class="stat-card-label">Violent crimes · 2024</div>
+            <div class="stat-card-sub">577 per 100,000 residents · 56% above national average</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num" style="color: var(--oxblood);">4,254</div>
+            <div class="stat-card-label">Property crimes · 2024</div>
+            <div class="stat-card-sub">4,920 per 100,000 · more than 150% above U.S. average</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num" style="color: var(--oxblood);">1 in 25</div>
+            <div class="stat-card-label">Property crime victimization rate</div>
+            <div class="stat-card-sub">Annual likelihood</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num" style="color: var(--oxblood);">1 in 183</div>
+            <div class="stat-card-label">Violent crime victimization rate</div>
+            <div class="stat-card-sub">Annual likelihood</div>
+          </div>
+        </div>
+
+        <!-- Property crime breakdown chart -->
+        <div class="official-breakdown" style="margin-top: 28px;">
+          <div class="section-title">Property crime breakdown · 2024</div>
+          <div id="sl-breakdown">
+            <div class="breakdown-row">
+              <span class="breakdown-label">Larceny / theft</span>
+              <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 100%;"></div></div>
+              <span class="breakdown-count">2,847</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Motor vehicle theft</span>
+              <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 32%;"></div></div>
+              <span class="breakdown-count">912</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Burglary</span>
+              <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 17%;"></div></div>
+              <span class="breakdown-count">495</span>
+            </div>
+          </div>
+          <p class="field-hint" style="margin-top: 12px;">Estimates compiled from San Leandro PD 2024 reporting. Exact counts may shift in revised annual reports.</p>
+        </div>
+
+        <!-- Two-city comparison -->
+        <div class="official-breakdown" style="margin-top: 20px;">
+          <div class="section-title">San Leandro vs Oakland · 2024 violent crime rate per 100,000</div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">San Leandro</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 30%; background: var(--oxblood);"></div></div>
+            <span class="breakdown-count">577</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">Oakland</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 100%; background: #2F4858;"></div></div>
+            <span class="breakdown-count">1,912</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">U.S. average</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 19%; background: #6b5d50;"></div></div>
+            <span class="breakdown-count">369</span>
+          </div>
+          <p class="field-hint" style="margin-top: 12px;">Per FBI UCR 2024. San Leandro's rate is roughly 30% of Oakland's but still 56% above the national mean. The two cities sit on the same East 14th / International Boulevard corridor and share many of the same crime patterns at different scales.</p>
+        </div>
+
+        <!-- Year-over-year trend -->
+        <div class="official-breakdown" style="margin-top: 20px;">
+          <div class="section-title">San Leandro homicides · year over year</div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">2022</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 70%;"></div></div>
+            <span class="breakdown-count">7</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">2023</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 100%;"></div></div>
+            <span class="breakdown-count">10</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">2024</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 50%;"></div></div>
+            <span class="breakdown-count">5</span>
+          </div>
+        </div>
+
+        <!-- Categories tracked -->
+        <div class="content-section" style="margin-top: 28px;">
+          <div class="section-title">CityDash service-call categories</div>
+          <div class="sl-cat-grid">
+            <div class="sl-cat-pill">Alarms</div>
+            <div class="sl-cat-pill">Assault</div>
+            <div class="sl-cat-pill">Burglary</div>
+            <div class="sl-cat-pill">Disturbance</div>
+            <div class="sl-cat-pill">Drug violations</div>
+            <div class="sl-cat-pill">DUI</div>
+            <div class="sl-cat-pill">Fraud</div>
+            <div class="sl-cat-pill">Homicide</div>
+            <div class="sl-cat-pill">Motor vehicle theft</div>
+            <div class="sl-cat-pill">Robbery</div>
+            <div class="sl-cat-pill">Theft</div>
+            <div class="sl-cat-pill">Vandalism</div>
+            <div class="sl-cat-pill">Vehicle break-in</div>
+            <div class="sl-cat-pill">Weapon violations</div>
+          </div>
+        </div>
+
+        <!-- Live embedded dashboard -->
+        <div class="content-section" style="margin-top: 28px;">
+          <div class="section-title">Live CityDash · sanleandro.city911.citydata.ai</div>
+          <p class="field-hint" style="margin-bottom: 12px;">The official San Leandro PD dashboard, powered by LotaData and Google Looker Studio. Pan, zoom, and filter inside the frame. If your browser blocks the embed, use the "Open Official Dashboard" button.</p>
+          <div class="iframe-wrap" id="sl-iframe-wrap">
+            <div class="iframe-fallback" id="sl-iframe-fallback">
+              <div style="font-family: var(--mono); font-size: 11px; letter-spacing: 2px; color: var(--oxblood); font-weight: 700; text-transform: uppercase; margin-bottom: 10px;">Loading San Leandro dashboard…</div>
+              <div style="font-size: 13px; color: var(--muted); margin-bottom: 16px;">If this does not load within a few seconds, your browser may be blocking the embed. The dashboard works directly in a new tab.</div>
+              <a href="https://sanleandro.city911.citydata.ai/" target="_blank" rel="noopener" class="primary-btn" style="display:inline-flex;width:auto;text-decoration:none;padding:12px 24px;">
+                ↗ Open Dashboard in New Tab
+              </a>
+            </div>
+            <iframe src="https://lookerstudio.google.com/embed/reporting/cc57d4ce-9ee6-43b5-b76b-8ee7a582e5c2/page/p_3npqenfymc"
+              title="San Leandro Police CityDash crime map"
+              loading="lazy"
+              onload="document.getElementById('sl-iframe-fallback').style.display='none';"
+              allow="geolocation"></iframe>
+          </div>
+        </div>
+
+        <p class="field-hint" style="margin-top: 20px;">
+          San Leandro's CityDash is hosted on Google Looker Studio via LotaData. The data here is sourced from San Leandro PD annual reporting, FBI UCR 2024, and the embedded dashboard above.
+        </p>
+      </div>
+
+      <!-- Sources panel -->
+      <div class="official-panel" id="panel-sources" role="tabpanel" aria-labelledby="tab-sources">
+        <div class="content-section">
+          <h2 class="content-h2">Where this data comes from</h2>
+          <ul class="content-list">
+            <li><strong>Oakland CrimeWatch:</strong> Live Socrata API from data.oaklandca.gov, dataset ID ppgh-7dqv, 90-day rolling window, no login required, block-level coordinates</li>
+            <li><strong>San Leandro CityDash:</strong> Live Google Looker Studio dashboard at sanleandro.city911.citydata.ai, powered by LotaData, fed by CAD dispatch, updated every 60 minutes</li>
+            <li><strong>Annual aggregate stats:</strong> FBI Uniform Crime Report and city PD year-end reporting</li>
+          </ul>
+        </div>
+
+        <div class="content-section">
+          <h2 class="content-h2">What this data is not</h2>
+          <p class="content-p">These are incidents <em>reported to police</em>. They are not a complete picture of crime. Property and vehicle crimes are commonly reported when insurance is involved. Sexual assault, harassment, and many scams are systematically underreported, often by an order of magnitude.</p>
+          <p class="content-p">Block-level coordinates are deliberately fuzzy. A pin on the map represents the block, not the exact house or business.</p>
+        </div>
+
+        <div class="content-section">
+          <h2 class="content-h2">How to read it together with community reports</h2>
+          <p class="content-p">The community map on the main page shows what neighbors are seeing now. The official feed shows what made it into police reports over the past 90 days. The gap between the two is the actual story. If a corridor has heavy community reporting and light official data, it likely means people are not bothering to file reports because they expect nothing will happen.</p>
+        </div>
+
+        <div class="content-section">
+          <h2 class="content-h2">Paid vs free</h2>
+          <p class="content-p">Services like Citizen, NeighborhoodScout, and SpotCrime resell this same public data with a polished interface on top. You are paying for the presentation, not the data itself. Everything shown here is free, public, and government-sourced.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  bash
+
+cat << 'PANEL'
+      <!-- Corridor map panel -->
+      <div class="official-panel" id="panel-corridor" role="tabpanel" aria-labelledby="tab-corridor">
+        <div class="official-controls">
+          <div>
+            <div class="section-title">Source</div>
+            <div style="font-family: var(--mono); font-size: 13px; margin-bottom: 14px;">missionbaynews.us/crime-corridor-map · SLPD NIBRS + OPD CrimeWatch · Feb–May 2026</div>
+          </div>
+          <a href="https://missionbaynews.us/crime-corridor-map" target="_blank" rel="noopener" class="secondary-btn" style="width:auto;margin:0;text-decoration:none;display:inline-flex;align-items:center;">
+            ↗ Open Data Hub
+          </a>
+        </div>
+
+        <div class="sl-stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-num" style="color: var(--oxblood);">10,113</div>
+            <div class="stat-card-label">Total incidents · 2023</div>
+            <div class="stat-card-sub">Baseline year</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num">6,431</div>
+            <div class="stat-card-label">Total incidents · 2025</div>
+            <div class="stat-card-sub">↓ 36% from 2023 peak</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num">6,000+</div>
+            <div class="stat-card-label">Mapped incidents</div>
+            <div class="stat-card-sub">Feb–May 2026, East 14th / International Blvd corridor</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num">~6,465</div>
+            <div class="stat-card-label">2026 annualized pace</div>
+            <div class="stat-card-sub">Based on Jan–Apr confirmed figures</div>
+          </div>
+        </div>
+
+        <div class="official-breakdown" style="margin-top: 28px;">
+          <div class="section-title">Year-over-year trend · San Leandro total incidents</div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">2023</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 100%;"></div></div>
+            <span class="breakdown-count">10,113</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">2024</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 80%;"></div></div>
+            <span class="breakdown-count">8,122</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">2025</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 64%;"></div></div>
+            <span class="breakdown-count">6,431</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">2026 (proj.)</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 64%; background: #6b5d50;"></div></div>
+            <span class="breakdown-count">~6,465</span>
+          </div>
+        </div>
+
+        <div class="resource-grid" style="margin-top: 28px;">
+          <div class="resource-card">
+            <div class="resource-agency">Statistics Dashboard</div>
+            <div class="resource-desc">Four-year trend analysis, district breakdown, per-capita odds calculator</div>
+            <a href="https://missionbaynews.us/crime-corridor-map/crime-stats.html" target="_blank" rel="noopener" style="font-family: var(--mono); font-size: 12px; color: var(--oxblood); text-decoration: none; font-weight: 700;">Open Dashboard ↗</a>
+          </div>
+          <div class="resource-card">
+            <div class="resource-agency">Interactive Corridor Map</div>
+            <div class="resource-desc">6,000+ incident markers, filterable by crime type, East 14th to International Blvd</div>
+            <a href="https://missionbaynews.us/crime-corridor-map/map.html" target="_blank" rel="noopener" style="font-family: var(--mono); font-size: 12px; color: var(--oxblood); text-decoration: none; font-weight: 700;">Open Map ↗</a>
+          </div>
+        </div>
+
+        <div class="content-section" style="margin-top: 28px;">
+          <h2 class="content-h2">What this map shows</h2>
+          <p class="content-p" style="font-size: 15px; line-height: 1.7;">The corridor map documents incidents along the East 14th Street and International Boulevard corridor shared by San Leandro and Oakland. This stretch accounts for a disproportionate share of both cities' reported property and vehicle crime. The map makes visible what aggregate statistics mask: geographic concentration. Half the incidents in San Leandro cluster in roughly 20% of the city's area.</p>
+          <p class="content-p" style="font-size: 15px; line-height: 1.7; margin-top: 12px;">Data sources: San Leandro PD NIBRS annual reports and OPD CrimeWatch. Prostitution-related calls are systematically underreported in official SLPD data. This gap is documented in the map's methodology notes.</p>
+        </div>
+      </div>
+PANEL
+Output
+
+      <!-- Corridor map panel -->
+      <div class="official-panel" id="panel-corridor" role="tabpanel" aria-labelledby="tab-corridor">
+        <div class="official-controls">
+          <div>
+            <div class="section-title">Source</div>
+            <div style="font-family: var(--mono); font-size: 13px; margin-bottom: 14px;">missionbaynews.us/crime-corridor-map · SLPD NIBRS + OPD CrimeWatch · Feb–May 2026</div>
+          </div>
+          <a href="https://missionbaynews.us/crime-corridor-map" target="_blank" rel="noopener" class="secondary-btn" style="width:auto;margin:0;text-decoration:none;display:inline-flex;align-items:center;">
+            ↗ Open Data Hub
+          </a>
+        </div>
+
+        <div class="sl-stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-num" style="color: var(--oxblood);">10,113</div>
+            <div class="stat-card-label">Total incidents · 2023</div>
+            <div class="stat-card-sub">Baseline year</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num">6,431</div>
+            <div class="stat-card-label">Total incidents · 2025</div>
+            <div class="stat-card-sub">↓ 36% from 2023 peak</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num">6,000+</div>
+            <div class="stat-card-label">Mapped incidents</div>
+            <div class="stat-card-sub">Feb–May 2026, East 14th / International Blvd corridor</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-num">~6,465</div>
+            <div class="stat-card-label">2026 annualized pace</div>
+            <div class="stat-card-sub">Based on Jan–Apr confirmed figures</div>
+          </div>
+        </div>
+
+        <div class="official-breakdown" style="margin-top: 28px;">
+          <div class="section-title">Year-over-year trend · San Leandro total incidents</div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">2023</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 100%;"></div></div>
+            <span class="breakdown-count">10,113</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">2024</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 80%;"></div></div>
+            <span class="breakdown-count">8,122</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">2025</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 64%;"></div></div>
+            <span class="breakdown-count">6,431</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">2026 (proj.)</span>
+            <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: 64%; background: #6b5d50;"></div></div>
+            <span class="breakdown-count">~6,465</span>
+          </div>
+        </div>
+
+        <div class="resource-grid" style="margin-top: 28px;">
+          <div class="resource-card">
+            <div class="resource-agency">Statistics Dashboard</div>
+            <div class="resource-desc">Four-year trend analysis, district breakdown, per-capita odds calculator</div>
+            <a href="https://missionbaynews.us/crime-corridor-map/crime-stats.html" target="_blank" rel="noopener" style="font-family: var(--mono); font-size: 12px; color: var(--oxblood); text-decoration: none; font-weight: 700;">Open Dashboard ↗</a>
+          </div>
+          <div class="resource-card">
+            <div class="resource-agency">Interactive Corridor Map</div>
+            <div class="resource-desc">6,000+ incident markers, filterable by crime type, East 14th to International Blvd</div>
+            <a href="https://missionbaynews.us/crime-corridor-map/map.html" target="_blank" rel="noopener" style="font-family: var(--mono); font-size: 12px; color: var(--oxblood); text-decoration: none; font-weight: 700;">Open Map ↗</a>
+          </div>
+        </div>
+
+        <div class="content-section" style="margin-top: 28px;">
+          <h2 class="content-h2">What this map shows</h2>
+          <p class="content-p" style="font-size: 15px; line-height: 1.7;">The corridor map documents incidents along the East 14th Street and International Boulevard corridor shared by San Leandro and Oakland. This stretch accounts for a disproportionate share of both cities' reported property and vehicle crime. The map makes visible what aggregate statistics mask: geographic concentration. Half the incidents in San Leandro cluster in roughly 20% of the city's area.</p>
+          <p class="content-p" style="font-size: 15px; line-height: 1.7; margin-top: 12px;">Data sources: San Leandro PD NIBRS annual reports and OPD CrimeWatch. Prostitution-related calls are systematically underreported in official SLPD data. This gap is documented in the map's methodology notes.</p>
+        </div>
+      </div>
+
+
+  <section class="view" id="view-mine" aria-labelledby="mine-heading">
+    <div class="form-wrap">
+      <div class="page-header">
+        <div class="kicker">PERSONAL LEDGER</div>
+        <h1 class="page-title" id="mine-heading">My Filed Reports</h1>
+        <p class="page-intro">A private record of what you have submitted. Visible only to you on this device.</p>
+      </div>
+      <div id="mine-content"></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="view" id="view-about" aria-labelledby="about-heading">
+    <div class="content-wrap">
+      <div class="kicker">ABOUT THE REGISTRY</div>
+      <h1 class="page-title" id="about-heading">What this is, and what it is not</h1>
+
+      <div class="content-section">
+        <h2 class="content-h2">The premise</h2>
+        <p class="content-p">Police reports get filed and disappear into a database. Consumer complaints get mailed to agencies and disappear into a different one. Patterns visible to neighbors on the same block are invisible to the systems supposed to track them. This registry exists so the people closest to the problem can see what the people closest to the problem are seeing.</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="content-h2">What gets logged</h2>
+        <ul class="content-list">
+          <li>Property crime, vehicle crime, package theft</li>
+          <li>Scams and fraud targeting consumers</li>
+          <li>Contractor disputes, billing fraud, defective products</li>
+          <li>Harassment, stalking, repeated targeting</li>
+        </ul>
+      </div>
+
+      <div class="content-section">
+        <h2 class="content-h2">What this is not</h2>
+        <p class="content-p">Filing here does not file a police report. It does not file a complaint with the FTC, the California Attorney General, the Contractors State License Board, the BBB, or any other regulator. Use those channels for formal action. Use this registry to show the pattern.</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="content-h2">Moderation</h2>
+        <p class="content-p">The community moderates itself. Any user-submitted report can be flagged. Reports flagged by three or more visitors are hidden from the public map. False or malicious reporting wastes everyone's time and undermines the registry's value.</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="content-h2">Accessibility</h2>
+        <p class="content-p">This site is built to WCAG 2.1 AA standards. Use the high contrast and larger text toggles in the top bar. All interactive elements are keyboard-navigable. The map can be navigated by tabbing through filter buttons rather than dragging. Screen readers will announce report counts and new selections.</p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="content-h2">Where to file formal complaints</h2>
+        <div class="resource-grid">
+          <div class="resource-card">
+            <div class="resource-agency">FTC</div>
+            <div class="resource-desc">Scams, identity theft, fraud</div>
+            <div class="resource-url">reportfraud.ftc.gov</div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-agency">CA AG</div>
+            <div class="resource-desc">Consumer complaints in California</div>
+            <div class="resource-url">oag.ca.gov/consumers</div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-agency">CSLB</div>
+            <div class="resource-desc">Contractor disputes in California</div>
+            <div class="resource-url">cslb.ca.gov</div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-agency">BBB</div>
+            <div class="resource-desc">Business complaints</div>
+            <div class="resource-url">bbb.org</div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-agency">IC3</div>
+            <div class="resource-desc">Internet crime complaints (FBI)</div>
+            <div class="resource-url">ic3.gov</div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-agency">Local PD</div>
+            <div class="resource-desc">Active crime, immediate threat</div>
+            <div class="resource-url">911 or non-emergency line</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TERMS ============ -->
+  <section class="view" id="view-terms" aria-labelledby="terms-heading">
+    <div class="content-wrap">
+      <div class="kicker">LEGAL · TERMS OF USE</div>
+      <h1 class="page-title" id="terms-heading">Terms of Use</h1>
+      <p class="legal-date">Effective: May 2026</p>
+
+      <div class="content-section"><h2 class="content-h2">1. Acceptance</h2>
+        <p class="content-p">By submitting a report or otherwise using Civic Watch, you agree to these Terms of Use. If you do not agree, do not submit reports.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">2. Nature of the service</h2>
+        <p class="content-p">Civic Watch is a community-sourced incident registry. It is not affiliated with any government agency, law enforcement body, or regulator. Reports submitted here are not police reports and do not initiate any official investigation, complaint, or proceeding.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">3. Accuracy attestation</h2>
+        <p class="content-p">Each user submitting a report attests that the report is true and accurate to the best of the user's knowledge at the time of submission. The submission checkbox is part of this agreement. Submitting a report you know to be false, or that you submit with reckless disregard for its truth, is a material breach of these Terms.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">4. Prohibited content</h2>
+        <p class="content-p">You agree not to submit any content that:</p>
+        <ul class="content-list">
+          <li>Names a specific individual as a suspect or perpetrator without supporting documentation</li>
+          <li>Identifies a victim by name or other personally identifying details</li>
+          <li>Includes photographs of identifiable third parties who have not consented to publication</li>
+          <li>Includes full street addresses, license plate numbers, or other data that could enable harassment</li>
+          <li>Is intended to harass, threaten, defame, extort, or retaliate</li>
+          <li>Violates any law, court order, restraining order, or non-disclosure agreement</li>
+          <li>Infringes any third party's copyright, trademark, or other intellectual property</li>
+        </ul></div>
+
+      <div class="content-section"><h2 class="content-h2">5. Moderation and removal</h2>
+        <p class="content-p">Civic Watch reserves the right, but has no obligation, to remove any report at any time for any reason. Reports flagged by three or more visitors are automatically hidden from the public map pending review. Users who repeatedly submit content in violation of these Terms may be permanently banned.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">6. Indemnification</h2>
+        <p class="content-p">You agree to defend, indemnify, and hold harmless Civic Watch, its operators, contributors, and agents from any and all claims, damages, losses, liabilities, costs, and expenses, including reasonable attorneys' fees, arising out of or related to: (a) your reports or other content submitted to the service; (b) your breach of these Terms; (c) your violation of any third party's rights, including but not limited to defamation, invasion of privacy, or intellectual property infringement.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">7. No warranty</h2>
+        <p class="content-p">The service is provided "as is" and "as available" without warranty of any kind, express or implied. Civic Watch does not verify the accuracy of user-submitted reports and makes no representation about their truth, completeness, or reliability. Visitors who rely on information from this registry do so at their own risk.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">8. Limitation of liability</h2>
+        <p class="content-p">To the maximum extent permitted by law, Civic Watch and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the service.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">9. Severability</h2>
+        <p class="content-p">If any report or other content submitted by any user is found to be false, defamatory, or otherwise in violation of these Terms or applicable law, that specific submission shall be deemed void from inception and may be removed. The remaining reports submitted by other users, and the validity of these Terms in their entirety, shall remain in full force and effect. No single user's breach shall be deemed to invalidate the contributions of any other user.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">10. Section 230 acknowledgment</h2>
+        <p class="content-p">Civic Watch is an interactive computer service as defined by 47 U.S.C. § 230. Reports are content provided by third-party users. Civic Watch is not the publisher or speaker of user-submitted content. Operators reserve the right to moderate content in good faith under § 230(c)(2) without thereby assuming publisher liability.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">11. Governing law</h2>
+        <p class="content-p">These Terms are governed by the laws of the State of California. Any dispute arising from these Terms or your use of the service shall be brought in the state or federal courts located in Alameda County, California.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">12. Changes</h2>
+        <p class="content-p">We may update these Terms at any time. Material changes will be reflected in the effective date at the top of this page.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ PRIVACY ============ -->
+  <section class="view" id="view-privacy" aria-labelledby="privacy-heading">
+    <div class="content-wrap">
+      <div class="kicker">LEGAL · PRIVACY POLICY</div>
+      <h1 class="page-title" id="privacy-heading">Privacy Policy</h1>
+      <p class="legal-date">Effective: May 2026</p>
+
+      <div class="content-section"><h2 class="content-h2">1. What we collect</h2>
+        <p class="content-p">When you submit a report, we collect the information you provide: incident category, headline, location, date, description, optional name or handle, and optional photo. We record a timestamp and a system-generated report ID. We do not collect IP addresses, device identifiers, browser fingerprints, or analytics data.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">2. What we do not collect</h2>
+        <p class="content-p">We do not require account creation. We do not require email addresses or phone numbers. We do not track you across sessions. We do not use cookies for analytics or advertising. We do not sell data to third parties.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">3. How data is stored</h2>
+        <p class="content-p">Reports are stored in your browser's local storage. Public reports are visible on the map shown to all visitors using this site. Your personal copy is stored separately and is visible only to you on the device you used.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">4. Treat your submissions as public</h2>
+        <p class="content-p">Anything you submit to the public map, including any optional name and photo, is visible to all visitors and may be downloaded or archived by third parties. Do not submit anything you would not want made permanently public.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">5. Your California privacy rights</h2>
+        <p class="content-p">California residents have rights under the California Consumer Privacy Act including the right to know what personal information is collected, the right to delete personal information, and the right to non-discrimination for exercising these rights.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">6. Children</h2>
+        <p class="content-p">Civic Watch is not directed to children under 13. Do not submit reports on behalf of or about minors without appropriate consent.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ TAKEDOWN ============ -->
+  <section class="view" id="view-takedown" aria-labelledby="takedown-heading">
+    <div class="content-wrap">
+      <div class="kicker">LEGAL · TAKEDOWN POLICY</div>
+      <h1 class="page-title" id="takedown-heading">Takedown Policy</h1>
+      <p class="legal-date">Effective: May 2026</p>
+
+      <div class="content-section"><h2 class="content-h2">1. Purpose</h2>
+        <p class="content-p">This policy describes how to request removal of a report that you believe is false, defamatory, infringes your rights, or otherwise violates the Terms of Use. We aim to respond within seven business days.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">2. Who can request a takedown</h2>
+        <p class="content-p">Anyone whose legal rights are directly affected by a specific report may request its removal. This includes individuals named or identifiable in a report, businesses identified in a report, copyright holders, and individuals depicted in submitted photographs.</p></div>
+
+      <div class="content-section"><h2 class="content-h2">3. What to include</h2>
+        <ul class="content-list">
+          <li>A specific link or report ID identifying the content</li>
+          <li>A description of why the content should be removed</li>
+          <li>Your full legal name and a method of contact</li>
+          <li>For defamation claims: a statement of what specifically is false</li>
+          <li>For copyright claims under the DMCA: the elements required by 17 U.S.C. § 512(c)(3)</li>
+          <li>For privacy claims involving photos: a statement that you are the person depicted</li>
+        </ul></div>
+
+      <div class="content-section"><h2 class="content-h2">4. Counter-notice</h2>
+        <p class="content-p">For DMCA copyright takedowns, the submitting user has the right to file a counter-notice under 17 U.S.C. § 512(g).</p></div>
+
+      <div class="content-section"><h2 class="content-h2">5. Bad-faith takedown requests</h2>
+        <p class="content-p">Submitting a takedown request that you know to be false or designed to suppress legitimate speech may expose you to civil liability under 17 U.S.C. § 512(f) and California anti-SLAPP law (Cal. Civ. Proc. Code § 425.16).</p></div>
+
+      <div class="content-section"><h2 class="content-h2">6. How to contact us</h2>
+        <p class="content-p">A permanent legal contact will be published here when the operating entity is formed. Until then, takedown requests may be sent via the contact information on the operator's public-facing page.</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <div>CIVIC WATCH · Community-sourced incident registry</div>
+      <div class="footer-sub">California · Not affiliated with any government agency</div>
+    </div>
+    <div class="footer-links">
+      <button class="footer-link" onclick="switchView('terms')">Terms</button>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <button class="footer-link" onclick="switchView('privacy')">Privacy</button>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <button class="footer-link" onclick="switchView('takedown')">Takedown</button>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <button class="footer-link" onclick="switchView('about')">About</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────────────────────
+// CATEGORIES with SVG icons
+// ─────────────────────────────────────────────────────────────
+const CATEGORIES = [
+  { id: "property", label: "Property crime", color: "#8B1A1A", desc: "Theft, vandalism, break-in, burglary",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12L12 3l9 9M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>' },
+  { id: "vehicle", label: "Vehicle crime", color: "#2F4858", desc: "Auto theft, catalytic converter, smash-and-grab",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-5h14l2 5M3 12h18v6H3z"/><circle cx="7" cy="18" r="1.5" fill="currentColor"/><circle cx="17" cy="18" r="1.5" fill="currentColor"/></svg>' },
+  { id: "scam", label: "Scam or fraud", color: "#B8860B", desc: "Phone scam, online fraud, fake check",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16l-7-3-7 3z"/><path d="M9 9h6M9 13h4"/></svg>' },
+  { id: "consumer", label: "Consumer issue", color: "#4A5D3A", desc: "Bad service, defective product, billing fraud",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 4h3l3 12h11l2-8H6"/></svg>' },
+  { id: "package", label: "Package theft", color: "#6B4423", desc: "Porch piracy, mail theft, delivery diverted",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>' },
+  { id: "harassment", label: "Harassment / stalking", color: "#5C4D7D", desc: "Repeated targeting, intimidation, doxxing",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/><path d="M18 4l3 3M21 4l-3 3"/></svg>' },
+];
+
+const QUICK_CITIES = {
+  "San Leandro": [37.7249, -122.1561],
+  "Oakland": [37.8044, -122.2712],
+  "San Francisco": [37.7749, -122.4194],
+  "Berkeley": [37.8715, -122.273],
+  "Hayward": [37.6688, -122.0808],
+  "Fremont": [37.5485, -121.9886],
+  "San Jose": [37.3382, -121.8863],
+  "Palo Alto": [37.4419, -122.143],
+  "Sacramento": [38.5816, -121.4944],
+  "Los Angeles": [34.0522, -118.2437],
+  "San Diego": [32.7157, -117.1611],
+  "Fresno": [36.7378, -119.7871],
+};
+
+const FLAG_THRESHOLD = 3;
+const STORAGE_KEY = "civic-watch-reports-v1";
+const MINE_KEY = "civic-watch-mine-v1";
+const FLAGS_KEY = "civic-watch-flagged-v1";
+const A11Y_KEY = "civic-watch-a11y-v1";
+
+const SEED_REPORTS = [
+  { id: "seed-1", category: "vehicle", title: "Catalytic converter stolen overnight", location: "Oakland, CA", lat: 37.8044, lng: -122.2712, date: "2026-05-18", description: "Loud sawing noise around 3am. Truck was gone by morning. Third one on this block this year.", name: "Resident", photo: null, flags: 0, seed: true, ts: Date.now() - 7 * 86400000 },
+  { id: "seed-2", category: "package", title: "Porch piracy, SUV with no plates", location: "San Leandro, CA", lat: 37.7249, lng: -122.1561, date: "2026-05-20", description: "Two packages taken within 15 minutes of Amazon delivery. Doorbell cam caught a gray SUV.", name: "Resident", photo: null, flags: 0, seed: true, ts: Date.now() - 5 * 86400000 },
+  { id: "seed-3", category: "scam", title: "Fake PG&E shutoff call", location: "Berkeley, CA", lat: 37.8715, lng: -122.273, date: "2026-05-22", description: "Caller demanded $480 in gift cards to prevent same-day shutoff. Spoofed PG&E number. Reported to FTC.", name: "Resident", photo: null, flags: 0, seed: true, ts: Date.now() - 3 * 86400000 },
+  { id: "seed-4", category: "property", title: "Garage broken into, tools missing", location: "Hayward, CA", lat: 37.6688, lng: -122.0808, date: "2026-05-15", description: "Side door pried open. Power tools and a bike gone. Police report filed.", name: "Resident", photo: null, flags: 0, seed: true, ts: Date.now() - 10 * 86400000 },
+  { id: "seed-5", category: "consumer", title: "Roofing contractor took deposit, never returned", location: "San Francisco, CA", lat: 37.7749, lng: -122.4194, date: "2026-05-10", description: "$3,200 deposit cashed. Phone disconnected after one site visit. CSLB complaint filed.", name: "Resident", photo: null, flags: 0, seed: true, ts: Date.now() - 15 * 86400000 },
+];
+
+// State
+let reports = [];
+let myReports = [];
+let flaggedByMe = new Set();
+let currentFilter = "all";
+let selectedReport = null;
+let selectedCategory = "property";
+let locMode = "pick";
+let currentPhoto = null;
+let map = null;
+let markers = [];
+
+// ─────────────────────────────────────────────────────────────
+// ACCESSIBILITY TOGGLES
+// ─────────────────────────────────────────────────────────────
+function loadA11y() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(A11Y_KEY) || "{}");
+    if (saved.highContrast) { document.body.classList.add("high-contrast"); document.getElementById("hc-toggle").setAttribute("aria-pressed", "true"); }
+    if (saved.largeText) { document.body.classList.add("large-text"); document.getElementById("lt-toggle").setAttribute("aria-pressed", "true"); }
+  } catch {}
+}
+function saveA11y() {
+  const state = {
+    highContrast: document.body.classList.contains("high-contrast"),
+    largeText: document.body.classList.contains("large-text"),
+  };
+  localStorage.setItem(A11Y_KEY, JSON.stringify(state));
+}
+function toggleHighContrast() {
+  const on = document.body.classList.toggle("high-contrast");
+  document.getElementById("hc-toggle").setAttribute("aria-pressed", on ? "true" : "false");
+  announce(on ? "High contrast mode enabled" : "High contrast mode disabled");
+  saveA11y();
+}
+function toggleLargeText() {
+  const on = document.body.classList.toggle("large-text");
+  document.getElementById("lt-toggle").setAttribute("aria-pressed", on ? "true" : "false");
+  announce(on ? "Larger text enabled" : "Larger text disabled");
+  saveA11y();
+}
+
+// Screen reader announcements
+function announce(msg) {
+  const region = document.getElementById("live-region");
+  region.textContent = msg;
+  setTimeout(() => { region.textContent = ""; }, 1000);
+}
+
+// ─────────────────────────────────────────────────────────────
+// STORAGE
+// ─────────────────────────────────────────────────────────────
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const userReports = raw ? JSON.parse(raw) : [];
+    reports = [...SEED_REPORTS, ...userReports].sort((a, b) => b.ts - a.ts);
+  } catch { reports = [...SEED_REPORTS]; }
+
+  try {
+    const raw = localStorage.getItem(MINE_KEY);
+    myReports = raw ? JSON.parse(raw).sort((a, b) => b.ts - a.ts) : [];
+  } catch { myReports = []; }
+
+  try {
+    const raw = localStorage.getItem(FLAGS_KEY);
+    flaggedByMe = new Set(raw ? JSON.parse(raw) : []);
+  } catch {}
+}
+
+function saveReports() {
+  const userOnly = reports.filter(r => !r.seed);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(userOnly));
+}
+function saveMine() { localStorage.setItem(MINE_KEY, JSON.stringify(myReports)); }
+function saveFlags() { localStorage.setItem(FLAGS_KEY, JSON.stringify([...flaggedByMe])); }
+
+// ─────────────────────────────────────────────────────────────
+// VIEW SWITCHING
+// ─────────────────────────────────────────────────────────────
+function switchView(name) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("view-" + name).classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(b => {
+    b.removeAttribute("aria-current");
+    if (b.dataset.view === name) b.setAttribute("aria-current", "page");
+  });
+  window.scrollTo(0, 0);
+  if (name === "map" && map) setTimeout(() => map.invalidateSize(), 100);
+  if (name === "mine") renderMine();
+  if (name === "official") {
+    setTimeout(() => {
+      if (!oakMap) initOakMap();
+      oakMap && oakMap.invalidateSize();
+      if (!oakDataCache) fetchOaklandData();
+    }, 100);
+  }
+  announce(name + " view");
+}
+
+// ─────────────────────────────────────────────────────────────
+// MAP
+// ─────────────────────────────────────────────────────────────
+function initMap() {
+  map = L.map("map", {
+    center: [37.5, -121.8],
+    zoom: 8,
+    zoomControl: true,
+    scrollWheelZoom: true,
+    keyboard: true,
+  });
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
+    attribution: '&copy; OpenStreetMap &copy; CARTO',
+    subdomains: "abcd",
+    maxZoom: 19,
+  }).addTo(map);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png", {
+    subdomains: "abcd",
+    maxZoom: 19,
+    pane: "shadowPane",
+  }).addTo(map);
+  document.getElementById("map-loading").style.display = "none";
+}
+
+function renderMarkers() {
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+
+  const visible = reports.filter(r => (r.flags || 0) < FLAG_THRESHOLD);
+  const filtered = currentFilter === "all" ? visible : visible.filter(r => r.category === currentFilter);
+
+  filtered.forEach(r => {
+    if (!r.lat || !r.lng) return;
+    const cat = CATEGORIES.find(c => c.id === r.category) || CATEGORIES[0];
+    const icon = L.divIcon({
+      className: "cw-marker",
+      html: `<div style="width:22px;height:22px;border-radius:50%;background:${cat.color};border:3px solid #faf7f2;box-shadow:0 0 0 2px ${cat.color},0 3px 8px rgba(0,0,0,0.3);"></div>`,
+      iconSize: [22, 22],
+      iconAnchor: [11, 11],
+    });
+    const marker = L.marker([r.lat, r.lng], { icon, title: r.title, alt: cat.label + ": " + r.title }).addTo(map);
+    marker.on("click", () => selectReport(r));
+    markers.push(marker);
+  });
+}
+
+// ─────────────────────────────────────────────────────────────
+// FILTERS & SIDEBAR
+// ─────────────────────────────────────────────────────────────
+function renderFilters() {
+  const visible = reports.filter(r => (r.flags || 0) < FLAG_THRESHOLD);
+  const total = visible.length;
+  document.getElementById("stat-count").textContent = total;
+
+  // Hide sample banner once a real report exists
+  const hasRealReports = visible.some(r => !r.seed);
+  const banner = document.getElementById("sample-banner");
+  if (banner) banner.style.display = hasRealReports ? "none" : "block";
+
+  const list = document.getElementById("filter-list");
+  let html = `
+    <button class="filter-btn" aria-pressed="${currentFilter === "all"}" onclick="setFilter('all')">
+      <span class="filter-row">
+        <span class="filter-icon" style="color:#666"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="9"/></svg></span>
+        <span>All categories</span>
+      </span>
+      <span class="filter-count">${total}</span>
+    </button>`;
+  CATEGORIES.forEach(c => {
+    const count = visible.filter(r => r.category === c.id).length;
+    html += `
+      <button class="filter-btn" aria-pressed="${currentFilter === c.id}" onclick="setFilter('${c.id}')">
+        <span class="filter-row">
+          <span class="filter-icon" style="color:${c.color}">${c.icon.replace('<svg', '<svg width="20" height="20"')}</span>
+          <span>${c.label}</span>
+        </span>
+        <span class="filter-count">${count}</span>
+      </button>`;
+  });
+  list.innerHTML = html;
+
+  // Legend
+  const legend = document.getElementById("legend-list");
+  legend.innerHTML = CATEGORIES.map(c => `
+    <div class="legend-row">
+      <span class="legend-dot" style="background:${c.color}"></span>
+      <span>${c.label}</span>
+    </div>`).join("");
+}
+
+function setFilter(id) {
+  currentFilter = id;
+  renderFilters();
+  renderMarkers();
+  announce("Filter set to " + (id === "all" ? "all categories" : CATEGORIES.find(c => c.id === id).label));
+}
+
+// ─────────────────────────────────────────────────────────────
+// SELECT / FLAG
+// ─────────────────────────────────────────────────────────────
+function selectReport(r) {
+  selectedReport = r;
+  renderSelected();
+  if (map && r.lat && r.lng) map.panTo([r.lat, r.lng]);
+  announce("Selected: " + r.title);
+}
+
+function renderSelected() {
+  const container = document.getElementById("selected-card-container");
+  if (!selectedReport) { container.innerHTML = ""; return; }
+  const r = selectedReport;
+  const cat = CATEGORIES.find(c => c.id === r.category) || CATEGORIES[0];
+  const flagged = flaggedByMe.has(r.id);
+  container.innerHTML = `
+    <div class="selected-card" role="article" aria-label="Incident details">
+      <div class="selected-header">
+        <span class="cat-tag" style="background:${cat.color}">${cat.label}</span>
+        ${r.seed ? `<span class="sample-badge" title="This is illustrative sample data, not a real community report">SAMPLE</span>` : ""}
+        <button class="close-btn" onclick="closeSelected()" aria-label="Close details">×</button>
+      </div>
+      <div class="selected-title">${escapeHtml(r.title)}</div>
+      <div class="selected-meta">${escapeHtml(r.location)} · ${r.date}</div>
+      ${r.photo ? `<img class="selected-photo" src="${r.photo}" alt="Photo evidence for ${escapeHtml(r.title)}">` : ""}
+      <div class="selected-desc">${escapeHtml(r.description)}</div>
+      <div class="selected-footer">
+        <span>${r.seed ? "Sample placeholder data" : "Reported by " + escapeHtml(r.name || "Anonymous")}</span>
+        ${!r.seed ? `<button class="flag-btn" aria-pressed="${flagged}" ${flagged ? "disabled" : ""} onclick="flagReport('${r.id}')">${flagged ? "✓ Flagged" : "⚑ Flag"}</button>` : ""}
+      </div>
+      ${(r.flags || 0) > 0 ? `<div class="flag-count">${r.flags} community flag${r.flags === 1 ? "" : "s"}</div>` : ""}
+    </div>`;
+}
+
+function closeSelected() { selectedReport = null; renderSelected(); }
+
+function flagReport(id) {
+  if (flaggedByMe.has(id)) return;
+  const idx = reports.findIndex(r => r.id === id);
+  if (idx === -1 || reports[idx].seed) return;
+  reports[idx] = { ...reports[idx], flags: (reports[idx].flags || 0) + 1 };
+  flaggedByMe.add(id);
+  saveReports();
+  saveFlags();
+  if (selectedReport?.id === id) selectedReport = reports[idx];
+  renderSelected();
+  renderFilters();
+  renderMarkers();
+  announce("Report flagged");
+}
+
+function escapeHtml(s) {
+  if (s == null) return "";
+  return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+// ─────────────────────────────────────────────────────────────
+// CSV EXPORT
+// ─────────────────────────────────────────────────────────────
+function exportCSV() {
+  const visible = reports.filter(r => (r.flags || 0) < FLAG_THRESHOLD);
+  const rows = [
+    ["id", "category", "title", "location", "lat", "lng", "date", "description", "name", "has_photo", "flags", "timestamp"],
+    ...visible.map(r => [r.id, r.category, r.title, r.location, r.lat, r.lng, r.date, r.description, r.name, r.photo ? "yes" : "no", r.flags || 0, new Date(r.ts).toISOString()]),
+  ];
+  const csv = rows.map(row => row.map(cell => {
+    const s = String(cell ?? "");
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  }).join(",")).join("\n");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `civic-watch-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  announce("CSV exported");
+}
+
+// ─────────────────────────────────────────────────────────────
+// CATEGORY GRID (form)
+// ─────────────────────────────────────────────────────────────
+function renderCatGrid() {
+  const grid = document.getElementById("cat-grid");
+  grid.innerHTML = CATEGORIES.map(c => `
+    <button type="button" class="cat-btn" role="radio" aria-checked="${selectedCategory === c.id}" aria-pressed="${selectedCategory === c.id}"
+      onclick="selectCategory('${c.id}')" style="${selectedCategory === c.id ? `border-color:${c.color};background:${c.color}10` : ""}">
+      <div class="cat-btn-row">
+        <span class="cat-btn-icon" style="background:${c.color}20;color:${c.color}">${c.icon.replace('<svg', '<svg width="20" height="20"')}</span>
+        <span class="cat-btn-label">${c.label}</span>
+      </div>
+      <span class="cat-btn-desc">${c.desc}</span>
+    </button>`).join("");
+}
+function selectCategory(id) { selectedCategory = id; renderCatGrid(); }
+
+// ─────────────────────────────────────────────────────────────
+// LOCATION MODE
+// ─────────────────────────────────────────────────────────────
+function setLocMode(mode) {
+  locMode = mode;
+  document.getElementById("loc-pick").setAttribute("aria-pressed", mode === "pick" ? "true" : "false");
+  document.getElementById("loc-custom").setAttribute("aria-pressed", mode === "custom" ? "true" : "false");
+  document.getElementById("f-city").style.display = mode === "pick" ? "block" : "none";
+  document.getElementById("f-custom-city").style.display = mode === "custom" ? "block" : "none";
+  document.getElementById("loc-hint").textContent = mode === "pick"
+    ? "Select your nearest city."
+    : "Type any California city. We will geocode it to place it on the map.";
+}
+
+// ─────────────────────────────────────────────────────────────
+// PHOTO UPLOAD
+// ─────────────────────────────────────────────────────────────
+function handlePhoto(e) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  if (file.size > 10 * 1024 * 1024) { showError("Image too large. Use a photo under 10 MB."); return; }
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, 1200 / img.width);
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      currentPhoto = canvas.toDataURL("image/jpeg", 0.75);
+      renderPhotoArea();
+      announce("Photo attached");
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function renderPhotoArea() {
+  const area = document.getElementById("photo-area");
+  if (currentPhoto) {
+    area.innerHTML = `
+      <div class="photo-preview-wrap">
+        <img class="photo-preview" src="${currentPhoto}" alt="Photo preview">
+        <button type="button" class="remove-photo-btn" onclick="removePhoto()">Remove photo</button>
+      </div>`;
+  } else {
+    area.innerHTML = `
+      <input type="file" id="f-photo" accept="image/*" class="file-input" onchange="handlePhoto(event)">
+      <label for="f-photo" class="file-label">
+        <svg class="file-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="1"/>
+          <circle cx="9" cy="11" r="2"/>
+          <path d="M3 17l5-5 4 4 3-3 6 6"/>
+        </svg>
+        <span>Upload image</span>
+      </label>
+      <p class="field-hint">Crop out faces and license plates before uploading. Images compressed automatically.</p>`;
+  }
+}
+
+function removePhoto() { currentPhoto = null; renderPhotoArea(); announce("Photo removed"); }
+
+// ─────────────────────────────────────────────────────────────
+// FORM SUBMIT
+// ─────────────────────────────────────────────────────────────
+function showError(msg) {
+  const el = document.getElementById("form-error");
+  el.textContent = msg;
+  el.style.display = "block";
+  el.scrollIntoView({ behavior: "smooth", block: "center" });
+  announce("Error: " + msg);
+}
+
+async function geocode(query) {
+  try {
+    const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ", California, USA")}&format=json&limit=1`);
+    const data = await res.json();
+    if (data && data[0]) return [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+  } catch {}
+  return null;
+}
+
+async function submitForm(e) {
+  e.preventDefault();
+  document.getElementById("form-error").style.display = "none";
+
+  const title = document.getElementById("f-title").value.trim();
+  const address = document.getElementById("f-address").value.trim();
+  const date = document.getElementById("f-date").value;
+  const description = document.getElementById("f-desc").value.trim();
+  const name = document.getElementById("f-name").value.trim();
+  const attested = document.getElementById("f-attest").checked;
+
+  if (!title) { showError("Please add a short headline."); return; }
+  if (!date) { showError("Please add a date."); return; }
+  if (!description) { showError("Please describe what happened."); return; }
+  if (!attested) { showError("You must attest to the accuracy of your report before filing."); return; }
+
+  let lat, lng, locLabel;
+  if (locMode === "custom") {
+    const custom = document.getElementById("f-custom-city").value.trim();
+    if (!custom) { showError("Please type a California city."); return; }
+    const geo = await geocode(custom);
+    if (!geo) { showError("Could not find that location. Try a different city or use quick pick."); return; }
+    [lat, lng] = geo;
+    locLabel = custom;
+  } else {
+    const city = document.getElementById("f-city").value;
+    [lat, lng] = QUICK_CITIES[city];
+    locLabel = city;
+  }
+
+  const jitter = () => (Math.random() - 0.5) * 0.04;
+  const fullLocation = address ? `${address}, ${locLabel}` : `${locLabel}, CA`;
+
+  const record = {
+    id: `r-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    category: selectedCategory,
+    title, location: fullLocation,
+    lat: lat + jitter(), lng: lng + jitter(),
+    date, description,
+    name: name || "Anonymous",
+    photo: currentPhoto,
+    flags: 0,
+    seed: false,
+    ts: Date.now(),
+    attestedAt: new Date().toISOString(),
+  };
+
+  reports.unshift(record);
+  myReports.unshift(record);
+  saveReports();
+  saveMine();
+
+  // Reset form
+  document.getElementById("incident-form").reset();
+  currentPhoto = null;
+  renderPhotoArea();
+  selectedCategory = "property";
+  renderCatGrid();
+  setLocMode("pick");
+
+  // Show success
+  document.getElementById("view-report").innerHTML = `
+    <div class="success-panel" role="alert">
+      <div class="success-mark" aria-hidden="true">✓</div>
+      <div class="success-title">Report filed</div>
+      <div class="success-sub">Returning to the public map…</div>
+    </div>`;
+  announce("Report filed successfully");
+
+  setTimeout(() => {
+    location.reload();
+  }, 1800);
+}
+
+// ─────────────────────────────────────────────────────────────
+// MY REPORTS
+// ─────────────────────────────────────────────────────────────
+function renderMine() {
+  const container = document.getElementById("mine-content");
+  if (myReports.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <svg class="empty-illustration" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="20" y="20" width="80" height="90" rx="2"/>
+          <path d="M35 40h50M35 55h50M35 70h30"/>
+          <circle cx="85" cy="80" r="12"/>
+          <path d="M85 75v10M85 90v.5"/>
+        </svg>
+        <div class="empty-title">No reports filed yet</div>
+        <div class="empty-sub">Reports you file will appear here and on the public map.</div>
+      </div>`;
+    return;
+  }
+  container.innerHTML = `
+    <div style="margin-bottom: 20px;">
+      <button class="secondary-btn" style="width:auto;margin:0;" onclick="exportMine()">↓ Export My Reports CSV</button>
+    </div>
+    <div class="mine-list">
+      ${myReports.map(r => {
+        const cat = CATEGORIES.find(c => c.id === r.category) || CATEGORIES[0];
+        return `
+          <article class="mine-card">
+            <div class="mine-card-head">
+              <span class="cat-tag" style="background:${cat.color}">${cat.label}</span>
+              <span class="mine-date">${r.date}</span>
+            </div>
+            <div class="mine-title">${escapeHtml(r.title)}</div>
+            <div class="mine-location">${escapeHtml(r.location)}</div>
+            ${r.photo ? `<img class="mine-photo" src="${r.photo}" alt="Photo evidence">` : ""}
+            <div class="mine-desc">${escapeHtml(r.description)}</div>
+          </article>`;
+      }).join("")}
+    </div>`;
+}
+
+function exportMine() {
+  const rows = [
+    ["id", "category", "title", "location", "date", "description", "name", "has_photo", "timestamp"],
+    ...myReports.map(r => [r.id, r.category, r.title, r.location, r.date, r.description, r.name, r.photo ? "yes" : "no", new Date(r.ts).toISOString()]),
+  ];
+  const csv = rows.map(row => row.map(cell => {
+    const s = String(cell ?? "");
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  }).join(",")).join("\n");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `my-reports-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  announce("My reports exported");
+}
+
+// ─────────────────────────────────────────────────────────────
+// OFFICIAL DATA · Oakland Socrata API
+// ─────────────────────────────────────────────────────────────
+const OAKLAND_API = "https://data.oaklandca.gov/resource/ppgh-7dqv.json";
+let oakMap = null;
+let oakMarkers = [];
+let oakDataCache = null;
+
+function setOfficialTab(name) {
+  document.querySelectorAll(".official-tab").forEach(t => t.setAttribute("aria-selected", "false"));
+  document.querySelectorAll(".official-panel").forEach(p => p.classList.remove("active"));
+  const tabId = name === "oakland" ? "tab-oak" : name === "sanleandro" ? "tab-sl" : "tab-sources";
+  document.getElementById(tabId).setAttribute("aria-selected", "true");
+  document.getElementById("panel-" + name).classList.add("active");
+  if (name === "oakland") {
+    if (!oakMap) initOakMap();
+    setTimeout(() => oakMap && oakMap.invalidateSize(), 100);
+    if (!oakDataCache) fetchOaklandData();
+  }
+  announce(name + " tab");
+}
+
+function initOakMap() {
+  oakMap = L.map("oak-map", {
+    center: [37.8044, -122.2712],
+    zoom: 12,
+    scrollWheelZoom: true,
+    keyboard: true,
+  });
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
+    attribution: '&copy; OpenStreetMap &copy; CARTO',
+    subdomains: "abcd",
+    maxZoom: 19,
+  }).addTo(oakMap);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png", {
+    subdomains: "abcd",
+    maxZoom: 19,
+    pane: "shadowPane",
+  }).addTo(oakMap);
+}
+
+// Categorize OPD crime descriptions into our buckets
+function categorizeOakCrime(desc) {
+  const d = (desc || "").toUpperCase();
+  if (/MURDER|HOMICIDE|ASSAULT|RAPE|ROBBERY|SHOOTING|BATTERY/.test(d)) return { bucket: "violent", color: "#8B1A1A" };
+  if (/VEHICLE|AUTO|MOTOR|CARJACK|CAR/.test(d)) return { bucket: "vehicle", color: "#2F4858" };
+  if (/BURGLARY|THEFT|LARCENY|STOLEN|PROPERTY|VANDALISM/.test(d)) return { bucket: "property", color: "#B8860B" };
+  return { bucket: "other", color: "#6b5d50" };
+}
+
+async function fetchOaklandData() {
+  const loading = document.getElementById("oak-loading");
+  loading.style.display = "flex";
+  loading.textContent = "Fetching Oakland data…";
+
+  try {
+    // Socrata supports $limit and $where; pull up to 5000 records from the 90-day feed
+    const url = OAKLAND_API + "?$limit=5000";
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    oakDataCache = data;
+    renderOakData(data);
+    loading.style.display = "none";
+    announce("Oakland data loaded, " + data.length + " incidents");
+  } catch (e) {
+    console.error("Oakland fetch failed", e);
+    loading.style.display = "none";
+    showOakError(e);
+  }
+}
+
+function showOakError(err) {
+  const panel = document.getElementById("panel-oakland");
+  const existing = panel.querySelector(".api-error");
+  if (existing) existing.remove();
+  const errDiv = document.createElement("div");
+  errDiv.className = "api-error";
+  errDiv.innerHTML = `
+    <div class="api-error-title">⚠ Could not load Oakland data</div>
+    <div style="margin-bottom: 10px;">The city's open data API may be temporarily unavailable, or the browser blocked the request.</div>
+    <div style="margin-bottom: 10px;"><strong>Error:</strong> ${escapeHtml(err.message || String(err))}</div>
+    <div>You can browse the data directly at <a href="https://data.oaklandca.gov/Public-Safety/CrimeWatch-Data/ppgh-7dqv" target="_blank" rel="noopener" style="color: var(--oxblood);">data.oaklandca.gov</a></div>`;
+  panel.insertBefore(errDiv, panel.firstChild.nextSibling);
+}
+
+function renderOakData(records) {
+  // Clear existing markers
+  oakMarkers.forEach(m => oakMap.removeLayer(m));
+  oakMarkers = [];
+
+  let total = 0, violent = 0, vehicle = 0, property = 0;
+  const breakdown = {};
+
+  records.forEach(r => {
+    total++;
+    const desc = r.crimetype || r.description || r.crime_description || r.crimedescription || "Unknown";
+    const cat = categorizeOakCrime(desc);
+    if (cat.bucket === "violent") violent++;
+    if (cat.bucket === "vehicle") vehicle++;
+    if (cat.bucket === "property") property++;
+
+    breakdown[desc] = (breakdown[desc] || 0) + 1;
+
+    // Try several common Socrata coordinate field names
+    let lat = null, lng = null;
+    if (r.location && r.location.coordinates) {
+      lng = parseFloat(r.location.coordinates[0]);
+      lat = parseFloat(r.location.coordinates[1]);
+    } else if (r.location_1 && r.location_1.coordinates) {
+      lng = parseFloat(r.location_1.coordinates[0]);
+      lat = parseFloat(r.location_1.coordinates[1]);
+    } else if (r.latitude && r.longitude) {
+      lat = parseFloat(r.latitude);
+      lng = parseFloat(r.longitude);
+    } else if (r.point && r.point.coordinates) {
+      lng = parseFloat(r.point.coordinates[0]);
+      lat = parseFloat(r.point.coordinates[1]);
+    }
+
+    if (lat && lng && !isNaN(lat) && !isNaN(lng) && Math.abs(lat) > 1) {
+      const icon = L.divIcon({
+        className: "cw-marker",
+        html: `<div style="width:10px;height:10px;border-radius:50%;background:${cat.color};opacity:0.7;border:1px solid #faf7f2;"></div>`,
+        iconSize: [10, 10],
+        iconAnchor: [5, 5],
+      });
+      const marker = L.marker([lat, lng], { icon, title: desc }).addTo(oakMap);
+      const dateStr = r.datetime || r.date || r.created || "";
+      const addr = r.address || r.blockaddress || r.block_address || "Block-level location";
+      marker.bindPopup(`
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: ${cat.color}; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">${escapeHtml(desc)}</div>
+        <div style="font-family: 'Fraunces', serif; font-size: 13px; margin-top: 4px;">${escapeHtml(addr)}</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6b5d50; margin-top: 4px;">${escapeHtml(dateStr.slice(0, 10))}</div>`);
+      oakMarkers.push(marker);
+    }
+  });
+
+  document.getElementById("oak-total").textContent = total.toLocaleString();
+  document.getElementById("oak-violent").textContent = violent.toLocaleString();
+  document.getElementById("oak-vehicle").textContent = vehicle.toLocaleString();
+  document.getElementById("oak-property").textContent = property.toLocaleString();
+
+  // Top 10 breakdown
+  const sorted = Object.entries(breakdown).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  const maxCount = sorted[0] ? sorted[0][1] : 1;
+  document.getElementById("oak-breakdown").innerHTML = sorted.map(([label, count]) => `
+    <div class="breakdown-row">
+      <span class="breakdown-label">${escapeHtml(label)}</span>
+      <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width: ${(count / maxCount * 100).toFixed(1)}%;"></div></div>
+      <span class="breakdown-count">${count.toLocaleString()}</span>
+    </div>`).join("");
+}
+
+
+window.addEventListener("DOMContentLoaded", () => {
+  loadA11y();
+  loadData();
+  document.getElementById("f-date").value = new Date().toISOString().slice(0, 10);
+  renderFilters();
+  renderCatGrid();
+  renderPhotoArea();
+  initMap();
+  renderMarkers();
+});
+</script>
+</body>
+</html>

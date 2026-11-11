@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>San Leandro Crime Corridor · Data Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0a0a0a;
+  --red: #c00;
+  --red-dim: #7a0000;
+  --off: #f4f1ec;
+  --mid: #888;
+  --rule: #ddd;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--off); }
+body { font-family: 'DM Sans', sans-serif; color: var(--ink); min-height: 100vh; display: flex; flex-direction: column; }
+
+.header { background: var(--ink); padding: 28px 40px 24px; border-bottom: 4px solid var(--red); }
+.header-eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+.header-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(42px, 7vw, 72px); color: #fff; line-height: 0.95; }
+.header-title span { color: var(--red); }
+.header-sub { font-size: 13px; color: #888; margin-top: 10px; font-family: 'DM Mono', monospace; }
+
+main { flex: 1; max-width: 900px; margin: 0 auto; padding: 60px 40px; width: 100%; }
+
+.section-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--mid); margin-bottom: 28px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+
+.data-strip { background: var(--ink); padding: 20px 28px; display: flex; gap: 40px; flex-wrap: wrap; margin-bottom: 40px; }
+.data-val { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #fff; line-height: 1; }
+.data-val.red { color: var(--red); }
+.data-val.green { color: #3a3; }
+.data-key { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: #666; margin-top: 3px; }
+
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 60px; }
+@media (max-width: 600px) { .cards { grid-template-columns: 1fr; } main { padding: 40px 24px; } .header { padding: 24px; } }
+
+.card { display: block; text-decoration: none; background: #fff; border: 1px solid var(--rule); border-top: 4px solid var(--ink); padding: 28px; transition: border-top-color 0.15s, transform 0.15s, box-shadow 0.15s; }
+.card:hover { border-top-color: var(--red); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.10); }
+.card-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--rule); line-height: 1; margin-bottom: 10px; transition: color 0.15s; }
+.card:hover .card-num { color: #f0c0c0; }
+.card-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+.card-title { font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.25; }
+.card-desc { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 20px; }
+.card-features { list-style: none; margin-bottom: 24px; }
+.card-features li { font-size: 12px; color: #444; padding: 4px 0; border-bottom: 1px solid #f0f0f0; font-family: 'DM Mono', monospace; }
+.card-features li::before { content: "→ "; color: var(--red); }
+.card-cta { display: inline-block; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink); border-bottom: 2px solid var(--red); padding-bottom: 2px; }
+.card:hover .card-cta { color: var(--red); }
+
+.about { font-size: 13px; color: #555; line-height: 1.8; max-width: 600px; }
+
+footer { background: var(--ink); padding: 20px 40px; border-top: 1px solid #222; }
+.footer-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.footer-text { font-family: 'DM Mono', monospace; font-size: 10px; color: #555; letter-spacing: 1px; }
+.footer-badge { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); border: 1px solid var(--red-dim); padding: 3px 8px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-eyebrow">Lexiannax · Public Data Project</div>
+  <div class="header-title">San Leandro<br><span>Crime Corridor</span></div>
+  <div class="header-sub">SLPD NIBRS data · 2023–2026 · Updated May 2026</div>
+</header>
+
+<main>
+  <div class="section-label">Choose a view</div>
+
+  <div class="data-strip">
+    <div class="data-item">
+      <div class="data-val red">10,113</div>
+      <div class="data-key">2023 incidents</div>
+    </div>
+    <div class="data-item">
+      <div class="data-val">8,122</div>
+      <div class="data-key">2024 incidents</div>
+    </div>
+    <div class="data-item">
+      <div class="data-val green">6,431</div>
+      <div class="data-key">2025 incidents</div>
+    </div>
+    <div class="data-item">
+      <div class="data-val">~6,465</div>
+      <div class="data-key">2026 projected pace</div>
+    </div>
+  </div>
+
+  <div class="cards">
+
+    <a class="card" href="crime-stats.html">
+      <div class="card-num">01</div>
+      <div class="card-label">Intelligence Dashboard</div>
+      <div class="card-title">Crime Statistics Analysis</div>
+      <div class="card-desc">Four-year trend analysis covering all NIBRS offense categories, district breakdown, and year-over-year comparisons.</div>
+      <ul class="card-features">
+        <li>2023 · 2024 · 2025 full year data</li>
+        <li>2026 Jan–Apr confirmed figures</li>
+        <li>District risk map</li>
+        <li>Per-capita odds calculator</li>
+        <li>Property vs violent crime split</li>
+      </ul>
+      <span class="card-cta">Open dashboard</span>
+    </a>
+
+    <a class="card" href="map.html">
+      <div class="card-num">02</div>
+      <div class="card-label">Interactive Map</div>
+      <div class="card-title">Oakland / San Leandro Corridor Map</div>
+      <div class="card-desc">Live incident mapping across the East 14th / International Blvd corridor. Feb–May 2026, filterable by crime type.</div>
+      <ul class="card-features">
+        <li>6,000+ incident markers</li>
+        <li>Filter by violent, property, narcotics</li>
+        <li>OPD CrimeWatch + SLPD NIBRS</li>
+        <li>Prostitution reporting gap documented</li>
+      </ul>
+      <span class="card-cta">Open map</span>
+    </a>
+
+  </div>
+
+  <div class="section-label">About this project</div>
+  <p class="about">All data sourced from San Leandro Police Department official NIBRS reports and OPD CrimeWatch. This is a public-interest project documenting crime trends for residents of San Leandro and Oakland, CA. Population basis: 86,900 (San Leandro). No personally identifiable information is included.</p>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-text">SLPD NIBRS 2023–2026 · OPD CrimeWatch · San Leandro & Oakland, CA</div>
+    <div class="footer-badge">Public data</div>
+  </div>
+</footer>
+
+</body>
+</html>
