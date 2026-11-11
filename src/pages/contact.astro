@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import links from '../data/resident-links.json';
+const form = links.contactFormUrl;
+const embed = form && form.includes('docs.google.com/forms')
+  ? form.replace(/\/viewform.*$/, '/viewform') + '?embedded=true'
+  : '';
+---
+
+<Base title="Contact" description="Send a message to the Mission Bay News editor.">
+  <h1>Contact the Editor</h1>
+  <p class="lede">News, events, corrections, advertising or questions about the site. A volunteer reads every message.</p>
+
+  {form ? (
+    <div class="framed">
+      <p><a class="button dark" href={form} rel="noopener" target="_blank">Open the contact form</a></p>
+      {embed && <iframe class="contact-form" src={embed} title="Contact form" loading="lazy">Loading…</iframe>}
+    </div>
+  ) : (
+    <div class="framed">
+      <p><strong>The contact form opens soon.</strong> Until then, use the button below.</p>
+      <p><a class="button dark" id="mail-editor" href="#">Email the editor</a></p>
+      <noscript><p>Please leave a note at the clubhouse for Mission Bay News.</p></noscript>
+    </div>
+  )}
+
+  <p>Please don't send private medical or money details. In an emergency, call 9-1-1.</p>
+</Base>
+
+{!form && (
+  <script>
+    const a = document.getElementById('mail-editor');
+    if (a) {
+      a.setAttribute('href', 'mailto:' + atob('bWlzc2lvbmJheW5ld3NAZ21haWwuY29t'));
+    }
+  </script>
+)}
+
+<style>
+  .contact-form { width: 100%; min-height: 900px; border: 0; margin-top: 1rem; }
+</style>

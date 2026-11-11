@@ -140,6 +140,7 @@ collections:
         file: src/data/resident-links.json
         format: json
         fields:
+          - { name: contactFormUrl, label: Contact form web address (Google Form link), widget: string, required: false }
           - { name: joinFormUrl, label: Sign-up form web address, widget: string, required: false }
           - { name: surveyUrl, label: Survey web address, widget: string, required: false }
           - { name: libraryUrl, label: Private newsletter library web address, widget: string, required: false }

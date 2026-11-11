@@ -4,6 +4,10 @@ The website already has the **Residents**, **Join** and **Privacy** pages. They 
 
 Use one shared account for everything below (`missionbaynews@gmail.com`), and give 2 or 3 named volunteers access, so the project doesn't depend on one person.
 
+## 0. Contact form (Google Forms)
+
+The site no longer shows the editor's email address. Every "Contact the editor" link goes to /contact/. Create a Google Form in the shared account titled *Contact Mission Bay News* with: Your name (short answer, required), Email or phone so we can reply (short answer, required), Topic (dropdown: News or event, Correction, Advertising, Website, Other), Message (paragraph, required). Leave "Collect email addresses" off. Turn on Responses → Get email notifications. Paste the form's link into `/admin/` → Lists & settings → Residents area links → **Contact form web address**. The form then appears on /contact/ and the email button disappears.
+
 ## 1. Sign-up form (Google Forms)
 
 Create the form in the shared account. Turn **off** "Collect email addresses" and ask for email as a normal question. Title: *Join the Mission Bay Residents Area*.

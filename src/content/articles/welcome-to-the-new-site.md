@@ -16,4 +16,4 @@ Here's what's new:
 - **The newsletter archive** is for Mission Bay residents. Issues, a residents' group and park resources are in the private **Residents** area. Join from the Residents page.
 - You can make the text bigger using the **Text size** buttons at the top of every page.
 
-Have news to share? [Email the editor](mailto:missionbaynews@gmail.com). The deadline for the monthly newsletter is the 10th of the month before publication.
+Have news to share? [Contact the editor](/contact/). The deadline for the monthly newsletter is the 10th of the month before publication.
