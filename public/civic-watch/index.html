@@ -2282,14 +2282,14 @@ function initMap() {
     scrollWheelZoom: true,
     keyboard: true,
   });
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
-    attribution: '&copy; OpenStreetMap &copy; CARTO',
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+    attribution: 'Tiles &copy; Esri, HERE, Garmin, &copy; OpenStreetMap contributors',
     subdomains: "abcd",
-    maxZoom: 19,
+    maxNativeZoom: 16, maxZoom: 19,
   }).addTo(map);
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png", {
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}", {
     subdomains: "abcd",
-    maxZoom: 19,
+    maxNativeZoom: 16, maxZoom: 19,
     pane: "shadowPane",
   }).addTo(map);
   document.getElementById("map-loading").style.display = "none";
@@ -2713,14 +2713,14 @@ function initOakMap() {
     scrollWheelZoom: true,
     keyboard: true,
   });
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
-    attribution: '&copy; OpenStreetMap &copy; CARTO',
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+    attribution: 'Tiles &copy; Esri, HERE, Garmin, &copy; OpenStreetMap contributors',
     subdomains: "abcd",
-    maxZoom: 19,
+    maxNativeZoom: 16, maxZoom: 19,
   }).addTo(oakMap);
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png", {
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}", {
     subdomains: "abcd",
-    maxZoom: 19,
+    maxNativeZoom: 16, maxZoom: 19,
     pane: "shadowPane",
   }).addTo(oakMap);
 }
