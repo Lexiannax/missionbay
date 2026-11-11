@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sudoku, Mission Bay News</title>
+<style>
+  body { font-family: Georgia, 'Times New Roman', serif; color: #1d2a33; background: #fbfaf6; margin: 0; padding: 24px; }
+  .wrap { max-width: 620px; margin: 0 auto; }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; }
+  .sub { font-style: italic; color: #4d5b64; margin: 0 0 18px; }
+  table.sudoku { border-collapse: collapse; background: #fff; margin: 0 auto; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  table.sudoku td.cell { width: 52px; height: 52px; text-align: center; font-family: 'Courier New', monospace; font-size: 24px; border: 1px solid #c9d1d6; }
+  table.sudoku td.vb { border-right: 3px solid #1d2a33; }
+  table.sudoku td.hb { border-bottom: 3px solid #1d2a33; }
+  table.sudoku td.given { font-weight: bold; background: #f1f4f6; }
+  table.sudoku td.filled { background: #ffe9a8; font-weight: bold; }
+  .answers { page-break-before: always; margin-top: 40px; }
+  .note { font-size: .9rem; color: #4d5b64; margin-top: 16px; text-align: center; }
+  @media print { body { padding: 0; background: #fff; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Sudoku</h1>
+  <p class="sub">Fill every row, column, and 3 by 3 box with the digits 1 through 9. Each digit appears once per row, column, and box.</p>
+  <table class='sudoku'><tr><td class="cell"></td><td class="cell given">1</td><td class="cell vb"></td><td class="cell"></td><td class="cell given">3</td><td class="cell vb"></td><td class="cell"></td><td class="cell"></td><td class="cell given">9</td></tr><tr><td class="cell given">9</td><td class="cell"></td><td class="cell vb given">5</td><td class="cell"></td><td class="cell given">7</td><td class="cell vb given">8</td><td class="cell"></td><td class="cell given">6</td><td class="cell"></td></tr><tr><td class="cell hb"></td><td class="cell hb"></td><td class="cell vb hb given">7</td><td class="cell hb"></td><td class="cell hb given">2</td><td class="cell vb hb"></td><td class="cell hb"></td><td class="cell hb given">4</td><td class="cell hb given">5</td></tr><tr><td class="cell"></td><td class="cell"></td><td class="cell vb"></td><td class="cell"></td><td class="cell"></td><td class="cell vb"></td><td class="cell given">6</td><td class="cell given">7</td><td class="cell"></td></tr><tr><td class="cell"></td><td class="cell given">5</td><td class="cell vb"></td><td class="cell"></td><td class="cell"></td><td class="cell vb given">2</td><td class="cell"></td><td class="cell"></td><td class="cell given">1</td></tr><tr><td class="cell hb given">7</td><td class="cell hb"></td><td class="cell vb hb given">3</td><td class="cell hb"></td><td class="cell hb given">1</td><td class="cell vb hb given">9</td><td class="cell hb given">8</td><td class="cell hb given">5</td><td class="cell hb"></td></tr><tr><td class="cell given">1</td><td class="cell given">7</td><td class="cell vb given">9</td><td class="cell given">8</td><td class="cell"></td><td class="cell vb"></td><td class="cell"></td><td class="cell"></td><td class="cell given">6</td></tr><tr><td class="cell given">5</td><td class="cell given">3</td><td class="cell vb given">2</td><td class="cell"></td><td class="cell given">6</td><td class="cell vb"></td><td class="cell given">9</td><td class="cell given">1</td><td class="cell"></td></tr><tr><td class="cell"></td><td class="cell"></td><td class="cell vb given">4</td><td class="cell"></td><td class="cell"></td><td class="cell vb"></td><td class="cell"></td><td class="cell"></td><td class="cell"></td></tr></table>
+  <p class="note">Mission Bay News, Community Puzzle</p>
+  <div class="answers">
+    <h1>Answer Key</h1>
+    <p class="sub">Shaded cells were filled in by the solver.</p>
+    <table class='sudoku'><tr><td class="cell filled">2</td><td class="cell">1</td><td class="cell vb filled">6</td><td class="cell filled">5</td><td class="cell">3</td><td class="cell vb filled">4</td><td class="cell filled">7</td><td class="cell filled">8</td><td class="cell">9</td></tr><tr><td class="cell">9</td><td class="cell filled">4</td><td class="cell vb">5</td><td class="cell filled">1</td><td class="cell">7</td><td class="cell vb">8</td><td class="cell filled">2</td><td class="cell">6</td><td class="cell filled">3</td></tr><tr><td class="cell hb filled">3</td><td class="cell hb filled">8</td><td class="cell vb hb">7</td><td class="cell hb filled">9</td><td class="cell hb">2</td><td class="cell vb hb filled">6</td><td class="cell hb filled">1</td><td class="cell hb">4</td><td class="cell hb">5</td></tr><tr><td class="cell filled">4</td><td class="cell filled">9</td><td class="cell vb filled">1</td><td class="cell filled">3</td><td class="cell filled">8</td><td class="cell vb filled">5</td><td class="cell">6</td><td class="cell">7</td><td class="cell filled">2</td></tr><tr><td class="cell filled">6</td><td class="cell">5</td><td class="cell vb filled">8</td><td class="cell filled">7</td><td class="cell filled">4</td><td class="cell vb">2</td><td class="cell filled">3</td><td class="cell filled">9</td><td class="cell">1</td></tr><tr><td class="cell hb">7</td><td class="cell hb filled">2</td><td class="cell vb hb">3</td><td class="cell hb filled">6</td><td class="cell hb">1</td><td class="cell vb hb">9</td><td class="cell hb">8</td><td class="cell hb">5</td><td class="cell hb filled">4</td></tr><tr><td class="cell">1</td><td class="cell">7</td><td class="cell vb">9</td><td class="cell">8</td><td class="cell filled">5</td><td class="cell vb filled">3</td><td class="cell filled">4</td><td class="cell filled">2</td><td class="cell">6</td></tr><tr><td class="cell">5</td><td class="cell">3</td><td class="cell vb">2</td><td class="cell filled">4</td><td class="cell">6</td><td class="cell vb filled">7</td><td class="cell">9</td><td class="cell">1</td><td class="cell filled">8</td></tr><tr><td class="cell filled">8</td><td class="cell filled">6</td><td class="cell vb">4</td><td class="cell filled">2</td><td class="cell filled">9</td><td class="cell vb filled">1</td><td class="cell filled">5</td><td class="cell filled">3</td><td class="cell filled">7</td></tr></table>
+  </div>
+</div>
+</body>
+</html>
