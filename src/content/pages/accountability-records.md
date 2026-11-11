@@ -3,7 +3,7 @@ title: "Council and Police Records: What the Public Record Shows"
 description: Confirmed San Leandro council, oversight and federal court records on council members and the police department, with links to each source.
 ---
 
-This page lists only items confirmed in official city records, federal court announcements or the city's oversight reports. Where a claim comes from a person or a document, we name that source. Findings by an investigator are that investigator's findings, not a court ruling, and each named official has disputed or responded to them as noted.
+This page lists only items confirmed in official city records, federal court announcements or the city's oversight reports. Where a claim comes from a person or a document, we name that source. Findings by an investigator are that investigator's findings, not a court ruling. Where a named official has responded publicly, the page says so. Where we could not confirm a response, the page does not report one.
 
 ## Fred Simon, Vice-Mayor
 
