@@ -1,0 +1,16 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const page = await getEntry('pages', 'flood-map');
+if (!page) throw new Error('Missing content page: src/content/pages/flood-map.md');
+const { Content } = await render(page);
+---
+
+<Base title={page.data.title} description={page.data.description} image="/uploads/flood-map-where-water-goes.png">
+  <div class="prose">
+    <h1>{page.data.title}</h1>
+    <Content />
+    <p><a class="button dark" href="/articles/emergency-preparedness-meeting-november-15/">Read about the November 15 preparedness meeting</a></p>
+  </div>
+</Base>
