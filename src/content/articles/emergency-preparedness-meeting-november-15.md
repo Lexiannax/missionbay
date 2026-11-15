@@ -34,11 +34,19 @@ Some things said at the meeting were one person's account and have not been chec
 
 ## Next steps
 
-- **A visit from the City's Office of Emergency Services** was discussed for **Tuesday, November 17 at 2:00 PM**. It has not been confirmed in writing yet. **Place: to be confirmed.** We will post updates on the [Events page](/events/).
+- **A planning meeting with outside officials, including the City's emergency services office,** is set for **Tuesday, November 17, from about 12:30 to 2:30 PM** (it may run to 3:00). **Place: to be confirmed.** Times are approximate. We will post updates on the [Events page](/events/). If you have concerns you want raised, send them in before Tuesday.
 - **A written request** to park management and the park owner for the current emergency plan and drill schedule.
 - **A count of households**, so we know who may need help. This will be voluntary and private.
 - **Street captains** for each street. No one has signed up yet, so this is where you come in.
 - **Questions to AC Transit and the regional transit agency** about buses and paratransit in an evacuation.
+
+## About the park's emergency plan
+
+California law requires every mobilehome park to adopt an emergency preparedness plan, post a notice saying where residents can see it, and let residents know about it each year (Health and Safety Code section 18603). You can ask the park office for a copy. If you can't get one, the state housing department's plan unit can help at EPP@hcd.ca.gov or (800) 952-8356.
+
+The state's own plan template, from the California Governor's Office of Emergency Services, quotes the law's purpose: parks must share evacuation routes and basic preparedness information, but the owner is not expected to physically evacuate residents, and residents are expected to "take personal responsibility for themselves during an emergency." That is why a resident-led plan matters so much.
+
+The same template points to free materials in several languages from [Listos California](https://www.listoscalifornia.org) and [Ready.gov](https://www.ready.gov), and to the free MyShake earthquake alert app.
 
 ## How you can help
 
