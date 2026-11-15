@@ -9,6 +9,8 @@ pinned: true
 draft: false
 ---
 
+*Updated November 15, 2026: see [Where the Water Might Go](/flood-map/) for the latest version, with what we know, what we are still asking, and how to volunteer.*
+
 The flood map handed out at the November 8 meeting is FEMA's real, official map. It is accurate, but it leaves out the two things that matter most for our 366 households: our single pump and rising bay levels.
 
 FEMA's map shows ocean flood zones. It does not show what happens when rain falls and our one pump stops. Using a 2021 USGS laser survey of ground height, we estimated where rainwater would collect inside the park if the pump stopped for a whole storm.
