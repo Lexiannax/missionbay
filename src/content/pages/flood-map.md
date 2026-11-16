@@ -78,6 +78,15 @@ We are looking for residents who can give a little time:
 
 To help, [contact the editor](/contact/) or speak to an MBRA board member.
 
+## Where to check conditions
+
+Neighbors suggested these at the November 15 meeting. Check them before and during a storm.
+
+- **Tides for San Leandro:** [tide-forecast.com](https://www.tide-forecast.com/locations/San-Leandro/tides/latest), or the official NOAA predictions for the [Alameda tide gauge](https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9414750). Rain on top of a high tide is when our drains struggle most. Tide heights on these sites are measured from average low water, so they are not the same numbers as the ground heights on this page.
+- **Weather forecast:** the [National Weather Service forecast for our park](https://forecast.weather.gov/MapClick.php?lat=37.683&lon=-122.160), which also shows official flood watches and warnings, or [AccuWeather for San Leandro](https://www.accuweather.com/en/us/san-leandro/94577/weather-forecast/337231) and its phone app.
+- **Flood maps and preparedness:** [FEMA's flood map for your address](https://msc.fema.gov/portal/search) and [FEMA.gov](https://www.fema.gov).
+- **Emergency alerts:** [AC Alert](https://acalert.org), Alameda County's free alerts.
+
 ## Where this comes from
 
 - FEMA National Flood Hazard Layer, map panels 06001C0266H and 0267H, in effect since December 21, 2018. Check your address at [msc.fema.gov](https://msc.fema.gov/portal/search).
