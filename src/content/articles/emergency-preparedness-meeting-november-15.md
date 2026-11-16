@@ -34,7 +34,7 @@ Some things said at the meeting were one person's account and have not been chec
 
 ## Next steps
 
-- **A planning meeting with outside officials, including the City's emergency services office,** is set for **Tuesday, November 17, from about 12:30 to 2:30 PM** (it may run to 3:00). **Place: to be confirmed.** Times are approximate. We will post updates on the [Events page](/events/). If you have concerns you want raised, send them in before Tuesday.
+- **A planning meeting with outside officials, including the City's emergency services office,** is set for **Tuesday, November 17, from about 12:30 to 2:30 PM** (it may run to 3:00). **Place: Mission Bay Community Center, Main Room.** Times are approximate. We will post updates on the [Events page](/events/). If you have concerns you want raised, send them in before Tuesday.
 - **A written request** to park management and the park owner for the current emergency plan and drill schedule.
 - **A count of households**, so we know who may need help. This will be voluntary and private.
 - **Street captains** for each street. No one has signed up yet, so this is where you come in.
