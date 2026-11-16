@@ -15,7 +15,7 @@ The City, the Alameda County Fire Department and the park owner can each help, a
 
 ## What neighbors pointed out on the map
 
-- **Gates.** The park's north and south emergency vehicle gates are padlocked. Who owns them and how they open in an emergency are open questions for the park owner and the fire department.
+- **Gates.** The park's north and south emergency vehicle gates are padlocked. The gates belong to Mission Bay management and the park's owners. How they open in an emergency, and who holds the keys, are questions for management and the fire department.
 - **Getting out.** Wicks Boulevard gets heavy traffic in both directions, and people on foot could end up walking among cars. Neighbors asked for traffic control in any evacuation plan.
 - **Gathering places.** The Marina Community Center, on higher ground, was suggested as a gathering point. The clubhouse was suggested as a first meeting and first aid spot. Neither has been confirmed, and neighbors asked what happens if the clubhouse floods.
 - **Low spots.** The railroad side of the park, where our one pump station sits, is where water collects first. See [Where the Water Might Go](/flood-map/) for a street-by-street estimate.
@@ -26,7 +26,7 @@ Some things said at the meeting were one person's account and have not been chec
 ## Questions we are taking to the agencies and the park owner
 
 1. Who leads an evacuation, and who leads rescue?
-2. Who owns the gates, and how do they open in an emergency?
+2. How do the gates open in an emergency, and who holds the keys? (The gates belong to Mission Bay management and the owners.)
 3. How will residents who can't walk far get out? Could paratransit, AC Transit or school buses help?
 4. Can the clubhouse and the community center hold everyone who needs shelter?
 5. Where is the park's current emergency plan, and when is the next drill? California law has required parks to have a plan since 2010.
