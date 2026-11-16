@@ -33,7 +33,7 @@ const headlines = loadNews().items.filter((i) => i.category !== 'Weather Alerts'
       <a class="button secondary" href="/rights/">Know your rent rights</a>
     </div>
     <figure class="hero-photo">
-      <Image src={street} alt="A tree-lined Mission Bay street on an autumn afternoon, with homes and gardens on both sides" width={720} loading="eager" />
+      <Image src={street} alt="A tree-lined Mission Bay street on an autumn afternoon, with homes and gardens on both sides" width={720} loading="eager" fetchpriority="high" />
     </figure>
   </section>
 
