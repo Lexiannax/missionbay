@@ -11,14 +11,6 @@ On Tuesday, November 17, 2026, Mission Bay residents met with leaders from the C
 
 The park owner, Brandenburg, Staedler & Moore, did not attend.
 
-## Watch the video explainer
-
-<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;">
-<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/m9UMTgxCWv0" title="Mission Bay Town Hall video explainer" loading="lazy" allowfullscreen></iframe>
-</div>
-
-[Watch on YouTube](https://www.youtube.com/watch?v=m9UMTgxCWv0)
-
 ## The main message
 
 In a major emergency, **residents need to be ready to take care of themselves for several days.** Police, fire and city crews will be stretched across the whole city and may not be able to reach us right away.
