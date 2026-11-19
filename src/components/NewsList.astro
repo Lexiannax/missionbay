@@ -5,6 +5,9 @@ interface Props {
   items: NewsItem[];
 }
 const { items } = Astro.props;
+
+// Stories that open a video or a live blog on the publisher's own site get a small label.
+const kindOf = (link: string) => (/\/video\//.test(link) ? 'Video' : /\/live-blog\//.test(link) ? 'Live updates' : '');
 ---
 
 {items.length === 0 ? (
@@ -14,7 +17,7 @@ const { items } = Astro.props;
     {items.map((item) => (
       <li>
         <p class="meta">
-          <span class="tag">{item.source}</span>{formatPublished(item.published)}
+          <span class="tag">{item.source}</span>{kindOf(item.link) && <span class="tag">{kindOf(item.link)}</span>}{formatPublished(item.published)}
         </p>
         <a class="headline" href={item.link} rel="noopener noreferrer" target="_blank">{item.title}<span class="sr-only"> (opens the original story in a new tab)</span></a>
         {item.snippet && <p>{item.snippet}</p>}
