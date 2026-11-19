@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import ads from '../data/ads.json';
 
 interface Props {
   title: string;
@@ -47,6 +48,9 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Josefin+Sans:wght@400;600&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
     />
+    {ads.publisherId && (
+      <script is:inline async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ads.publisherId}`} crossorigin="anonymous"></script>
+    )}
     <script is:inline>
       try {
         var s = localStorage.getItem('mb-text-size');
