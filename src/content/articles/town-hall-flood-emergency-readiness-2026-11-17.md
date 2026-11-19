@@ -25,7 +25,7 @@ In a major emergency, **residents need to be ready to take care of themselves fo
 
 ## Who was there
 
-- **City of San Leandro:** the City Manager, Assistant City Manager Michael Yuen, Chief Building Official Michael Jeffery, City Engineer Jayson Imai, Recreation and Parks Director Vicente Zuniga, Emergency Services representative Elizabeth Bessman, and the City Floodplain Administrator
+- **City of San Leandro:** City Manager Janelle Cameron, Assistant City Manager Michael Yuen, Chief Building Official Michael Jeffery, City Engineer Jayson Imai, Recreation and Parks Director Vicente Zuniga, Emergency Services representative Elizabeth Bessman, and the City Floodplain Administrator
 - **City Council:** Fred Simon, District 4
 - **Police:** San Leandro Police Department, including Steven Cesaretti
 - **Fire:** Alameda County Fire Department, including Deputy Chief Paige Bowie
