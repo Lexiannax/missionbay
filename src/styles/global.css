@@ -75,6 +75,25 @@ h3 { font-size: 1.45rem; margin: 0 0 0.35rem; }
 }
 .text-size button[aria-pressed="true"] { background: var(--gold); color: var(--navy); }
 
+.lang { display: flex; align-items: center; gap: 0.4rem; }
+.lang button {
+  font: inherit; font-weight: 600; cursor: pointer;
+  background: transparent; color: var(--navy); border: 1px solid var(--gold); border-radius: 2px;
+  min-height: 2.75rem; padding: 0 0.7rem;
+}
+.lang button[aria-pressed="true"] { background: var(--gold); color: var(--navy); }
+@media (max-width: 48rem) {
+  .lang { order: -1; flex-basis: 100%; }
+  .lang button { flex: 1; }
+}
+.lang-note { margin: 0; padding: 0.5rem 1.25rem; background: #fff7d6; border-bottom: 1px solid var(--line); text-align: center; font-size: 0.95rem; }
+.gt-hidden { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+/* Hide Google's own translation bar and tooltips; our buttons replace them. */
+body { top: 0 !important; }
+.skiptranslate iframe, .goog-te-banner-frame { display: none !important; }
+#goog-gt-tt, .goog-tooltip, .goog-tooltip:hover { display: none !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+
 .masthead { text-align: center; padding: 1.5rem 1.25rem 1.1rem; }
 .masthead a { text-decoration: none; color: inherit; display: inline-block; }
 .masthead .est { display: block; font-family: var(--label); font-size: 0.8rem; letter-spacing: 0.5em; color: var(--gold-ink); }

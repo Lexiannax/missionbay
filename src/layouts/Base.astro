@@ -63,11 +63,16 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
             <a href="/search/">Search</a>
             <a href="/about/">About</a>
           </div>
+          <div class="lang notranslate" role="group" aria-label="Language">
+            <button type="button" data-lang="" aria-pressed="true" lang="en">English</button>
+            <button type="button" data-lang="zh-TW" aria-pressed="false" lang="zh-Hant">繁體中文</button>
+            <button type="button" data-lang="zh-CN" aria-pressed="false" lang="zh-Hans">简体中文</button>
+          </div>
           <div class="text-size" role="group" aria-label="Text size">
             <span>Text size</span>
-            <button type="button" data-size="" aria-label="Normal text size" aria-pressed="true">A</button>
-            <button type="button" data-size="large" aria-label="Large text size" aria-pressed="false" style="font-size:1.15em">A</button>
-            <button type="button" data-size="xlarge" aria-label="Extra large text size" aria-pressed="false" style="font-size:1.35em">A</button>
+            <button type="button" translate="no" data-size="" aria-label="Normal text size" aria-pressed="true">A</button>
+            <button type="button" translate="no" data-size="large" aria-label="Large text size" aria-pressed="false" style="font-size:1.15em">A</button>
+            <button type="button" translate="no" data-size="xlarge" aria-label="Extra large text size" aria-pressed="false" style="font-size:1.35em">A</button>
           </div>
         </div>
       </div>
@@ -75,7 +80,7 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
       <div class="masthead">
         <a href="/">
           <span class="est">★ Established 1971 ★</span>
-          <span class="name">MISSION BAY</span>
+          <span class="name" translate="no">MISSION BAY</span>
           <span class="sub">Community News · San Leandro</span>
         </a>
       </div>
@@ -88,6 +93,9 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
         </ul>
       </nav>
     </header>
+
+    <p class="lang-note" id="lang-note" hidden>Automatic translation by Google. It may contain mistakes. In an emergency, call 911.</p>
+    <div id="google_translate_element" class="gt-hidden notranslate" aria-hidden="true"></div>
 
     <main id="main" data-pagefind-body={searchable ? '' : undefined}>
       <slot />
@@ -119,6 +127,44 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
             mark(size);
           });
         });
+      })();
+    </script>
+    <script is:inline>
+      // Chinese translation. Google's translator is loaded only after a visitor picks a Chinese button.
+      (function () {
+        var m = /(?:^|;\s*)googtrans=\/en\/(zh-(?:TW|CN))/.exec(document.cookie);
+        var current = m ? m[1] : '';
+        var buttons = document.querySelectorAll('.lang button');
+        buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.lang === current)); });
+
+        function clearCookie() {
+          var host = location.hostname, past = 'googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+          document.cookie = past;
+          document.cookie = past + ';domain=' + host;
+          document.cookie = past + ';domain=.' + host;
+        }
+        buttons.forEach(function (b) {
+          b.addEventListener('click', function () {
+            var lang = b.dataset.lang;
+            clearCookie();
+            if (lang) document.cookie = 'googtrans=/en/' + lang + ';path=/';
+            location.reload();
+          });
+        });
+
+        if (current) {
+          document.getElementById('lang-note').hidden = false;
+          window.googleTranslateElementInit = function () {
+            new google.translate.TranslateElement(
+              { pageLanguage: 'en', includedLanguages: 'zh-TW,zh-CN', autoDisplay: false },
+              'google_translate_element'
+            );
+          };
+          var s = document.createElement('script');
+          s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+          s.async = true;
+          document.head.appendChild(s);
+        }
       })();
     </script>
   </body>

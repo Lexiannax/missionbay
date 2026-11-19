@@ -9,7 +9,7 @@ draft: false
 
 On Tuesday, November 17, 2026, Mission Bay residents met with leaders from the City of San Leandro and the Alameda County Fire Department to talk about flooding and emergency readiness. The meeting was organized by the Mission Bay Residents Association (MBRA) and led by MBRA President Deborah Acosta.
 
-The park owner, Brandenburg, Staedler & Moore, did not attend.
+The park owner, <span translate="no">Brandenburg, Staedler & Moore</span>, did not attend.
 
 The goal was to hear plainly what public safety agencies can and can't provide in a storm or disaster, talk through the park's flood and exit problems, and plan how neighbors can look out for each other.
 
