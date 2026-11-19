@@ -13,6 +13,14 @@ The park owner, <span translate="no">Brandenburg, Staedler & Moore</span>, did n
 
 The goal was to hear plainly what public safety agencies can and can't provide in a storm or disaster, talk through the park's flood and exit problems, and plan how neighbors can look out for each other.
 
+## Watch the video explainer
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;">
+<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/YUZNwiRZr3Y" title="Mission Bay video explainer: emergency preparedness and evacuation" loading="lazy" allowfullscreen></iframe>
+</div>
+
+[Watch on YouTube](https://www.youtube.com/watch?v=YUZNwiRZr3Y)
+
 ## The main message
 
 In a major emergency, **residents need to be ready to take care of themselves for several days.** Police, fire and city crews will be stretched across the whole city and may not be able to reach us right away.
