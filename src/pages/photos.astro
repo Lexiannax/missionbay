@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import photos from '../data/photos.json';
+---
+
+<Base title="Photos" description="Photos of Mission Bay and the San Leandro shoreline, by resident Alexandra McKeever.">
+  <h1>Around Mission Bay</h1>
+  <p class="lede">The pond and koi, the clubhouse, the flowers, and the shoreline just beyond our wall. All photos by Alexandra McKeever.</p>
+
+  <ul class="photo-grid">
+    {photos.map((p) => (
+      <li>
+        <a href={`/photos/${p.slug}.jpg`} target="_blank" rel="noopener" aria-label={`${p.alt} (opens the full-size photo in a new tab)`}>
+          <img src={`/photos/${p.slug}-thumb.jpg`} alt={p.alt} width={p.w} height={p.h} loading="lazy" decoding="async" />
+        </a>
+        <p>{p.alt}<span class="credit">Photo: Alexandra McKeever</span></p>
+      </li>
+    ))}
+  </ul>
+
+  <p class="photo-note">Tap a photo to see it larger. Have a good photo of Mission Bay? <a href="/contact/">Send it to the editor</a> and we may share it here, with your name on it.</p>
+</Base>
+
+<style>
+  .photo-grid { list-style: none; margin: 1.5rem 0; padding: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+  .photo-grid li { margin: 0; }
+  .photo-grid a { display: block; border: 1px solid var(--line); background: #fff; }
+  .photo-grid img { display: block; width: 100%; height: 14rem; object-fit: cover; }
+  .photo-grid p { margin: 0.5rem 0 0; font-size: 0.95rem; color: var(--muted); }
+  .photo-grid .credit { display: block; font-size: 0.85rem; font-style: italic; margin-top: 0.15rem; }
+  .photo-note { margin-top: 2rem; }
+</style>
