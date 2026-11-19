@@ -11,6 +11,8 @@ On Tuesday, November 17, 2026, Mission Bay residents met with leaders from the C
 
 The park owner, Brandenburg, Staedler & Moore, did not attend.
 
+The goal was to hear plainly what public safety agencies can and can't provide in a storm or disaster, talk through the park's flood and exit problems, and plan how neighbors can look out for each other.
+
 ## The main message
 
 In a major emergency, **residents need to be ready to take care of themselves for several days.** Police, fire and city crews will be stretched across the whole city and may not be able to reach us right away.
@@ -21,41 +23,44 @@ In a major emergency, **residents need to be ready to take care of themselves fo
 - **City Council:** Fred Simon, District 4
 - **Police:** San Leandro Police Department, including Steven Cesaretti
 - **Fire:** Alameda County Fire Department, including Deputy Chief Paige Bowie
-- **Mission Bay:** MBRA President Deborah Acosta, Peter Cleaveland (lead of the Volunteer In-Park Emergency Unit, who spoke about issues facing residents) and other resident leaders
+- **Mission Bay:** MBRA President Deborah Acosta, MBRA officer Cheryl Noldon, Senior Emergency Advisor Bob (a veteran of state emergency operations with Cal OES), Peter Cleaveland (lead of the Volunteer In-Park Emergency Unit, who spoke about issues facing residents), Susie (community health and diabetes care advocate) and other resident leaders
 
 ## What each agency can and can't do
 
-**Police.** The police can send alerts through Nixle (text, email and automated landline calls) and drive through streets with bilingual loudspeaker announcements. They can also direct traffic out onto Wicks Boulevard. They can't go door to door to 900+ residents, since only about 7 patrol officers are on duty citywide per shift. Police cars also can't drive through more than 1 to 2 feet of water.
+**Police.** The police can send alerts through Nixle (text, email and automated landline calls) and drive through streets with bilingual loudspeaker announcements. They can also direct traffic out onto Wicks Boulevard. They can't go door to door to 900+ residents, since only about 7 patrol officers are on duty citywide per shift. Police cars also can't drive through more than 1 to 2 feet of water, and officers can't enter the park just to broadcast alerts when an outside incident doesn't threaten it.
 
-**Fire.** The fire department responds to 911 medical emergencies and rescues, can open gates with its master keys, and can request extra county strike teams before a major storm. It also offers free CERT (Community Emergency Response Team) training to Mission Bay residents. It can't act as an evacuation shuttle, and it can't legally force a private park owner to unlock gates.
+**Fire.** The fire department responds to 911 medical emergencies and rescues, can open gates and the clubhouse with its master (Knox Box) keys, and can request extra county strike teams before a major storm. It also offers free CERT (Community Emergency Response Team) training to Mission Bay residents. It can't act as an evacuation shuttle for residents who aren't in immediate danger, and it can't legally force a private park owner to unlock gates. One fire jurisdiction covers the whole area, with 5 fire stations, 7 companies, 3 paramedic squads and 1 Heavy Rescue unit.
 
-**City and Emergency Services.** The City will open shelters, starting with the Marina Community Center next door and then the Senior Center and Public Library, working with the Red Cross. It passes requests up to the County and the state. It can't sign formal agreements with private neighborhood associations or send staff to check on individual homes.
+**City and Emergency Services.** The City will open shelters, starting with the Marina Community Center next door and then the Senior Center and Public Library, working with the Red Cross. It passes requests up to Alameda County and the state Governor's Office of Emergency Services, and it provides emergency templates and guidance to help residents plan. It can't sign formal agreements with private neighborhood associations or send staff to check on individual homes.
 
 ## The gates and the road out
 
 Mission Bay's main entrance and exit at 15333 Wicks Boulevard has one lane in and one lane out. Wicks Boulevard construction makes turning out slower, and on a normal dry day it can take up to ten minutes. In an evacuation, fire engines would share the same entrance.
 
-The park has two more exit gates along Wicks Boulevard. After inspecting the park, fire officials gave park management three options:
+The park has two more exit gates along Wicks Boulevard. After inspecting the park, fire officials decided that sending everyone out through a single gate creates an unacceptable bottleneck. They gave park management three options:
 
 1. **Keep both gates closed but unlocked** through the rainy season, so people can push them open from inside. This was the fire department's strong preference.
 2. Give keys to every household.
 3. Give keys to a network of resident emergency leaders.
 
-Park management said it would consider the options. As of the meeting, both gates remained padlocked.
+Park management said it would consider the options. As of the meeting, both gates remained padlocked. Residents say getting these gates open is an urgent priority.
 
 ## Flooding
 
 Mission Bay sits about 7 feet above sea level, next to the Bay and the San Leandro Canal. The City Floodplain Administrator explained that the back masonry wall isn't federally certified as a levee, so flood maps don't count it. A solid, well-maintained wall still helps hold back Bay surge, as long as cracks are sealed. Flooding can also come from water running down into the canal from inland, and from rain backing up inside the park if storm drains clog or the park's pumps fail.
 
+Looking back at the New Year's Eve 2022 storm, the discussion was that floodwater did not come over the back masonry wall. The flooding came from inside the park: the private storm pumps didn't have enough capacity, ran out of backup generator fuel, and clogged with tanbark, mulch and leaves from the street grates. The water only began to drain once City pump trucks arrived.
+
 After the meeting, MBRA asked the City to help look at the **northwest corner of the park**, where a chain-link fence offers little protection against rising water. Deputy Chief Bowie is already working on it.
 
 ## Getting out of your home
 
-Many Mission Bay homes have front steps 2.5 to 4 feet off the ground. A wheelchair-accessible ramp for that height would need to be about 36 feet long, which most lots can't fit. If you use a walker, wheelchair or crutches, or can't manage stairs in water, **tell your block contact now** so neighbors can plan to help you early.
+Many Mission Bay homes have front steps 2.5 to 4 feet off the ground. A wheelchair-accessible ramp for that height would need to be about 36 feet long, which most lots can't fit. Many homes sit on compact 1970s-era lots where carports and property lines leave no room for a 36 to 48 foot ramp, so many seniors and neighbors with disabilities rely on steep, narrow steps. If water rises even 6 inches to a foot around a home, those steps become a barrier and can trap people inside. If you use a walker, wheelchair or crutches, or can't manage stairs in water, **tell your block contact now** so neighbors can plan to help you early.
 
 ## If you need to leave
 
 - **Best option:** leave early, before the storm peaks and the roads back up, and stay with family, friends or a hotel outside the area.
+- **On site:** the Mission Bay clubhouse is for staging and a headcount only, and only if it is dry and safe. It is also the hub for the Volunteer In-Park Emergency Unit.
 - **Walk-to shelter:** the Marina Community Center, 15301 Wicks Boulevard, right next to the park.
 - **If that fills up:** the San Leandro Senior Community Center (13909 E. 14th Street) and the San Leandro Public Library (300 Estudillo Avenue).
 - If your home is dry and safe, you have three days of supplies, no evacuation order has been given, and your medical equipment has power, staying home can be safer than walking through floodwater.
