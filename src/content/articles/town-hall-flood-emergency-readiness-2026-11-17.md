@@ -19,11 +19,28 @@ In a major emergency, **residents need to be ready to take care of themselves fo
 
 ## Who was there
 
-- **City of San Leandro:** City Manager Janelle Cameron, Assistant City Manager Michael Yuen, Chief Building Official Michael Jeffery, City Engineer Jayson Imai, Recreation and Parks Director Vicente Zuniga, Emergency Services representative Elizabeth Bessman, and the City Floodplain Administrator
-- **City Council:** Fred Simon, District 4
-- **Police:** San Leandro Police Department, including Steven Cesaretti
-- **Fire:** Alameda County Fire Department, including Deputy Chief Paige Bowie
-- **Mission Bay:** MBRA President Deborah Acosta, MBRA officer Cheryl Noldon, Senior Emergency Advisor Bob (a veteran of state emergency operations with Cal OES), Peter Cleaveland (lead of the Volunteer In-Park Emergency Unit, who spoke about issues facing residents), Susie (community health and diabetes care advocate) and other resident leaders
+**City of San Leandro**
+- Janelle Cameron, City Manager
+- Michael Yuen, Assistant City Manager
+- Michael Jeffery, Chief Building Official
+- Jayson Imai, City Engineer
+- Vicente Zuniga, Recreation and Parks Director
+- Elizabeth "Libbie" Bessman, Emergency Services Specialist, Office of Emergency Services
+- Steven Cesaretti, Police Lieutenant, San Leandro Police Department
+- The City Floodplain Administrator
+
+**City Council**
+- Fred Simon, Council Member, District 4
+
+**Alameda County Fire Department**
+- Paige Bowie, Deputy Chief
+
+**Mission Bay**
+- Deborah Acosta, President, Mission Bay Residents Association (MBRA)
+- Cheryl Noldon, MBRA officer
+- Peter Cleaveland, lead of the Volunteer In-Park Emergency Unit (spoke about issues facing residents)
+- Bob, Senior Emergency Advisor (veteran of state emergency operations with Cal OES)
+- Susie, community health and diabetes care advocate
 
 ## What each agency can and can't do
 
