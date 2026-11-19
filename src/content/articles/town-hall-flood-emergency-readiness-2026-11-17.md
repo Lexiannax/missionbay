@@ -80,6 +80,29 @@ Looking back at the New Year's Eve 2022 storm, the discussion was that floodwate
 
 After the meeting, MBRA asked the City to help look at the **northwest corner of the park**, where a chain-link fence offers little protection against rising water. Deputy Chief Bowie is already working on it.
 
+<div id="storm-forecast" data-show-until="2026-11-23T00:00:00-08:00">
+
+## Watch: the storm forecast from KTVU
+
+Forecasts change quickly. These two KTVU FOX 2 reports are from this week, so check KTVU and the National Weather Service for the latest before you decide what to do.
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:0 0 1rem;">
+<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube-nocookie.com/embed/90RSgXU3nWw" title="KTVU: Stormy conditions headed for Bay Area" loading="lazy" allowfullscreen></iframe>
+</div>
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:0 0 1rem;">
+<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube-nocookie.com/embed/DUdXY6tCG0E" title="KTVU: Rain descends on the Bay Area" loading="lazy" allowfullscreen></iframe>
+</div>
+
+*Videos from [KTVU FOX 2 San Francisco](https://www.youtube.com/@KTVUFox2), shown here through YouTube. This section is up for a few days only.*
+
+</div>
+<script is:inline>
+  (function () {
+    var el = document.getElementById('storm-forecast');
+    if (el && Date.now() > new Date(el.getAttribute('data-show-until')).getTime()) el.remove();
+  })();
+</script>
+
 ## Getting out of your home
 
 Many Mission Bay homes have front steps 2.5 to 4 feet off the ground. A wheelchair-accessible ramp for that height would need to be about 36 feet long, which most lots can't fit. Many homes sit on compact 1970s-era lots where carports and property lines leave no room for a 36 to 48 foot ramp, so many seniors and neighbors with disabilities rely on steep, narrow steps. If water rises even 6 inches to a foot around a home, those steps become a barrier and can trap people inside. If you use a walker, wheelchair or crutches, or can't manage stairs in water, **tell your block contact now** so neighbors can plan to help you early.
@@ -109,3 +132,4 @@ On November 18, Deborah Acosta wrote to the City asking for:
 - information on grants that could help MBRA run preparedness workshops, multilingual outreach and emergency supply kits.
 
 We'll share the City's answers here when they arrive.
+fix the website now
