@@ -53,6 +53,17 @@ const headlines = loadNews().items.filter((i) => i.category !== 'Weather Alerts'
 
   <Fan />
 
+  <section class="around">
+    <h2>Around Mission Bay</h2>
+    <ul class="around-strip">
+      <li><a href="/photos/"><img src="/photos/koi-edge-thumb.jpg" alt="Two koi swimming at the edge of the pond" width="720" height="430" loading="lazy" decoding="async" /></a></li>
+      <li><a href="/photos/"><img src="/photos/dahlias-orange-thumb.jpg" alt="Bright orange and red dahlias in bloom" width="720" height="430" loading="lazy" decoding="async" /></a></li>
+      <li><a href="/photos/"><img src="/photos/sunset-trail-thumb.jpg" alt="Sunset over San Francisco Bay from the shoreline trail" width="720" height="542" loading="lazy" decoding="async" /></a></li>
+    </ul>
+    <p class="around-credit">Photos by Alexandra McKeever.</p>
+    <a class="more-link" href="/photos/">See all photos and watch the Plants Story video →</a>
+  </section>
+
   <section>
     <h2>Local news headlines</h2>
     <NewsList items={headlines} />
@@ -74,3 +85,10 @@ const headlines = loadNews().items.filter((i) => i.category !== 'Weather Alerts'
   <Sponsor />
 </Base>
 )}
+
+<style>
+  .around-strip { list-style: none; margin: 0.5rem 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+  .around-strip a { display: block; border: 1px solid var(--line); background: #fff; }
+  .around-strip img { display: block; width: 100%; height: 11rem; object-fit: cover; }
+  .around-credit { margin: 0.4rem 0 0.3rem; font-size: 0.9rem; font-style: italic; color: var(--muted); }
+</style>
