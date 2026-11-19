@@ -3,7 +3,7 @@ title: "Emergency preparedness meeting: what we heard and what comes next"
 date: 2026-11-15
 summary: Neighbors met on Sunday, November 15 to start a park-wide emergency plan. The message was clear. Agencies will help, but Mission Bay has to prepare itself, and it takes the whole park.
 category: Health & Safety
-pinned: true
+pinned: false
 draft: false
 ---
 
