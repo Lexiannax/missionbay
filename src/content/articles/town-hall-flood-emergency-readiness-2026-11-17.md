@@ -16,10 +16,12 @@ The goal was to hear plainly what public safety agencies can and can't provide i
 ## Watch the video explainer
 
 <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;">
-<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/YUZNwiRZr3Y" title="Mission Bay video explainer: emergency preparedness and evacuation" loading="lazy" allowfullscreen></iframe>
+<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/85nxbocfkk8" title="A case study: Mission Bay Community 2026" loading="lazy" allowfullscreen></iframe>
 </div>
 
-[Watch on YouTube](https://www.youtube.com/watch?v=YUZNwiRZr3Y)
+[Watch on YouTube](https://www.youtube.com/watch?v=85nxbocfkk8)
+
+*Credit: the Mission Bay Residents Association (MBRA) and its President, Deborah Acosta, who organized the Town Hall and whose work this recap and video draw on.*
 
 ## The main message
 
