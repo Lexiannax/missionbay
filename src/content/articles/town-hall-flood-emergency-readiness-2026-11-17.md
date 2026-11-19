@@ -3,7 +3,7 @@ title: "Town Hall recap: flood and emergency readiness"
 date: 2026-11-17
 summary: City, police, fire and emergency officials met with Mission Bay residents. The main message was to be ready to care for yourself for several days. Here is what was said and what to do now.
 category: Local Government
-pinned: false
+pinned: true
 draft: false
 ---
 
