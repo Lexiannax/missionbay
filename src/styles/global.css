@@ -212,7 +212,9 @@ main { max-width: 64rem; margin: 0 auto; padding: 2.25rem 1.25rem 4rem; }
 
 /* ---------- Articles ---------- */
 .article-body { font-size: 1.08rem; max-width: 42rem; }
-.article-body img, .article-image { max-width: 100%; height: auto; }
+.article-body img, .article-image, .prose img { max-width: 100%; height: auto; }
+.prose figure { margin: 1.5rem 0; }
+.prose figcaption { font-size: 0.9em; margin-top: 0.5rem; }
 .article-image { margin: 0 0 1.5rem; border: 2px solid var(--gold); outline: 5px solid var(--ivory); box-shadow: 0 0 0 7px var(--gold-soft); }
 .prose { max-width: 42rem; }
 .prose h2 { margin-top: 2.25rem; }
