@@ -1,0 +1,6 @@
+{
+  "hold": true,
+  "note": "While Google reviews the site for AdSense, keep link-list and sensitive pages out of search and out of the footer. Set hold to false to bring them back (the four standalone pages in public/ also carry a 'review-hold' meta tag).",
+  "paths": ["/news/", "/civic-watch/", "/crime-corridor-map/", "/accountability-records/", "/council-records/"],
+  "hideFooterLinks": ["/civic-watch/", "/crime-corridor-map/"]
+}

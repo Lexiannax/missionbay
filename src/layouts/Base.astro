@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import ads from '../data/ads.json';
+import hold from '../data/review-hold.json';
 
 interface Props {
   title: string;
@@ -25,6 +26,9 @@ const nav = [
 ];
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 const canonical = new URL(path, Astro.site);
+// While the site is under AdSense review, link-list and sensitive pages are kept out of search (see src/data/review-hold.json).
+const held = hold.hold && hold.paths.some((p) => path.startsWith(p));
+const showLink = (href: string) => !(hold.hold && hold.hideFooterLinks.includes(href));
 const ogImage = image ? new URL(image, Astro.site).href : undefined;
 ---
 
@@ -35,6 +39,7 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    {held && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -112,7 +117,7 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
       <p>Editor: Alexandra McKeever · <a href="/contact/">Contact the editor</a></p>
       <p>Not affiliated with park management. Content is for general information only.</p>
       <p>
-        <a href="/search/">Search</a> &middot; <a href="/about/">About</a> &middot; <a href="/privacy/">Privacy</a> &middot; <a href="/rss.xml">RSS feed</a> &middot; <a href="/photos/">Photos</a> &middot; <a href="/flood-map/">Flood map</a> &middot; <a href="/civic-watch/">Civic Watch</a> &middot; <a href="/crime-corridor-map/">Crime Corridor</a> &middot; <a href="/admin/">Editor sign-in</a>
+        <a href="/search/">Search</a> &middot; <a href="/about/">About</a> &middot; <a href="/privacy/">Privacy</a> &middot; <a href="/rss.xml">RSS feed</a> &middot; <a href="/photos/">Photos</a> &middot; <a href="/flood-map/">Flood map</a> {showLink('/civic-watch/') && <Fragment>&middot; <a href="/civic-watch/">Civic Watch</a> </Fragment>}{showLink('/crime-corridor-map/') && <Fragment>&middot; <a href="/crime-corridor-map/">Crime Corridor</a> </Fragment>}&middot; <a href="/admin/">Editor sign-in</a>
       </p>
     </footer>
 
